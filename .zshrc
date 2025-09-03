@@ -162,6 +162,10 @@ compdef _files discord-video dv
 function md { [[ $# == 1 ]] && mkdir -p -- "$1" && cd -- "$1" }
 compdef _directories md
 
+function home-public { git --work-tree=$HOME --git-dir=$HOME/.home-public $@ }
+function home-private { git --work-tree=$HOME --git-dir=$HOME/.home-private $@ }
+compdef _git home-public home-private
+
 # ls "aliases" with completions.
 if type eza &> /dev/null; then
     function ll { eza -l -g --icons $@ }
