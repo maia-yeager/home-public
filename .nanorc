@@ -1,0 +1,23 @@
+unset mouse         # Disable mouse support.
+set locking         # Enable vim-style lock-files for when editing files.
+
+set softwrap        # Enable softwrap of lines.
+set atblanks        # When soft wrapping, break at words.
+set constantshow    # Displays useful information e.g. line number and position in the bottom bar.
+
+set regexp
+set historylog      # Save the last 100 history searches for later use.
+set positionlog     # Saves the cursor position between editing sessions.
+set autoindent      # A new line will have the same number of leading spaces as the previous one.
+set indicator       # Displays a scroll bar on the right that shows the position and size of the current view port.
+
+set minibar         # Displays file name and other information in the bottom bar. Removes top bar.
+set titlecolor lightwhite,slate
+set keycolor bold,lightwhite
+set functioncolor white
+set scrollercolor gray
+set errorcolor lightwhite,red
+
+set tabsize 4       # Default is 8.
+
+bind ^s writeout main

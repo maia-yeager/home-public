@@ -1,0 +1,12 @@
+[gpg]
+	format = ssh
+[gpg "ssh"]
+	program = /Applications/1Password.app/Contents/MacOS/op-ssh-sign
+[commit]
+	gpgsign = true
+[user]
+	signingkey = ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAgHmZ/gBbzh/3aVMkzBr267rZqpdp2IysqwZgQYf+C5
+	name = Maia Yeager
+	email = 42281448+maia-yeager@users.noreply.github.com
+[init]
+	defaultBranch = main

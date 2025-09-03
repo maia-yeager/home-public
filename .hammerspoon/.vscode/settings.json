@@ -1,0 +1,6 @@
+{
+    "Lua.workspace.library": [
+        "${project}/Spoons/EmmyLua.spoon/annotations"
+    ],
+    "Lua.workspace.checkThirdParty": false,
+}
