@@ -77,6 +77,7 @@ z4h init || return
 
 # Export environment variables.
 export GPG_TTY=$TTY
+export EDITOR=nano
 
 export BUN_INSTALL="$HOME/.bun"
 export PNPM_HOME="$HOME/Library/pnpm"
