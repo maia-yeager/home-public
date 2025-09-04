@@ -34,6 +34,7 @@
     # =========================[ Line #1 ]=========================
     # os_icon               # os identifier
     dir                     # current directory
+    my_git_dir
     vcs                     # git status
     # =========================[ Line #2 ]=========================
     newline                 # \n
@@ -363,6 +364,15 @@
   # Untracked files icon. It's really a question mark, your font isn't broken.
   # Change the value of this parameter to show a different icon.
   typeset -g POWERLEVEL9K_VCS_UNTRACKED_ICON='?'
+
+  function prompt_my_git_dir() {
+    emulate -L zsh
+    [[ -n $GIT_DIR ]] || return
+    local repo=${GIT_DIR:t}
+    [[ $repo == .git ]] && repo=${GIT_DIR:h:t}
+    [[ $repo == .home-(public|private) ]] && repo=${repo#.home-}
+    p10k segment -b 0 -f 208 -t ${repo//\%/%%}
+  }
 
   # Formatter for Git status.
   #

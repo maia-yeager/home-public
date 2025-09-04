@@ -97,6 +97,10 @@ path=(
     $path
     ~/.local/bin
 )
+fpath=(
+    ~/.zsh/site-functions
+    $fpath
+)
 
 # Source additional local files if they exist.
 z4h source ~/.env.zsh
@@ -106,6 +110,9 @@ z4h source ~/.env.zsh
 # This is just an example that you should delete. It does nothing useful.
 # z4h source ohmyzsh/ohmyzsh/lib/diagnostics.zsh  # source an individual file
 # z4h load   ohmyzsh/ohmyzsh/plugins/emoji-clock  # load a plugin
+
+# Autoload functions.
+autoload -Uz -- zmv ~/.zsh/site-functions/[^_]*(N:t)
 
 # Define key bindings.
 z4h bindkey z4h-eof Ctrl+D
@@ -117,8 +124,10 @@ z4h bindkey z4h-cd-forward Shift+Right  # cd into the next directory
 z4h bindkey z4h-cd-up      Shift+Up     # cd into the parent directory
 z4h bindkey z4h-cd-down    Shift+Down   # cd into a child directory
 
-# Autoload functions.
-autoload -Uz zmv
+if (( $+functions[toggle-home-git-repo] )); then
+    zle -N toggle-home-git-repo
+    bindkey '^P' toggle-home-git-repo
+fi
 
 # Define functions and completions.
 # bun completions
@@ -143,10 +152,6 @@ compdef _files discord-video dv
 # Make directory and switch to it.
 function md { [[ $# == 1 ]] && mkdir -p -- "$1" && cd -- "$1" }
 compdef _directories md
-
-function home-public { git --work-tree=$HOME --git-dir=$HOME/.home-public $@ }
-function home-private { git --work-tree=$HOME --git-dir=$HOME/.home-private $@ }
-compdef _git home-public home-private
 
 # ls "aliases" with completions.
 if type eza &> /dev/null; then
