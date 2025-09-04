@@ -68,8 +68,8 @@ zstyle ':completion:*:(ssh|scp|rdp):*:hosts' hosts
 # up-to-date. Cloned files can be used after `z4h init`. This is just an
 # example. If you don't plan to use Oh My Zsh, delete this line.
 # z4h install ohmyzsh/ohmyzsh || return
-git --work-tree=$HOME --git-dir=$HOME/.home-private status --short
-git --work-tree=$HOME --git-dir=$HOME/.home-public status --short
+git --work-tree="$HOME" --git-dir="$HOME/.home-private" status --short
+git --work-tree="$HOME" --git-dir="$HOME/.home-public" status --short
 
 # Install or update core components (fzf, zsh-autosuggestions, etc.) and
 # initialize Zsh. After this point console I/O is unavailable until Zsh
