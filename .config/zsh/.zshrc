@@ -84,6 +84,7 @@ export EDITOR=nano
 export LESS='--ignore-case --quit-if-one-screen --LONG-PROMPT --RAW-CONTROL-CHARS --HILITE-UNREAD --tabs=4 --window=-4'
 
 export BUN_INSTALL="~/.bun"
+export NPM_CONFIG_USERCONFIG="~/.config/npm/npmrc"
 export PNPM_HOME="~/Library/pnpm"
 
 # If you are using a two-line prompt with an empty line before it, add this
