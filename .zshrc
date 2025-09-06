@@ -4,6 +4,9 @@
 #
 # Documentation: https://github.com/romkatv/zsh4humans/blob/v5/README.md.
 
+# Lifted variables that are required for zstyle configuration commands.
+export SCREENRC="~/.config/screen/screenrc"
+
 # Tip: Replace %m with ${${${Z4H_SSH##*:}//\%/%%}:-%m}. This makes a difference
 # when using SSH teleportation: the title will show the hostname as you typed
 # it on the command line when connecting rather than the hostname reported by
@@ -57,7 +60,7 @@ zstyle ':z4h:ssh:*'                   enable 'yes'
 
 # Send these files over to the remote host when connecting over SSH to the
 # enabled hosts.
-zstyle ':z4h:ssh:*' send-extra-files '~/.config/nano/nanorc' '~/.tmux.conf' '~/.screenrc'
+zstyle ':z4h:ssh:*' send-extra-files '~/.config/nano/nanorc' '~/.tmux.conf' "$SCREENRC"
 zstyle ':completion:*:ssh:argument-1:'       tag-order  hosts users
 zstyle ':completion:*:scp:argument-rest:'    tag-order  hosts files users
 zstyle ':completion:*:(ssh|scp|rdp):*:hosts' hosts
