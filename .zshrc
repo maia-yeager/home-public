@@ -169,10 +169,10 @@ fi
 
 # Define aliases.
 alias colors="colours"
-alias diff="diff --color=auto -u"
 alias fp="free-port"
 
 # Add flags to existing aliases.
+alias diff="${aliases[diff]:-diff} --color=auto -u"
 alias say="${aliases[say]:-say} --interactive"
 alias tree='${aliases[tree]:-tree} -a -I .git'
 
