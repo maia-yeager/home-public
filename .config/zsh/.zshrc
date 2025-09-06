@@ -100,12 +100,12 @@ path=(
     ~/.local/bin
 )
 fpath=(
-    ~/.zsh/site-functions
+    ~/.config/zsh/site-functions
     $fpath
 )
 
 # Source additional local files if they exist.
-z4h source ~/.env.zsh
+z4h source "$ZDOTDIR/.env.zsh"
 
 # Use additional Git repositories pulled in with `z4h install`.
 #
@@ -114,7 +114,7 @@ z4h source ~/.env.zsh
 # z4h load   ohmyzsh/ohmyzsh/plugins/emoji-clock  # load a plugin
 
 # Autoload functions.
-autoload -Uz -- zmv ~/.zsh/site-functions/[^_]*(N:t)
+autoload -Uz -- zmv ~/.config/zsh/site-functions/[^_]*(N:t)
 
 # Define key bindings.
 z4h bindkey z4h-eof Ctrl+D
