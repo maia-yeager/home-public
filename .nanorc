@@ -20,8 +20,6 @@ set errorcolor lightwhite,red
 
 set tabsize 4       # Default is 8.
 
-bind ^s writeout main
-
 # Re-bind alt-← and alt-→ keys to for easier text manipulation.
 unbind M-B all
 bind   M-B prevword main
