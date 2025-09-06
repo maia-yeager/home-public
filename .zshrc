@@ -166,6 +166,7 @@ fi
 
 # Define aliases.
 alias colors="colours"
+alias diff="diff --color=auto -u"
 alias fp="free-port"
 
 # Add flags to existing aliases.
