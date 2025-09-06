@@ -83,8 +83,8 @@ export GPG_TTY=$TTY
 export EDITOR=nano
 export LESS='--ignore-case --LONG-PROMPT --RAW-CONTROL-CHARS --HILITE-UNREAD --tabs=4 --window=-4'
 
-export BUN_INSTALL="$HOME/.bun"
-export PNPM_HOME="$HOME/Library/pnpm"
+export BUN_INSTALL="~/.bun"
+export PNPM_HOME="~/Library/pnpm"
 
 # If you are using a two-line prompt with an empty line before it, add this
 # for smoother rendering:
