@@ -21,8 +21,8 @@ zstyle ':z4h:' auto-update-days '28'
 zstyle ':z4h:bindkey' keyboard  'mac'
 
 # Start tmux if not already in tmux.
-# [[ ${SSH_TTY} ]] && zstyle ':z4h:' start-tmux command tmux -CC -u new -A -D -t main
 if [[ -n ${SSH_TTY} ]]; then
+    # zstyle ':z4h:' start-tmux command tmux -CC -u new -A -D -t main
     zstyle ':z4h:' start-tmux command tmux -u new -A -D -t main
 else
     zstyle ':z4h:' start-tmux no
