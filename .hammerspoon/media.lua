@@ -90,6 +90,7 @@ local appHandlers = {
 			) --[[@as boolean]]
 		end,
 		PLAY = function()
+			-- Can't use JS, since it seems that Plex web filters for trusted JS events.
 			safariASWrapper(
 				"stream.yeagers.co",
 				[[
