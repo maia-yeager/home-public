@@ -81,7 +81,7 @@ z4h init || return
 # Export environment variables.
 export GPG_TTY=$TTY
 export EDITOR=nano
-export LESS='--ignore-case --LONG-PROMPT --RAW-CONTROL-CHARS --HILITE-UNREAD --tabs=4 --window=-4'
+export LESS='--ignore-case --quit-if-one-screen --LONG-PROMPT --RAW-CONTROL-CHARS --HILITE-UNREAD --tabs=4 --window=-4'
 
 export BUN_INSTALL="~/.bun"
 export PNPM_HOME="~/Library/pnpm"
