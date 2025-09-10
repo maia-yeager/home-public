@@ -71,24 +71,30 @@ local callbacks = {
 -- Actions on copy.
 -- Store resulting object as a global to prevent garbage collection:
 -- https://github.com/Hammerspoon/hammerspoon/issues/3774
-CLIPBOARD_WATCHER = hs.pasteboard.watcher.new(function(value)
-  local types = hs.pasteboard.typesAvailable() --[[@as TypesAvailable]]
-  for selectors, callback in pairs(callbacks) do
-    -- Ensure all selectors match the clipboard types.
-    local allMatched = true
-    for k, v in pairs(selectors) do
-      allMatched = v == types[k]
-      if allMatched == false then
+CLIPBOARD_WATCHER = hs.pasteboard.watcher.new(
+---@param value string | nil
+---@param pbName string
+  function(value, pbName)
+    if value == nil then return end
+
+    local types = hs.pasteboard.typesAvailable() --[[@as TypesAvailable]]
+    for selectors, callback in pairs(callbacks) do
+      -- Ensure all selectors match the clipboard types.
+      local allMatched = true
+      for k, v in pairs(selectors) do
+        allMatched = v == types[k]
+        if allMatched == false then
+          break
+        end
+      end
+
+      -- Stop even propagation if specified.
+      if allMatched and callback(value) then
         break
       end
     end
-
-    -- Stop even propagation if specified.
-    if allMatched and callback(value) then
-      break
-    end
   end
-end)
+)
 
 -- Paste as keystrokes.
 -- Store resulting object as a global to prevent garbage collection:
