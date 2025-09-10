@@ -169,23 +169,24 @@ function tz:start()
 
       return {
         {
+          title = "DST " .. dstEventType .. " " .. dstEvent .. ".",
+          disabled = true,
+        },
+        {
           title = "Copy Offset (" .. formattedOffset .. ")",
           fn = function()
             hs.pasteboard.writeObjects(formattedOffset)
           end,
         },
-        {
-          title = "DST " .. dstEventType .. " " .. dstEvent .. ".",
-          disabled = true,
-        },
         { title = "-" },
-        { title = "Copy ISO 8601 / RFC 3339 (Naïve)", menu = timestampSubmenu(isoFormatter) },
+        { title = "ISO 8601 / RFC 3339", disabled = true },
+        { title = "Copy Naïve",          menu = timestampSubmenu(isoFormatter) },
         {
-          title = "Copy ISO 8601 / RFC 3339 (UTC)",
+          title = "Copy UTC",
           menu = timestampSubmenu(utcIsoFormatter, "!" .. utcIsoFormatter),
         },
         {
-          title = "Copy ISO 8601 / RFC 3339 (" .. os.date("%Z") .. ")",
+          title = "Copy " .. os.date("%Z") .. "",
           menu = timestampSubmenu(isoFormatter .. "%z"),
         },
       }
