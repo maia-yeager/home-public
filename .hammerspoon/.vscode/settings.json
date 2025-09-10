@@ -7,6 +7,10 @@
   },
   "Lua.workspace.checkThirdParty": false,
   "Lua.workspace.library": [
-    "${workspaceFolderBasename}/Spoons/EmmyLua.spoon/annotations",
+    "Spoons/EmmyLua.spoon/annotations",
+    "types"
+  ],
+  "Lua.workspace.ignoreDir": [
+    ".vscode",
   ]
 }
