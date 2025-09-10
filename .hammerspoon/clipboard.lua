@@ -10,7 +10,8 @@
 
 local musicURLFragments = { "https://open.spotify.com/" }
 
-local textOnly = { image = nil, sound = nil, URL = nil, color = nil, string = true }
+local textOnly =
+  { image = nil, sound = nil, URL = nil, color = nil, string = true }
 
 --- Callbacks are executed in the order specified. If a callback returns
 --- `true`, the event is consumed and no further callbacks are processed.
@@ -36,9 +37,11 @@ local callbacks = {
     end
 
     -- Other music providers.
-    if hs.fnutils.some(musicURLFragments, function(fragment)
+    if
+      hs.fnutils.some(musicURLFragments, function(fragment)
         return value:find(fragment, 1, true)
-      end) then
+      end)
+    then
       hs.http.asyncGet(
         "https://api.song.link/v1-alpha.1/links?songIfSingle=true&url=" .. value,
         nil,
@@ -46,9 +49,10 @@ local callbacks = {
           if httpCode >= 400 then
             return hs.notify.show("", "", "Failed to get Apple Music link.")
           end
-          ---@diagnostic disable-next-line: undefined-field
-          hs.pasteboard.writeObjects(hs.json.decode(body).linksByPlatform
-            .appleMusic.url)
+          hs.pasteboard.writeObjects(
+            ---@diagnostic disable-next-line: undefined-field
+            hs.json.decode(body).linksByPlatform.appleMusic.url
+          )
         end
       )
     end
@@ -72,10 +76,12 @@ local callbacks = {
 -- Store resulting object as a global to prevent garbage collection:
 -- https://github.com/Hammerspoon/hammerspoon/issues/3774
 CLIPBOARD_WATCHER = hs.pasteboard.watcher.new(
----@param value string | nil
----@param pbName string
+  ---@param value string | nil
+  ---@param pbName string
   function(value, pbName)
-    if value == nil then return end
+    if value == nil then
+      return
+    end
 
     local types = hs.pasteboard.typesAvailable() --[[@as TypesAvailable]]
     for selectors, callback in pairs(callbacks) do

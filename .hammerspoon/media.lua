@@ -120,7 +120,11 @@ MEDIA_EVENTTAP = hs.eventtap
     function(event)
       local data = event:systemKey() --[[@as NSSystemDefinedAuxControlButtonEvent]]
       -- Ignore everything except media keys.
-      if data["key"] ~= "PLAY" and data["key"] ~= "FAST" and data["key"] ~= "REWIND" then
+      if
+        data["key"] ~= "PLAY"
+        and data["key"] ~= "FAST"
+        and data["key"] ~= "REWIND"
+      then
         return false -- Do not consume event.
       end
       -- Only fire on key-up or repeat.

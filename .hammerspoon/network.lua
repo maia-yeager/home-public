@@ -7,13 +7,13 @@ NETWORK_REACHABILITY = hs
   .reachability
   .internet() --[[@as hs.network.reachability]]
   :setCallback(
-  ---@param self hs.network.reachability
-  ---@param flags number
-  ---@return nil
+    ---@param self hs.network.reachability
+    ---@param flags number
+    ---@return nil
     function(self, flags)
       -- Clear any existing internet-related notifications.
       for _, value in
-      pairs(hs.notify.deliveredNotifications() --[=[@as hs.notify[]]=])
+        pairs(hs.notify.deliveredNotifications() --[=[@as hs.notify[]]=])
       do
         if value:title() == internetAlertTitle then
           value:withdraw()

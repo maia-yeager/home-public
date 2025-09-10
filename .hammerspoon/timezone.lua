@@ -1,4 +1,4 @@
-local menubarName = 'hammerspoon:timezone'
+local menubarName = "hammerspoon:timezone"
 local isoFormatter = "%Y-%m-%dT%H:%M:%S"
 local utcIsoFormatter = isoFormatter .. "Z"
 
@@ -42,8 +42,9 @@ local function timestampSubmenu(formatter, nowFormatter)
   ---@return function
   local function copyTimestamp(datePartial)
     return function()
-      hs.pasteboard.writeObjects(os.date(formatter,
-        os.time(mergeDates(os.date("*t"), datePartial))))
+      hs.pasteboard.writeObjects(
+        os.date(formatter, os.time(mergeDates(os.date("*t"), datePartial)))
+      )
     end
   end
   ---@param dayOffset? number
@@ -65,18 +66,18 @@ local function timestampSubmenu(formatter, nowFormatter)
       end,
     },
     { title = "-" },
-    { title = "Past",             disabled = true },
-    { title = "Midnight",         fn = midnightTimestamp() },
-    { title = "1 Day Ago",        fn = midnightTimestamp(-1) },
-    { title = "3 Days Ago",       fn = midnightTimestamp(-3) },
-    { title = "7 Days Ago",       fn = midnightTimestamp(-7) },
-    { title = "30 Days Ago",      fn = midnightTimestamp(-30) },
+    { title = "Past", disabled = true },
+    { title = "Midnight", fn = midnightTimestamp() },
+    { title = "1 Day Ago", fn = midnightTimestamp(-1) },
+    { title = "3 Days Ago", fn = midnightTimestamp(-3) },
+    { title = "7 Days Ago", fn = midnightTimestamp(-7) },
+    { title = "30 Days Ago", fn = midnightTimestamp(-30) },
     { title = "-" },
-    { title = "Future",           disabled = true },
-    { title = "End of Day",       fn = endOfDayTimestamp() },
-    { title = "1 Day from Now",   fn = endOfDayTimestamp(1) },
-    { title = "3 Days from Now",  fn = endOfDayTimestamp(3) },
-    { title = "7 Days from Now",  fn = endOfDayTimestamp(7) },
+    { title = "Future", disabled = true },
+    { title = "End of Day", fn = endOfDayTimestamp() },
+    { title = "1 Day from Now", fn = endOfDayTimestamp(1) },
+    { title = "3 Days from Now", fn = endOfDayTimestamp(3) },
+    { title = "7 Days from Now", fn = endOfDayTimestamp(7) },
     { title = "30 Days from Now", fn = endOfDayTimestamp(30) },
   }
 end
@@ -129,8 +130,9 @@ local function getNextDSTEvent(dtObj)
     return dstEndStamp
   end
   -- Recurse into next year if already past DST end.
-  return getNextDSTEvent(mergeDates(normalizedDt,
-    { year = dtObj.year + 1, month = 1, day = 1 }))
+  return getNextDSTEvent(
+    mergeDates(normalizedDt, { year = dtObj.year + 1, month = 1, day = 1 })
+  )
 end
 
 ---@class TZMenuBar
@@ -180,7 +182,10 @@ function tz:start()
         },
         { title = "-" },
         { title = "ISO 8601 / RFC 3339", disabled = true },
-        { title = "Copy Naïve",          menu = timestampSubmenu(isoFormatter) },
+        {
+          title = "Copy Naïve",
+          menu = timestampSubmenu(isoFormatter),
+        },
         {
           title = "Copy UTC",
           menu = timestampSubmenu(utcIsoFormatter, "!" .. utcIsoFormatter),
