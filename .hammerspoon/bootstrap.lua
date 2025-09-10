@@ -1,5 +1,5 @@
 -- Get luarocks location and add it to the search path.
-local lVer = _VERSION:match("Lua (.+)$")
+local luaVersion = _VERSION:match("Lua (.+)$")
 local luarocks = hs
   .execute("which luarocks", true) --[[@as string]]
   :gsub("\n", "")
@@ -7,12 +7,12 @@ if #luarocks > 0 then
   package.path = package.path
     .. ";"
     .. hs
-    .execute(luarocks .. " --lua-version " .. lVer .. " path --lr-path") --[[@as string]]
+    .execute(luarocks .. " --lua-version " .. luaVersion .. " path --lr-path") --[[@as string]]
     :gsub("\n", "")
   package.cpath = package.cpath
     .. ";"
     .. hs
-    .execute(luarocks .. " --lua-version " .. lVer .. " path --lr-cpath") --[[@as string]]
+    .execute(luarocks .. " --lua-version " .. luaVersion .. " path --lr-cpath") --[[@as string]]
     :gsub("\n", "")
 end
 
