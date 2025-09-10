@@ -1,6 +1,12 @@
 {
-    "Lua.workspace.library": [
-        "${workspaceFolderBasename}/Spoons/EmmyLua.spoon/annotations"
-    ],
-    "Lua.workspace.checkThirdParty": false,
+  "[lua]": {
+    "editor.defaultFormatter": "sumneko.lua",
+  },
+  "Lua.diagnostics.neededFileStatus": {
+    "codestyle-check": "Any"
+  },
+  "Lua.workspace.checkThirdParty": false,
+  "Lua.workspace.library": [
+    "${workspaceFolderBasename}/Spoons/EmmyLua.spoon/annotations",
+  ]
 }

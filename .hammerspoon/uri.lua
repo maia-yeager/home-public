@@ -8,7 +8,7 @@ hs.urlevent.setDefaultHandler("mailto")
 ---@param fullURL string
 ---@param senderPID number
 hs.urlevent.httpCallback = function(scheme, host, params, fullURL, senderPID)
-	hs.urlevent.openURLWithBundle(fullURL, "com.apple.Safari")
+  hs.urlevent.openURLWithBundle(fullURL, "com.apple.Safari")
 end
 
 --- Handle mailto schemes.
@@ -18,5 +18,5 @@ end
 ---@param fullURL string
 ---@param senderPID number
 hs.urlevent.mailtoCallback = function(scheme, host, params, fullURL, senderPID)
-	hs.urlevent.openURLWithBundle(fullURL, "com.apple.Mail")
+  hs.urlevent.openURLWithBundle(fullURL, "com.apple.Mail")
 end
