@@ -1,3 +1,4 @@
+local menubarName = 'hammerspoon:timezone'
 local isoFormatter = "%Y-%m-%dT%H:%M:%S"
 local utcIsoFormatter = isoFormatter .. "Z"
 
@@ -141,6 +142,7 @@ function tz:start()
 
   if self.mbItem == nil then
     self.mbItem = hs.menubar.new() --[[@as hs.menubar]]
+    self.mbItem:autosaveName(menubarName)
     self.mbItem:setTooltip("UTC offset")
     self.mbItem:setIcon(nil)
     self.mbItem:setMenu(function()
