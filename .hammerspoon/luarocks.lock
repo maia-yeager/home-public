@@ -1,0 +1,6 @@
+return {
+   dependencies = {
+      luafilesystem = "1.8.0-1",
+      penlight = "1.14.0-3"
+   },
+}

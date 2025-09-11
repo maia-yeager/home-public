@@ -2,12 +2,18 @@
   "[lua]": {
     "editor.defaultFormatter": "JohnnyMorganz.stylua",
   },
+  "files.associations": {
+    "*.rockspec": "lua"
+  },
   "Lua.workspace.checkThirdParty": false,
+  "Lua.workspace.ignoreSubmodules": false,
   "Lua.workspace.library": [
     "Spoons/EmmyLua.spoon/annotations",
     "types"
   ],
   "Lua.workspace.ignoreDir": [
     ".vscode",
-  ]
+    "types",
+    "*.rockspec"
+  ],
 }

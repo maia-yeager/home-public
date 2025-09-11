@@ -22,3 +22,6 @@ continuation_indent = 2
 indent_size = unset
 # Keep whitespace, so formatting doesn't break in some niche circumstances.
 trim_trailing_whitespace = false
+
+[Makefile]
+indent_style = tab
