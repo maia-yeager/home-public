@@ -1,7 +1,6 @@
 hs.notify.withdrawAll()
 require("bootstrap")
 
-local tablex = require("pl.tablex")
 local BC = require("utils.bulk-controller")
 local UriHandling = require("utils.uri-handling")
 
