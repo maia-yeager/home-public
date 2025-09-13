@@ -1,189 +1,120 @@
----@class NSSystemDefinedAuxControlButtonEvent
----@field key string Actions string containing one of the following labels indicating the key involved.
----@field keyCode number The numeric keyCode corresponding to the key specified in `key`.
----@field down boolean A boolean value indicating if the key is pressed down (true) or just released (false)
----@field repeat boolean A boolean indicating if this event is because the keydown is repeating. This will always be false for a key release.
+local tablex = require("pl.tablex")
 
----@class KeyHandlers
----@field isPlaying fun(): boolean
----@field FAST? fun(): nil
----@field PLAY? fun(shouldPause: boolean): nil
----@field REWIND? fun(): nil
-
-local wasPlayingKey = "media:wasPlaying"
-
---- Wrap AppleScript targeting a website. Will only apply to the first matched website.
----
---- The following AppleScript variables are available:
---- - `w`: The Safari window containing the target website tab.
---- - `t`: The Safari tab containing the target website.
----@param site string
----@param as string
-local function safariASWrapper(site, as)
-  if hs.application.get("Safari") == nil then
-    return
+-- Convert Digital Color Meter RGB to hex.
+m.clipboard:addCallback(m.clipboard.textOnlySelector, function(value)
+  local r, g, b = value:match("^(%d+)	(%d+)	(%d+)	")
+  if r == nil or g == nil or b == nil then
+    return false
   end
 
-  local script = [[
-tell application "Safari"
-	repeat with w in windows
-		repeat with t in tabs of w
-			if URL of t contains "]] .. site:gsub('"', '\\"') .. [[" then
-				]] .. as .. [[
-			end if
-		end repeat
-	end repeat
+  local hex = string.format("#%x%x%x", r, g, b)
+  local success = hs.pasteboard.setContents(hex)
+  if not success then
+    hs.notify.show("", "", "Failed to copy hex colour.")
+  end
+end)
+
+-- Remove links from copied images.
+m.clipboard:addCallback({ image = true, URL = true }, function()
+  local image = hs.pasteboard.readImage()
+  if image == nil then
+    return false
+  end
+
+  hs.pasteboard.clearContents()
+  hs.pasteboard.writeObjects(image)
+  return true
+end)
+
+-- Universal play / pause.
+m.upp:addHandler("Music", {
+  isPlaying = hs.itunes.isPlaying,
+  FAST = hs.itunes.next,
+  REWIND = hs.itunes.rw,
+  PLAY = hs.itunes.playpause,
+})
+m.upp:addHandler("Safari:YouTube", {
+  isPlaying = m.upp.wrapSafariJS(
+    "youtube.com",
+    "document.querySelector('button[data-tooltip-title=\"Pause (k)\"]') ? true : false;"
+  ),
+  PLAY = m.upp.wrapSafariJS(
+    "youtube.com",
+    "document.querySelector('button.ytp-play-button')?.click();"
+  ),
+})
+m.upp:addHandler("Safari:Plex", {
+  isPlaying = m.upp.wrapSafariJS(
+    "stream.yeagers.co",
+    "document.querySelector('button[data-testid=\"pauseButton\"]') ? true : false;"
+  ),
+  PLAY = m.upp.wrapSafariAS(
+    "stream.yeagers.co",
+    [[
+delay 0.25
+activate application "Safari"
+tell w
+  set current tab to t
 end tell
+delay 0.25
+tell application "System Events"
+  keystroke space
+end tell
+return
 ]]
-  -- print(script)
+  ),
+})
 
-  local _, result = hs.osascript.applescript(script)
-  return result
-end
-
---- Wrap JavaScript targeting a website. Will only apply to the first matched website.
----@param site string
----@param js string
-local function safariJSWrapper(site, js)
-  return safariASWrapper(site, [[
-				tell t
-					return do JavaScript "]] .. js:gsub('"', '\\"') .. [["
-				end tell
-]])
-end
-
----@type table<string, KeyHandlers>
-local appHandlers = {
-  Music = {
-    isPlaying = hs.itunes.isPlaying,
-    FAST = hs.itunes.next,
-    REWIND = hs.itunes.rw,
-    PLAY = hs.itunes.playpause,
-  },
-
-  SafariYouTube = {
-    isPlaying = function()
-      return safariJSWrapper(
-        "youtube.com",
-        "document.querySelector('button[data-tooltip-title=\"Pause (k)\"]') ? true : false;"
-      ) --[[@as boolean]]
-    end,
-    PLAY = function(shouldPause)
-      if shouldPause then
-        return safariJSWrapper(
-          "youtube.com",
-          "document.querySelector('button[data-tooltip-title=\"Pause (k)\"]')?.click();"
-        )
-      end
-      safariJSWrapper(
-        "youtube.com",
-        "document.querySelector('button[data-tooltip-title=\"Play (k)\"]')?.click();"
-      )
-    end,
-  },
-
-  SafariPlex = {
-    isPlaying = function()
-      return safariJSWrapper(
-        "stream.yeagers.co",
-        "document.querySelector('button[data-testid=\"pauseButton\"]') ? true : false;"
-      ) --[[@as boolean]]
-    end,
-    PLAY = function()
-      -- Can't use JS, since it seems that Plex web filters for trusted JS events.
-      safariASWrapper(
-        "stream.yeagers.co",
-        [[
-				delay 0.25
-				activate application "Safari"
-				tell w
-					set current tab to t
-				end tell
-				delay 0.25
-				tell application "System Events"
-					keystroke space
-				end tell
-				return
-]]
-      )
-    end,
-  },
+-- Music link handling.
+local musicURLFragments = {
+  "https://open.spotify.com/",
+  "https://music.youtube.com/watch",
 }
+---@param value string
+---@return boolean
+local function hasFragment(value)
+  return hs.fnutils.some(musicURLFragments, function(fragment)
+    return value:find(fragment, 1, true)
+  end)
+end
+---@param value string
+---@return string
+local function createSongLinkURL(value)
+  return "https://song.link/" .. value
+end
 
--- Intercept media keys.
--- Store resulting object as a global to prevent garbage collection:
--- https://github.com/Hammerspoon/hammerspoon/issues/3774
-MEDIA_EVENTTAP = hs.eventtap
-  .new(
-    { hs.eventtap.event.types.systemDefined },
-    ---@param event hs.eventtap.event
-    function(event)
-      local data = event:systemKey() --[[@as NSSystemDefinedAuxControlButtonEvent]]
-      -- Ignore everything except media keys.
-      if
-        data["key"] ~= "PLAY"
-        and data["key"] ~= "FAST"
-        and data["key"] ~= "REWIND"
-      then
-        return false -- Do not consume event.
-      end
-      -- Only fire on key-up or repeat.
-      if data["down"] == false or data["repeat"] == true then
-        return true -- Consume event.
-      end
-
-      -- Determine what's currently playing.
-      ---@type string[]
-      local isPlaying = {}
-      for app, handlers in pairs(appHandlers) do
-        if handlers.isPlaying() then
-          table.insert(isPlaying, app)
-        end
-      end
-
-      -- Update previously playing apps.
-      if #isPlaying > 0 then
-        hs.settings.set(wasPlayingKey, isPlaying)
-      end
-      local wasPlaying = hs.settings.get(wasPlayingKey) or {}
-
-      -- If nothing is or was playing, return early.
-      if #isPlaying == 0 and #wasPlaying == 0 then
-        return true -- Consume event.
-      end
-
-      -- Propagate actions to apps that were playing.
-      local shouldPause = #isPlaying > 0 and true or false
-      for _, app in ipairs(wasPlaying) do
-        local handler = appHandlers[app][data["key"]]
-        if handler ~= nil then
-          handler(shouldPause)
-        end
-      end
-
-      return true -- Consume event.
-    end
-  )
-  :start()
-
--- Bind a URL event controls.
-hs.urlevent.bind(
-  "media-resetWasPlaying",
-  ---comment
-  ---@param eventName string
-  ---@param params table<string, string>
-  ---@param senderPID number
-  function(eventName, params, senderPID)
-    hs.settings.set(wasPlayingKey, {})
+m.webURIs:addHandler(function(_, _, _, fullURL)
+  if hasFragment(fullURL) then
+    return createSongLinkURL(fullURL)
   end
-)
-hs.urlevent.bind(
-  "media-printWasPlaying",
-  ---comment
-  ---@param eventName string
-  ---@param params table<string, string>
-  ---@param senderPID number
-  function(eventName, params, senderPID)
-    print(hs.inspect(hs.settings.get(wasPlayingKey)))
+end)
+-- Apple Music
+-- Song.link results returns https://geo.music.apple.com/, so this
+-- shouldn't cause any loops.
+m.clipboard:addCallback({ URL = true }, function(value)
+  if value:find("https://music.apple.com/", 1, true) then
+    hs.pasteboard.writeObjects(createSongLinkURL(value))
+    return true
   end
-)
+end)
+-- Other music providers.
+m.clipboard:addCallback({ URL = true }, function(value)
+  if hasFragment(value) then
+    hs.http.asyncGet(
+      "https://api.song.link/v1-alpha.1/links?songIfSingle=true&url=" .. value,
+      nil,
+      function(httpCode, body)
+        if httpCode >= 400 then
+          return hs.notify.show("", "", "Failed to get Apple Music link.")
+        end
+        hs.pasteboard.writeObjects(
+          ---@diagnostic disable-next-line: undefined-field
+          hs.json.decode(body).linksByPlatform.appleMusic.url
+        )
+        hs.notify.show("Song.link", "", "Copied URL to clipboard.")
+      end
+    )
+  end
+
+  return true
+end)

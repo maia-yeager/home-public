@@ -1,3 +1,5 @@
+local class = require("pl.class")
+
 local menubarName = "hammerspoon:timezone"
 local isoFormatter = "%Y-%m-%dT%H:%M:%S"
 local utcIsoFormatter = isoFormatter .. "Z"
@@ -135,92 +137,101 @@ local function getNextDSTEvent(dtObj)
   )
 end
 
----@class TZMenuBar
+---@class TZMenuBar: pl.Class
+---@overload fun(): TZMenuBar
 ---@field protected mbItem hs.menubar
 ---@field protected timer hs.timer
-local tz = {}
-function tz:start()
-  self:stop()
+local obj = class() --[[@as TZMenuBar]]
 
-  if self.mbItem == nil then
-    self.mbItem = hs.menubar.new() --[[@as hs.menubar]]
-    self.mbItem:autosaveName(menubarName)
-    self.mbItem:setTooltip("UTC offset")
-    self.mbItem:setIcon(nil)
-    self.mbItem:setMenu(function()
-      local dtObj = os.date("*t") --[[@as osdate]]
-
-      -- Offset.
-      local direction, hours, minutes = os
-        .date("%z") --[[@as string]]
-        :match("^([%-|+])(%d%d)(%d%d)$")
-      local formattedOffset = direction .. hours .. ":" .. minutes
-
-      -- Next DST event.
-      local dstEvent = os
-        .date("%B %d", getNextDSTEvent(dtObj)) --[[@as string]]
-        :gsub("0(%d)", "%1")
-        :gsub("11$", "11th")
-        :gsub("12$", "12th")
-        :gsub("13$", "13th")
-        :gsub("1$", "1st")
-        :gsub("2$", "2nd")
-        :gsub("3$", "3rd")
-        :gsub("(%d)$", "%1th")
-      local dstEventType = dtObj.isdst and "ends" or "starts"
-
-      return {
-        {
-          title = "DST " .. dstEventType .. " " .. dstEvent .. ".",
-          disabled = true,
-        },
-        {
-          title = "Copy Offset (" .. formattedOffset .. ")",
-          fn = function()
-            hs.pasteboard.writeObjects(formattedOffset)
-          end,
-        },
-        { title = "-" },
-        { title = "ISO 8601 / RFC 3339", disabled = true },
-        {
-          title = "Copy Naïve",
-          menu = timestampSubmenu(isoFormatter),
-        },
-        {
-          title = "Copy UTC",
-          menu = timestampSubmenu(utcIsoFormatter, "!" .. utcIsoFormatter),
-        },
-        {
-          title = "Copy " .. os.date("%Z") .. "",
-          menu = timestampSubmenu(isoFormatter .. "%z"),
-        },
-      }
-    end)
-  end
-  if self.timer == nil then
-    self.timer = hs.timer.doEvery(5, function()
-      self:update()
-    end)
-    self.timer:fire()
-  end
+function obj:_init()
+  self:initTimer()
 end
 
-function tz:update()
+function obj:start()
+  self.mbItem = self:newMBItem()
+  self.timer:start()
+  self.timer:fire()
+end
+
+function obj:stop()
+  self.timer:stop()
+  self.mbItem:delete()
+  self.mbItem = nil
+end
+
+--- @protected
+function obj:initTimer()
+  self.timer = hs.timer.new(5, function()
+    if self.mbItem ~= nil then
+      self:update()
+    end
+  end)
+end
+
+--- @protected
+function obj:newMBItem()
+  local res = hs.menubar.new() --[[@as hs.menubar]]
+  res:autosaveName(menubarName)
+  res:setTooltip("UTC offset")
+  res:setIcon(nil)
+  res:setMenu(function()
+    local dtObj = os.date("*t") --[[@as osdate]]
+
+    -- Offset.
+    local direction, hours, minutes = os
+      .date("%z") --[[@as string]]
+      :match("^([%-|+])(%d%d)(%d%d)$")
+    local formattedOffset = direction .. hours .. ":" .. minutes
+
+    -- Next DST event.
+    local dstEvent = os
+      .date("%B %d", getNextDSTEvent(dtObj)) --[[@as string]]
+      :gsub("0(%d)", "%1")
+      :gsub("11$", "11th")
+      :gsub("12$", "12th")
+      :gsub("13$", "13th")
+      :gsub("1$", "1st")
+      :gsub("2$", "2nd")
+      :gsub("3$", "3rd")
+      :gsub("(%d)$", "%1th")
+    local dstEventType = dtObj.isdst and "ends" or "starts"
+
+    return {
+      {
+        title = "DST " .. dstEventType .. " " .. dstEvent .. ".",
+        disabled = true,
+      },
+      {
+        title = "Copy Offset (" .. formattedOffset .. ")",
+        fn = function()
+          hs.pasteboard.writeObjects(formattedOffset)
+        end,
+      },
+      { title = "-" },
+      { title = "ISO 8601 / RFC 3339", disabled = true },
+      {
+        title = "Copy Naïve",
+        menu = timestampSubmenu(isoFormatter),
+      },
+      {
+        title = "Copy UTC",
+        menu = timestampSubmenu(utcIsoFormatter, "!" .. utcIsoFormatter),
+      },
+      {
+        title = "Copy " .. os.date("%Z") .. "",
+        menu = timestampSubmenu(isoFormatter .. "%z"),
+      },
+    }
+  end)
+
+  return res
+end
+
+function obj:update()
   local offset = os.date("%Z")
   if self.mbItem:title() ~= offset then
     self.mbItem:setTitle(offset)
   end
 end
 
-function tz:stop()
-  if self.mbItem ~= nil then
-    self.mbItem:delete()
-    self.mbItem = nil
-  end
-  if self.timer ~= nil then
-    self.timer:stop()
-    self.timer = nil
-  end
-end
-
-tz:start()
+return obj

@@ -16,4 +16,7 @@
     "types",
     "*.rockspec"
   ],
+  "Lua.diagnostics.globals": [
+    "m",
+  ],
 }
