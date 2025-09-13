@@ -2,25 +2,11 @@ hs.notify.withdrawAll()
 require("bootstrap")
 
 local tablex = require("pl.tablex")
+local BC = require("utils.bulk-controller")
 local UriHandling = require("utils.uri-handling")
 
----@class Config
-m = {}
-function m:startAll()
-  for _, value in pairs(self) do
-    if type(value) == "table" and type(value.start) == "function" then
-      value:start()
-    end
-  end
-end
-function m:stopAll()
-  for _, value in pairs(self) do
-    if type(value) == "table" and type(value.stop) == "function" then
-      value:stop()
-    end
-  end
-end
-
+---@class Config: BulkController
+m = BC()
 m.webURIs =
   UriHandling(UriHandling.schemas.web):setDefaultHandler("com.apple.Safari")
 m.mailURIs =
