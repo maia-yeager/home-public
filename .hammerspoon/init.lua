@@ -32,7 +32,10 @@ m.tz = require("utils.timezone")()
 
 -- Paste clipboard contents as keystrokes.
 m.clipboard:associateHotkey(hs.hotkey.new("cmd-alt", "v", function()
-  hs.eventtap.keyStrokes(hs.pasteboard.getContents())
+  local value = hs.pasteboard.getContents()
+  if value ~= nil then
+    hs.eventtap.keyStrokes(value)
+  end
 end))
 
 require("media")
