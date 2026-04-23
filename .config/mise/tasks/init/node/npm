@@ -1,0 +1,10 @@
+#!/usr/bin/env zsh
+#MISE dir="{{cwd}}"
+#MISE depends=["init:config", "init:node"]
+#MISE depends_post=["init:node:package-json"]
+#USAGE arg "[node-version]"
+
+mise run init:node $usage_node_version
+
+mise run init:node:corepack
+[[ -f package.json ]] || mise exec -c 'npm init ---init-type module -y > /dev/null'

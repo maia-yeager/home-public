@@ -1,0 +1,19 @@
+#!/usr/bin/env zsh
+#MISE dir="{{cwd}}"
+#MISE depends=["init:config"]
+#MISE depends_post=["init:node:package-json"]
+#USAGE arg "[package-manager]" default="npm"
+#USAGE flag "-x --exec-command <command>" help="Package manager execution command" default="npx"
+
+mise set COREPACK_ENABLE_DOWNLOAD_PROMPT=0
+mise exec -- npm install --global corepack@latest
+
+if ! corepack install &> /dev/null; then
+  [[ -f package.json ]] && local had_package_json=1
+  local latest=$(mise ls-remote $usage_package_manager | sort -rV | head -n 1)
+  mise exec -- corepack use $usage_package_manager@$latest
+  [[ -z $had_package_json ]] && mv package.json package.corepack.json
+fi
+
+mise config set shell_alias.$usage_package_manager "corepack $usage_package_manager"
+mise config set shell_alias.$usage_exec_command "corepack $usage_exec_command"

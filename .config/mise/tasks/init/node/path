@@ -1,0 +1,5 @@
+#!/usr/bin/env zsh
+#MISE dir="{{cwd}}"
+#MISE depends=["init:config"]
+
+mise config set env._.path ./node_modules/.bin

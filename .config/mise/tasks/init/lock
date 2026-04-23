@@ -1,0 +1,18 @@
+#!/usr/bin/env zsh
+#MISE dir="{{cwd}}"
+#USAGE arg "[env]"
+
+local target_file=mise${usage_env:+.}$usage_env.lock
+if [[ ! -f "$target_file" ]]; then
+  if touch "$target_file"; then
+  else
+    echo Could not create mise lock file.
+    return 1
+  fi
+fi
+if [[ -n $usage_env ]]; then
+  mise settings --local --env $usage_env experimental=true
+else
+  mise settings --local experimental=true
+fi
+mise settings --local locked=true

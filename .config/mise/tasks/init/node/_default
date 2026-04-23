@@ -1,0 +1,48 @@
+#!/usr/bin/env zsh
+#MISE dir="{{cwd}}"
+#MISE alias="node.js"
+#MISE depends=["init:config"]
+#MISE depends_post=["init:node:package-json", "init:node:path"]
+#USAGE arg "[version]"
+
+# Enforce node version.
+if ! grep -qe '^engine-strict=true$' .npmrc 2> /dev/null; then
+  # Ensure .npmrc ends in a newline before appending to it.
+  [[ -f .npmrc && ! $(tail -c1 .npmrc | wc -l) -gt 0 ]] && echo "" >> .npmrc
+  echo "engine-strict=true" >> .npmrc
+fi
+
+# If node version not provided, try using .node-version first.
+if [[ -z ${usage_version} && -f .node-version ]] && mise install node; then
+  # No-op.
+# Otherwise, try using package.json's engines.node property.
+else
+  if [[ -z ${usage_version} && -f package.json ]]; then
+    local target_range=$(jq -r '.engines.node' package.json)
+    if [[ "$target_range" != null ]]; then
+      # Use bun for comparison since it has npm-style semver range comparison built-in.
+      usage_version=$(mise exec bun@1 -- bun -b --no-env-file - << EOF
+for (const version of \`$(mise ls-remote node | sort -rV)\`.split('\n')) {
+  if (Bun.semver.satisfies(version, '$target_range')) {
+    console.log(version)
+    break
+  }
+}
+EOF
+      )
+    fi
+  fi
+
+  # Install Node.js.
+  mise use node@${usage_version:-lts}
+
+  # Lock Node.js version in package.json, if not already locked.
+  if [[ -z ${target_range} || ${target_range} == null ]]; then
+    installed_version=$(mise ls --local --current --json node | jq -r '.[0].version')
+    if [[ -n ${installed_version} && ${installed_version} != null ]]; then
+      echo '{}' | jq --arg v "^$installed_version" '.engines.node = $v' > package.node.json
+    fi
+  fi
+  # Prefer package.json over .node-version.
+  rm -f .node-version
+fi

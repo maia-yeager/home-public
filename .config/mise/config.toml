@@ -1,0 +1,10 @@
+[settings]
+idiomatic_version_file_enable_tools = ["go", "java", "node", "python", "ruby", "terraform", "yarn"]
+
+[settings.npm]
+package_manager = "bun"
+
+[tools]
+"cargo:cargo-generate" = "latest"
+go = "latest"
+"pipx:xkcdpass" = "latest"

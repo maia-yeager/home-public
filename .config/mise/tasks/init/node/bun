@@ -1,0 +1,10 @@
+#!/usr/bin/env zsh
+#MISE dir="{{cwd}}"
+#MISE depends=["init:config"]
+#MISE depends_post=["init:node:package-json", "init:node:path"]
+#USAGE arg "[bun-version]" default="latest"
+
+mise use bun@$usage_bun_version
+
+mise set NODE_OPTIONS=--use-system-ca
+[[ -f package.json ]] || (mise exec -c 'bun init --yes > /dev/null' && rm -f index.ts README.md)

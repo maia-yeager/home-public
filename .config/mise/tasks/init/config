@@ -1,0 +1,5 @@
+#!/usr/bin/env zsh
+#MISE dir="{{cwd}}"
+#USAGE arg "[version]"
+
+mise set --file mise.local.toml MISE_ENV=local

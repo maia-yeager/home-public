@@ -1,0 +1,29 @@
+#!/usr/bin/env zsh
+#MISE dir="{{cwd}}"
+
+if [[ -z package*.json(#qN) ]]; then
+  echo "No package.json file(s) found."
+  return 1
+fi
+
+# Normalize properties.
+jq --indent 2 '.' << EOF > package.Ω.json
+{
+  "main": null,
+  "module": null,
+  "license": "AGPL-3.0-only",
+  "private": true,
+  "version": "0.1.0"
+}
+EOF
+
+# Merge temporary package.*.json files (e.g. package.corepack.json) into package.json.
+tee package.json <<< $(
+  jq -s --indent 2 '
+    # Recursively combine slurped inputs into single object.
+    reduce .[] as $obj ({}; . * $obj)
+    # Delete null values.
+    | del(..|nulls)
+  ' package*.json(oe:'REPLY=(${REPLY%.*})':) # Sort by name without file extension.
+) > /dev/null
+rm -f package.*.json(N)

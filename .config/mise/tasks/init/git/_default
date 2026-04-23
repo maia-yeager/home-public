@@ -1,0 +1,4 @@
+#!/usr/bin/env zsh
+#MISE dir="{{cwd}}"
+
+git init .

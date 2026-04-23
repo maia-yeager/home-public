@@ -1,0 +1,8 @@
+#!/usr/bin/env zsh
+#MISE dir="{{cwd}}"
+#MISE depends=["init:config"]
+#USAGE arg "[python-version]"
+
+mise run init:uv $usage_python_version --no-init
+
+[[ -f pyproject.toml ]] || mise exec -- uv init --lib --no-readme --description "" --vcs none --build-backend poetry
