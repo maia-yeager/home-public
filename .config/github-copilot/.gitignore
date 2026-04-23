@@ -1,0 +1,7 @@
+go/
+intellij/
+ws/
+apps.json
+oauth.json
+versions.json
+*.db
