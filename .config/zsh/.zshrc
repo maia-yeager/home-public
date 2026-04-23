@@ -4,6 +4,9 @@
 #
 # Documentation: https://github.com/romkatv/zsh4humans/blob/v5/README.md.
 
+# Wrap in self-executing function for easy locals cleanup.
+() {
+
 # Lifted variables that are required for zstyle configuration commands.
 export ITERM_ENABLE_SHELL_INTEGRATION_WITH_TMUX=1
 
@@ -183,6 +186,8 @@ alias fp="free-port"
 alias diff="${aliases[diff]:-diff} --color=auto -u"
 alias say="${aliases[say]:-say} --interactive"
 alias tree='${aliases[tree]:-tree} -a -I .git'
+
+}
 
 # Set shell options: http://zsh.sourceforge.net/Doc/Release/Options.html.
 setopt glob_dots     # no special treatment for file names with a leading dot
