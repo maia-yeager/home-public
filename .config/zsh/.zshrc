@@ -18,6 +18,7 @@ zstyle ':z4h:term-title:ssh' preexec '%n@'${${${Z4H_SSH##*:}//\%/%%}:-%m}': ${1/
 zstyle ':z4h:term-title:ssh' precmd  '%n@'${${${Z4H_SSH##*:}//\%/%%}:-%m}': %~'
 local xdg_config_home='~/.config' # Quote to prevent in-place expansion.
 
+local extra_env=$xdg_config_home/.env.zsh
 local npm_config_userconfig=$xdg_config_home/npm/rc
 local screenrc=$xdg_config_home/screen/rc
 local tmux_config=$xdg_config_home/tmux/tmux.conf
@@ -119,6 +120,7 @@ zstyle ':z4h:ssh:*' ssh-command command ssh
 # enabled hosts.
 local ssh_dir='~/.ssh'
 local -a ssh_extra_files=(
+  $extra_env
   $npm_config_userconfig
   $screenrc
   $tmux_config
@@ -174,7 +176,7 @@ fpath=(
 )
 
 # Source additional local files if they exist.
-z4h source "$ZDOTDIR/.env.zsh"
+z4h source ${extra_env/#\~/$HOME}
 
 # This function is invoked by zsh4humans on every ssh command after
 # the instructions from ssh-related zstyles have been applied. It allows
