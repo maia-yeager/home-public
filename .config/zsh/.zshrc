@@ -152,6 +152,7 @@ z4h init || return
 export XDG_CONFIG_HOME=${xdg_config_home/#\~/$HOME}
 export GPG_TTY=$TTY
 export LESS='--ignore-case --quit-if-one-screen --LONG-PROMPT --RAW-CONTROL-CHARS --HILITE-UNREAD --tabs=4 --window=-4'
+export MANPAGER='less +Gg' # Show scroll progress in man pages.
 export NPM_CONFIG_USERCONFIG=${npm_config_userconfig/#\~/$HOME}
 export SCREENRC=${screenrc/#\~/$HOME}
 
