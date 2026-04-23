@@ -342,6 +342,7 @@ compdef _directories md
 [[ -n $z4h_win_home ]] && hash -d w=$z4h_win_home
 
 # Define aliases.
+alias clear="z4h-clear-screen-soft-top"
 alias colors="colours"
 alias fp="free-port"
 type mise &> /dev/null && alias x="mise run"
