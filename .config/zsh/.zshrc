@@ -20,6 +20,7 @@ local xdg_config_home='~/.config' # Quote to prevent in-place expansion.
 
 local npm_config_userconfig=$xdg_config_home/npm/rc
 local screenrc=$xdg_config_home/screen/rc
+local tmux_config=$xdg_config_home/tmux/tmux.conf
 
 # Periodic auto-update on Zsh startup: 'ask' or 'no'.
 # You can manually run `z4h update` to update everything.
@@ -30,19 +31,57 @@ zstyle ':z4h:' auto-update-days '28'
 # Keyboard type: 'mac' or 'pc'.
 zstyle ':z4h:bindkey' keyboard  'mac'
 
-# Start tmux if not already in tmux.
-if [[ -n ${SSH_TTY} ]]; then
-    # zstyle ':z4h:' start-tmux command tmux -CC -u new -A -D -t main
-    zstyle ':z4h:' start-tmux command tmux -u new -A -D -t main
+# Start tmux if appropriate.
+local sock
+if [[ -n "$TMUX_TMPDIR" && -d "$TMUX_TMPDIR" && -w "$TMUX_TMPDIR" ]]; then
+  sock=$TMUX_TMPDIR
+elif [[ -d /tmp && -w /tmp ]]; then
+  sock=/tmp
+elif [[ -n "$TMPDIR" && -d "$TMPDIR" && -w "$TMPDIR" ]]; then
+  sock=$TMPDIR
+fi
+if ! type tmux &> /dev/null || [[
+  -z "$sock"
+  || -z "${Z4H_SSH}" # SSH tmux within local tmux isn't a great experience.
+  || "$TERM_PROGRAM" == "tmux"
+  || "$TERMINAL_EMULATOR" == "JetBrains-JediTerm"
+]]; then
+  zstyle ':z4h:' start-tmux 'no'
 else
-    zstyle ':z4h:' start-tmux no
+  sock=${sock%/}/z4h-tmux-$UID-$TERM
+  local tmux_args=(-uf "${tmux_config/#\~/$HOME}")
+  local -a tmux_cmds=()
+  # Enable iTerm tmux integration. Don't use LC_TERMINAL.
+  [[ "$LC_TERMINAL" == "iTerm2" ]] && tmux_args+=(-CC)
+
+  # Below adapted from Z4H built-in tmux logic.
+  # Specify supported terminal colours and features.
+  if (( terminfo[colors] >= 256 )); then
+    tmux_cmds+=(set -g default-terminal tmux-256color ';')
+    if [[ $COLORTERM = *(24bit|truecolor)* ]]; then
+      tmux_cmds+=(set -ga terminal-features ',*:RGB:usstyle:overline' ';')
+      sock+='-tc'
+    fi
+  else
+    tmux_cmds+=(set -g default-terminal screen ';')
+  fi
+  # Append a unique per-installation number to the socket path to work
+  # around a bug in tmux. See https://github.com/romkatv/zsh4humans/issues/71.
+  if [[ -e $Z4H/tmux/stamp ]]; then
+    local stamp
+    IFS= read -r stamp < $Z4H/tmux/stamp || return
+    sock+=-${stamp%%.*}
+  fi
+  tmux_args+=(-S "$sock")
+
+  zstyle ':z4h:' start-tmux command tmux $tmux_args -- "${tmux_cmds[@]}" new -As main
 fi
 
 # Whether to move prompt to the bottom when zsh starts and on Ctrl+L.
 zstyle ':z4h:' prompt-at-bottom 'no'
 
 # Mark up shell's output with semantic information.
-[ -n "$TMUX" ] || zstyle ':z4h:' term-shell-integration 'yes'
+zstyle ':z4h:' term-shell-integration 'yes'
 
 # Right-arrow key accepts one character ('partial-accept') from
 # command autosuggestions or the whole thing ('accept')?
@@ -292,5 +331,5 @@ alias tree='${aliases[tree]:-tree} -a -I .git'
 
 # Set shell options: http://zsh.sourceforge.net/Doc/Release/Options.html.
 setopt glob_dots     # no special treatment for file names with a leading dot
+setopt ignore_eof    # help make transient prompt behave consistently from SSH
 setopt no_auto_menu  # require an extra TAB press to open the completion menu
-[ -n "$TMUX" ] && setopt ignore_eof || true # ignore EOF if in tmux
