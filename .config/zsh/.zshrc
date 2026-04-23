@@ -170,6 +170,7 @@ path=(
   $HOME/bin
   $HOME/.local/bin
   "$HOME/Library/Application Support/JetBrains/Toolbox/scripts"
+  $HOMEBREW_PREFIX/opt/gawk/libexec/gnubin
   $path
   $HOMEBREW_PREFIX/opt/libpq/bin # After $path, to defer to any installed Postgres.
   $ANDROID_HOME/emulator
