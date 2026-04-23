@@ -154,6 +154,8 @@ z4h init || return
 
 # Export environment variables.
 export XDG_CONFIG_HOME=${xdg_config_home/#\~/$HOME}
+export ANDROID_HOME=$HOME/Library/Android/sdk
+
 export GPG_TTY=$TTY
 export HOMEBREW_NO_ENV_HINTS=1
 export LESS='--ignore-case --quit-if-one-screen --LONG-PROMPT --RAW-CONTROL-CHARS --HILITE-UNREAD --tabs=4 --window=-4'
@@ -168,6 +170,8 @@ path=(
   "$HOME/Library/Application Support/JetBrains/Toolbox/scripts"
   $path
   $HOMEBREW_PREFIX/opt/libpq/bin # After $path, to defer to any installed Postgres.
+  $ANDROID_HOME/emulator
+  $ANDROID_HOME/platform-tools
 )
 local zsh_site_fns=$XDG_CONFIG_HOME/zsh/site-functions
 fpath=(
