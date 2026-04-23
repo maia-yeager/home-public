@@ -164,6 +164,7 @@ export SCREENRC=${screenrc/#\~/$HOME}
 path=(
   $HOME/bin
   $HOME/.local/bin
+  "$HOME/Library/Application Support/JetBrains/Toolbox/scripts"
   $path
   $HOMEBREW_PREFIX/opt/libpq/bin # After $path, to defer to any installed Postgres.
 )
