@@ -123,6 +123,7 @@ local -a ssh_extra_files=(
   $ssh_dir/conf.d
   $ssh_dir/config
   $tmux_config
+  $xdg_config_home/htop
   $xdg_config_home/nano
 )
 zstyle ':z4h:ssh:*' send-extra-files $ssh_extra_files
@@ -351,6 +352,11 @@ else
   alias la="${aliases[ls]:-ls} -al $@"
   alias ll="${aliases[ls]:-ls} -l $@"
 fi
+if type htop &> /dev/null; then
+  function top { htop $@ }
+  compdef _htop top
+fi
+
 }
 
 # Set shell options: http://zsh.sourceforge.net/Doc/Release/Options.html.
