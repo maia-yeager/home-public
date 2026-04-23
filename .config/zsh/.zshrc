@@ -119,6 +119,9 @@ local -a ssh_extra_files=(
   $extra_env
   $npm_config_userconfig
   $screenrc
+  $ssh_dir/allowed_signers
+  $ssh_dir/conf.d
+  $ssh_dir/config
   $tmux_config
   $xdg_config_home/nano
 )
