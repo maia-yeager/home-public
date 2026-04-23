@@ -59,15 +59,34 @@ zstyle ':z4h:direnv'         enable 'no'
 zstyle ':z4h:direnv:success' notify 'yes'
 
 # Enable ('yes') or disable ('no') automatic teleportation of z4h over
-# SSH when connecting to these hosts.
-zstyle ':z4h:ssh:sd-wan*'   enable 'no'
-zstyle ':z4h:ssh:*.example-hostname2' enable 'no'
-# The default value if none of the overrides above match the hostname.
-zstyle ':z4h:ssh:*'                   enable 'yes'
+# Defer to custom implementation.
+zstyle ':z4h:ssh:*'                    enable 'yes'
+# Determine using :my:z4h:ssh:<user>:<host> settings.
+zstyle ':my:z4h:ssh:maia*:*:*'            enable 'yes'
+zstyle ':my:z4h:ssh:*yeager:*:*'          enable 'yes'
+zstyle ':my:z4h:ssh:*:*.am.yeagers.co:22' enable 'yes'
+zstyle ':my:z4h:ssh:*:*:*'                enable 'no'
+
+# Copy these environment variables over to the remote host.
+zstyle ':my:z4h:ssh:*:*' send-vars-prefix LC_MY_Z4H_
+zstyle ':my:z4h:ssh:*:*' send-vars        COLORTERM
+
+# Explicitly set the default command, so Z4H doesn't override settings
+# from .ssh/config
+# https://github.com/romkatv/zsh4humans/blob/cd6c4770c802c3a17b4c43e5587adabb9a370a75/fn/-z4h-cmd-ssh#L81-L84
+zstyle ':z4h:ssh:*' ssh-command command ssh
 
 # Send these files over to the remote host when connecting over SSH to the
 # enabled hosts.
-zstyle ':z4h:ssh:*' send-extra-files '~/.config/nano/nanorc' '~/.tmux.conf' "$SCREENRC"
+local ssh_dir='~/.ssh'
+local -a ssh_extra_files=(
+  $npm_config_userconfig
+  $screenrc
+  $tmux_config
+  $xdg_config_home/nano
+)
+zstyle ':z4h:ssh:*' send-extra-files $ssh_extra_files
+
 zstyle ':completion:*:ssh:argument-1:'       tag-order  hosts users
 zstyle ':completion:*:scp:argument-rest:'    tag-order  hosts files users
 zstyle ':completion:*:(ssh|scp|rdp):*:hosts' hosts
@@ -117,6 +136,88 @@ fpath=(
 
 # Source additional local files if they exist.
 z4h source "$ZDOTDIR/.env.zsh"
+
+# This function is invoked by zsh4humans on every ssh command after
+# the instructions from ssh-related zstyles have been applied. It allows
+# us to configure ssh teleportation in ways that cannot be done with
+# zstyles.
+#
+# Within this function we have readonly access to the following parameters:
+#
+# - z4h_ssh_client  local hostname
+# - z4h_ssh_host    remote hostname as it was specified on the command line
+#
+# We also have read & write access to these:
+#
+# - z4h_ssh_enable          1 to use ssh teleportation, 0 for plain ssh
+# - z4h_ssh_send_files      list of files to send to the remote; keys are local
+#                           file names, values are remote file names
+# - z4h_ssh_retrieve_files  the same as z4h_ssh_send_files but for pulling
+#                           files from remote to local
+# - z4h_retrieve_history    list of local files into which remote $HISTFILE
+#                           should be merged at the end of the connection
+# - z4h_ssh_command         command to use instead of `ssh`
+z4h-ssh-configure() {
+  emulate -L zsh
+
+  # Link SSH_AUTH_SOCK to common location.
+  z4h_ssh_prelude+=(
+    'my_z4h_ssh_auth_sock="$HOME/.ssh/agent.sock"'
+    '
+    if test -e "$SSH_AUTH_SOCK"; then
+      ln -sf "$SSH_AUTH_SOCK" "$my_z4h_ssh_auth_sock"
+      export SSH_AUTH_SOCK="$my_z4h_ssh_auth_sock"
+    else
+      rm -f "$my_z4h_ssh_auth_sock"
+    fi
+    '
+    'unset my_z4h_ssh_auth_sock'
+  )
+
+  # Extend possible SSH teleportation to config based on user@host:port zstyles.
+  local my_z4h_ssh_user my_z4h_ssh_host my_z4h_ssh_port
+  if [[ -n $user_host ]]; then
+    local ssh_config=$(command ssh $user_host -G)
+    my_z4h_ssh_user=$(awk '$1 == tolower("User") {print $2}' <<< $ssh_config)
+    # Get the finalized hostname, falling back to original host.
+    my_z4h_ssh_host=${$(awk '$1 == tolower("Hostname") {print $2}' <<< $ssh_config):-$z4h_ssh_host}
+    my_z4h_ssh_port=$(awk '$1 == tolower("Port") {print $2}' <<< $ssh_config)
+  fi
+  local -r my_z4h_ssh_user my_z4h_ssh_host my_z4h_ssh_port
+  local -r zstyle_namespace=:my:z4h:ssh:$my_z4h_ssh_user:$my_z4h_ssh_host:$my_z4h_ssh_port
+
+  # Copy environment variables, if prefix exists.
+  local ssh_vars_prefix
+  if zstyle -s ${zstyle_namespace} send-vars-prefix ssh_vars_prefix; then
+    local -a ssh_vars=()
+    if zstyle -a ${zstyle_namespace} send-vars ssh_vars; then
+      for ssh_var in $ssh_vars; do
+        local ssh_send_var=$ssh_vars_prefix$ssh_var
+        z4h_ssh_prelude+=("export $ssh_var=\$$ssh_send_var")
+        z4h_ssh_command+=("-o SetEnv='$ssh_send_var=${(P)ssh_var}'")
+      done
+      z4h_ssh_run+=("unset -m '$ssh_vars_prefix*'")
+    fi
+  fi
+
+  # Enable or disable SSH teleportation based on custom config.
+  zstyle -t ${zstyle_namespace} enable || z4h_ssh_enable=0
+}
+
+# Application configuration.
+if [[ -z "${Z4H_SSH}" ]]; then
+  # Link the local SSH authentication socket.
+  local ssh_auth_sock
+  if [[ "$(uname)" == "Darwin" ]]; then
+    ssh_auth_sock="$HOME/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock"
+  else
+    ssh_auth_sock=${HOME}/.1password/agent.sock
+  fi
+  if [[ -e "$ssh_auth_sock" ]]; then
+    export SSH_AUTH_SOCK=${HOME}/.ssh/agent.sock
+    ln -sf ${ssh_auth_sock} ${SSH_AUTH_SOCK}
+  fi
+fi
 
 # Use additional Git repositories pulled in with `z4h install`.
 #
