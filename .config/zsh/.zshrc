@@ -345,6 +345,7 @@ compdef _directories md
 [[ -n $z4h_win_home ]] && hash -d w=$z4h_win_home
 
 # Define aliases.
+type apfel-run &> /dev/null && alias ai="apfel-run"
 alias clear="z4h-clear-screen-soft-top"
 alias colors="colours"
 alias fp="free-port"

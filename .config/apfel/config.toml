@@ -1,0 +1,76 @@
+# apfel-run configuration
+# Full reference: https://github.com/Arthur-Ficial/apfel-run/blob/main/docs/config-reference.md
+#
+# This file defines one or more named profiles. Each profile is a complete,
+# independent set of settings for apfel. Pick a profile at run time with:
+#
+#   apfel-run --profile NAME [apfel-args...]
+#
+# If no --profile is given, the [profile.default] section is used.
+#
+# Precedence (low to high):
+#   1. apfel built-in defaults
+#   2. APFEL_* env vars (apfel reads these itself)
+#   3. values from the active profile below
+#   4. CLI flags you pass at the end  (these always win)
+#
+# Never put raw tokens in this file. Use token_env = "NAME_OF_ENV_VAR"
+# so the secret stays out of source control.
+
+[profile.default]
+mode = "single" # | "stream" | "chat" | "serve" | "benchmark" | "model-info"
+# system_prompt = "You are a concise assistant."
+# output_format = "plain"    # or "json"
+# quiet = false
+# no_color = false
+# permissive = false
+
+[profile.default.generation]
+# temperature = 0.7
+# max_tokens = 500
+# retry = 3                 # 0 = disabled
+
+[profile.default.mcp]
+# timeout_seconds = 30
+# token_env = "APFEL_MCP_TOKEN"
+
+# One [[profile.default.mcp.server]] block per MCP. Prefix enabled = false
+# to keep the entry but skip it at runtime.
+# [[profile.default.mcp.server]]
+# path = "/Users/me/mcp/calc.py"
+# enabled = true
+
+# -------------------------------------------------------------------
+# Example research profile using apfel-mcp tools.
+# Install the MCPs first: brew install Arthur-Ficial/tap/apfel-mcp
+# Then pick this profile with:   apfel-run -p research "..."
+
+# [profile.research]
+# mode = "single"
+# system_prompt = "You are a research assistant. Use search and fetch tools to ground answers in real sources."
+
+# [[profile.research.mcp.server]]
+# path = "/opt/homebrew/bin/apfel-mcp-ddg-search"
+# enabled = true
+
+# [[profile.research.mcp.server]]
+# path = "/opt/homebrew/bin/apfel-mcp-url-fetch"
+# enabled = true
+
+# [[profile.research.mcp.server]]
+# path = "/opt/homebrew/bin/apfel-mcp-search-and-fetch"
+# enabled = true
+
+# -------------------------------------------------------------------
+# Example server profile:
+#
+# [profile.serve]
+# mode = "serve"
+#
+# [profile.serve.server]
+# port = 11434
+# host = "127.0.0.1"
+# token_auto = true         # fresh UUID token each boot; apfel prints it
+# public_health = false
+# origin_check = true
+# allowed_origins = ["https://app.example.com"]
