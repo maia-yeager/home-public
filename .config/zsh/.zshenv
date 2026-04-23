@@ -11,7 +11,6 @@ if [ -n "${ZSH_VERSION-}" ]; then
   # in ~/.zshenv (see comments at the top!), do it here:
   #   export GOPATH=$HOME/go
   # export TERM=screen-256color
-  export ITERM_ENABLE_SHELL_INTEGRATION_WITH_TMUX=1
   
   # Do not change anything else in this file.
 

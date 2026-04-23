@@ -5,6 +5,7 @@
 # Documentation: https://github.com/romkatv/zsh4humans/blob/v5/README.md.
 
 # Lifted variables that are required for zstyle configuration commands.
+export ITERM_ENABLE_SHELL_INTEGRATION_WITH_TMUX=1
 
 # Tip: Replace %m with ${${${Z4H_SSH##*:}//\%/%%}:-%m}. This makes a difference
 # when using SSH teleportation: the title will show the hostname as you typed
