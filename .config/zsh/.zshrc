@@ -331,6 +331,7 @@ type tree &> /dev/null && alias tree="${aliases[tree]:-tree} -aI .git"
 }
 
 # Set shell options: http://zsh.sourceforge.net/Doc/Release/Options.html.
+setopt extended_glob # make additional glob options available
 setopt glob_dots     # no special treatment for file names with a leading dot
 setopt ignore_eof    # help make transient prompt behave consistently from SSH
 setopt no_auto_menu  # require an extra TAB press to open the completion menu
