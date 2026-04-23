@@ -10,18 +10,16 @@
 # Lifted variables that are required for zstyle configuration commands.
 export ITERM_ENABLE_SHELL_INTEGRATION_WITH_TMUX=1
 
-# Tip: Replace %m with ${${${Z4H_SSH##*:}//\%/%%}:-%m}. This makes a difference
-# when using SSH teleportation: the title will show the hostname as you typed
-# it on the command line when connecting rather than the hostname reported by
-# the remote machine.
-zstyle ':z4h:term-title:ssh' preexec '%n@'${${${Z4H_SSH##*:}//\%/%%}:-%m}': ${1//\%/%%}'
-zstyle ':z4h:term-title:ssh' precmd  '%n@'${${${Z4H_SSH##*:}//\%/%%}:-%m}': %~'
 local xdg_config_home='~/.config' # Quote to prevent in-place expansion.
 
 local extra_env=$xdg_config_home/.env.zsh
 local npm_config_userconfig=$xdg_config_home/npm/rc
 local screenrc=$xdg_config_home/screen/rc
 local tmux_config=$xdg_config_home/tmux/tmux.conf
+
+# If you are using a two-line prompt with an empty line before it, add this
+# for smoother rendering:
+POSTEDIT=$'\n\n\e[2A'
 
 # Periodic auto-update on Zsh startup: 'ask' or 'no'.
 # You can manually run `z4h update` to update everything.
@@ -94,9 +92,7 @@ zstyle ':z4h:fzf-complete' recurse-dirs 'yes'
 zstyle ':z4h:fzf-complete' fzf-bindings tab:repeat
 
 # Enable direnv to automatically source .envrc files.
-zstyle ':z4h:direnv'         enable 'no'
-# Show "loading" and "unloading" notifications from direnv.
-zstyle ':z4h:direnv:success' notify 'yes'
+zstyle ':z4h:direnv' enable 'no'
 
 # Enable ('yes') or disable ('no') automatic teleportation of z4h over
 # Defer to custom implementation.
@@ -131,6 +127,13 @@ zstyle ':z4h:ssh:*' send-extra-files $ssh_extra_files
 zstyle ':completion:*:ssh:argument-1:'       tag-order  hosts users
 zstyle ':completion:*:scp:argument-rest:'    tag-order  hosts files users
 zstyle ':completion:*:(ssh|scp|rdp):*:hosts' hosts
+
+# Tip: Replace %m with ${${${Z4H_SSH##*:}//\%/%%}:-%m}. This makes a difference
+# when using SSH teleportation: the title will show the hostname as you typed
+# it on the command line when connecting rather than the hostname reported by
+# the remote machine.
+zstyle ':z4h:term-title:ssh' preexec '􀤆 %n@'${${${Z4H_SSH##*:}//\%/%%}:-%m}': ${1//\%/%%}'
+zstyle ':z4h:term-title:ssh' precmd  '􀤆 %n@'${${${Z4H_SSH##*:}//\%/%%}:-%m}': %~'
 
 # Clone additional Git repositories from GitHub.
 #
@@ -170,9 +173,10 @@ path=(
     $path
     ~/.local/bin
 )
+local zsh_site_fns=$XDG_CONFIG_HOME/zsh/site-functions
 fpath=(
-    ~/.config/zsh/site-functions
-    $fpath
+  $zsh_site_fns
+  $fpath
 )
 
 # Source additional local files if they exist.
@@ -267,7 +271,7 @@ fi
 # z4h load   ohmyzsh/ohmyzsh/plugins/emoji-clock  # load a plugin
 
 # Autoload functions.
-autoload -Uz -- zmv ~/.config/zsh/site-functions/[^_]*(N:t)
+autoload -Uz -- zmv ${zsh_site_fns}/[^_]*(N:t)
 
 # Define key bindings.
 z4h bindkey z4h-eof Ctrl+D
@@ -301,11 +305,13 @@ function free-port {
     kill $(lsof -i tcp:"$port" | grep LISTEN | awk '{print $2}')
 }
 
-function dv { discord-video $@ }
-compdef _files discord-video dv
+if type ffmpeg &> /dev/null; then
+  function dv { discord-video $@ }
+  compdef _files discord-video dv
+fi
 
 # Make directory and switch to it.
-function md { [[ $# == 1 ]] && mkdir -p -- "$1" && cd -- "$1" }
+function md { [[ $# == 1 ]] && mkdir -p -- ${1} && cd -- ${1} }
 compdef _directories md
 
 # ls "aliases" with completions.
@@ -318,16 +324,15 @@ if type eza &> /dev/null; then
 fi
 
 # Define named directories: ~w <=> Windows home directory on WSL.
-[[ -z $z4h_win_home ]] || hash -d w=$z4h_win_home
+[[ -n $z4h_win_home ]] && hash -d w=$z4h_win_home
 
 # Define aliases.
 alias colors="colours"
 alias fp="free-port"
 
-# Add flags to existing aliases.
 alias diff="${aliases[diff]:-diff} --color=auto -u"
-alias say="${aliases[say]:-say} --interactive"
-alias tree='${aliases[tree]:-tree} -a -I .git'
+type say &> /dev/null && alias say="${aliases[say]:-say} --interactive"
+type tree &> /dev/null && alias tree="${aliases[tree]:-tree} -aI .git"
 
 }
 
