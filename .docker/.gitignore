@@ -1,0 +1,9 @@
+bin/
+buildx/
+cli-plugins/
+contexts/
+desktop-build/
+models/
+modules/
+mutagen/
+run/
