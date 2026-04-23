@@ -151,7 +151,6 @@ z4h init || return
 # Export environment variables.
 export XDG_CONFIG_HOME=${xdg_config_home/#\~/$HOME}
 export GPG_TTY=$TTY
-export EDITOR=nano
 export LESS='--ignore-case --quit-if-one-screen --LONG-PROMPT --RAW-CONTROL-CHARS --HILITE-UNREAD --tabs=4 --window=-4'
 export NPM_CONFIG_USERCONFIG="~/.config/npm/npmrc"
 export PNPM_HOME="~/Library/pnpm"
@@ -255,6 +254,16 @@ if [[ -z "${Z4H_SSH}" ]]; then
     export SSH_AUTH_SOCK=${HOME}/.ssh/agent.sock
     ln -sf ${ssh_auth_sock} ${SSH_AUTH_SOCK}
   fi
+fi
+# Set editor in order of preference based on what's available.
+if type nano &> /dev/null; then
+  export EDITOR=nano
+elif type pico &> /dev/null; then
+  export EDITOR=pico
+elif type vim &> /dev/null; then
+  export EDITOR=vim
+elif type vi &> /dev/null; then
+  export EDITOR=vi
 fi
 
 # Use additional Git repositories pulled in with `z4h install`.
