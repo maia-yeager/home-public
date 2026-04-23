@@ -329,15 +329,6 @@ fi
 function md { [[ $# == 1 ]] && mkdir -p -- ${1} && cd -- ${1} }
 compdef _directories md
 
-# ls "aliases" with completions.
-if type eza &> /dev/null; then
-    function ll { eza -l -g --icons $@ }
-    function ls { eza --icons $@ }
-    function la { eza -a --icons $@ }
-    function lt { eza --tree --icons -a -I '.git|__pycache__|.mypy_cache|.ipynb_checkpoints' }
-    compdef _eza ll ls la lt
-fi
-
 # Define named directories: ~w <=> Windows home directory on WSL.
 [[ -n $z4h_win_home ]] && hash -d w=$z4h_win_home
 
@@ -349,6 +340,16 @@ alias diff="${aliases[diff]:-diff} --color=auto -u"
 type say &> /dev/null && alias say="${aliases[say]:-say} --interactive"
 type tree &> /dev/null && alias tree="${aliases[tree]:-tree} -aI .git"
 
+if type eza &> /dev/null; then
+  function la { eza --icons -1aaglo $@ }
+  function ll { eza --icons -1glo $@ }
+  function ls { eza --icons $@ }
+  function lt { eza --tree --icons -aI '.git|__pycache__|.mypy_cache|.ipynb_checkpoints' $@ }
+  compdef _eza ll ls la lt
+else
+  alias la="${aliases[ls]:-ls} -al $@"
+  alias ll="${aliases[ls]:-ls} -l $@"
+fi
 }
 
 # Set shell options: http://zsh.sourceforge.net/Doc/Release/Options.html.
