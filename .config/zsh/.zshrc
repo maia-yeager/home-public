@@ -171,6 +171,7 @@ path=(
   $HOME/.local/bin
   "$HOME/Library/Application Support/JetBrains/Toolbox/scripts"
   $HOMEBREW_PREFIX/opt/gawk/libexec/gnubin
+  $HOMEBREW_PREFIX/opt/ffmpeg-full/bin
   $path
   $HOMEBREW_PREFIX/opt/libpq/bin # After $path, to defer to any installed Postgres.
   $ANDROID_HOME/emulator
