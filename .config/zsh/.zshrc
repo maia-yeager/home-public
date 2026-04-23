@@ -302,8 +302,22 @@ function colours {
 
 # Free up an in-use port.
 function free-port {
-    readonly port=${1:?"Please specify a port"}
-    kill $(lsof -i tcp:"$port" | grep LISTEN | awk '{print $2}')
+  emulate -L zsh
+
+  local input=${1:?Specify a port, e.g. 80}
+  # Prepend "tcp:" if no protocol is specified.
+  local port=${${${input:#(tcp|udp):*}:+tcp:$input}:-$input}
+  local -a args=(-wi ${port})
+  [[ ${port} = tcp:* ]] && args+=(-s tcp:LISTEN)
+
+  local processes=$(sudo lsof $args)
+  if [[ -z ${processes} ]]; then
+    echo No processes found listening on $port.
+    return 1
+  fi
+  echo "Found the following processes:\n\n$processes\n"
+  read -q "?Press Y/y to kill the above processes: " &&
+    kill $(awk 'NR > 1 {print $2}' <<< $processes)
 }
 
 if type ffmpeg &> /dev/null; then
