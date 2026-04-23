@@ -1,0 +1,127 @@
+{
+    "Profiles": [
+        {
+            "Bound Hosts": [
+                "root@"
+            ],
+            "Guid": "73310fdf-dc0f-40b0-a236-b947e0f6f93c",
+            "Name": "􀁞 Danger",
+            "Status Bar Layout": {
+                "advanced configuration": {
+                    "algorithm": 1,
+                    "auto-rainbow style": 0,
+                    "background color": {
+                        "Alpha Component": 1,
+                        "Blue Component": 0.3719683885574341,
+                        "Color Space": "P3",
+                        "Green Component": 0.414909690618515,
+                        "Red Component": 0.9238467812538147
+                    },
+                    "font": ".SFNS-Regular 12",
+                    "remove empty components": false
+                },
+                "components": [
+                    {
+                        "class": "iTermStatusBarActionComponent",
+                        "configuration": {
+                            "knobs": {
+                                "action": {
+                                    "action": 4,
+                                    "applyMode": 0,
+                                    "escaping": 1,
+                                    "parameter": "",
+                                    "title": "􀄩 Scroll to End",
+                                    "version": 2
+                                },
+                                "base: compression resistance": 1,
+                                "base: priority": 5,
+                                "maxwidth": 1.7976931348623157e+308,
+                                "minwidth": "0",
+                                "shared font": ""
+                            },
+                            "layout advanced configuration dictionary value": {
+                                "algorithm": 1,
+                                "auto-rainbow style": 0,
+                                "font": ".AppleSystemUIFont 12",
+                                "remove empty components": false
+                            }
+                        }
+                    },
+                    {
+                        "class": "iTermStatusBarActionComponent",
+                        "configuration": {
+                            "knobs": {
+                                "action": {
+                                    "action": 71,
+                                    "applyMode": 0,
+                                    "escaping": 1,
+                                    "parameter": "",
+                                    "title": "􀋙 Alert on Next Mark",
+                                    "version": 2
+                                },
+                                "base: compression resistance": 1,
+                                "base: priority": 5,
+                                "maxwidth": 1.7976931348623157e+308,
+                                "minwidth": "0",
+                                "shared font": ""
+                            },
+                            "layout advanced configuration dictionary value": {
+                                "algorithm": 1,
+                                "auto-rainbow style": 0,
+                                "font": ".AppleSystemUIFont 12",
+                                "remove empty components": false
+                            }
+                        }
+                    },
+                    {
+                        "class": "iTermStatusBarSpringComponent",
+                        "configuration": {
+                            "knobs": {
+                                "iTermStatusBarSpringComponentSpringConstantKey": 0.01
+                            },
+                            "layout advanced configuration dictionary value": {
+                                "algorithm": 1,
+                                "auto-rainbow style": 0,
+                                "font": ".AppleSystemUIFont 12",
+                                "remove empty components": false
+                            }
+                        }
+                    },
+                    {
+                        "class": "iTermStatusBarSwiftyStringComponent",
+                        "configuration": {
+                            "knobs": {
+                                "base: compression resistance": 1,
+                                "base: priority": 5,
+                                "expression": "\\(profileName)",
+                                "maxwidth": 1.7976931348623157e+308,
+                                "minwidth": "0",
+                                "shared font": ""
+                            },
+                            "layout advanced configuration dictionary value": {
+                                "algorithm": 1,
+                                "auto-rainbow style": 0,
+                                "remove empty components": false
+                            }
+                        }
+                    },
+                    {
+                        "class": "iTermStatusBarCPUUtilizationComponent",
+                        "configuration": {
+                            "knobs": {
+                                "base: priority": 5
+                            },
+                            "layout advanced configuration dictionary value": {
+                                "algorithm": 1,
+                                "auto-rainbow style": 0,
+                                "font": ".AppleSystemUIFont 12",
+                                "remove empty components": false
+                            }
+                        }
+                    }
+                ]
+            },
+            "Use Separate Colors for Light and Dark Mode": true
+        }
+    ]
+}
