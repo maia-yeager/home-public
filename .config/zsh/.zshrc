@@ -153,13 +153,11 @@ export XDG_CONFIG_HOME=${xdg_config_home/#\~/$HOME}
 export GPG_TTY=$TTY
 export LESS='--ignore-case --quit-if-one-screen --LONG-PROMPT --RAW-CONTROL-CHARS --HILITE-UNREAD --tabs=4 --window=-4'
 export NPM_CONFIG_USERCONFIG="~/.config/npm/npmrc"
-export PNPM_HOME="~/Library/pnpm"
 export NPM_CONFIG_USERCONFIG=${npm_config_userconfig/#\~/$HOME}
 export SCREENRC=${screenrc/#\~/$HOME}
 
 # Extend PATH.
 path=(
-    $PNPM_HOME
   $HOME/bin
   $HOME/.local/bin
   $path
