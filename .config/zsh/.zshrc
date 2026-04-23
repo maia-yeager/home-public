@@ -153,8 +153,6 @@ export XDG_CONFIG_HOME=${xdg_config_home/#\~/$HOME}
 export GPG_TTY=$TTY
 export EDITOR=nano
 export LESS='--ignore-case --quit-if-one-screen --LONG-PROMPT --RAW-CONTROL-CHARS --HILITE-UNREAD --tabs=4 --window=-4'
-
-export BUN_INSTALL="~/.bun"
 export NPM_CONFIG_USERCONFIG="~/.config/npm/npmrc"
 export PNPM_HOME="~/Library/pnpm"
 
@@ -167,7 +165,6 @@ export SCREENRC=${screenrc/#\~/$HOME}
 # Extend PATH.
 path=(
     ~/bin
-    $BUN_INSTALL/bin
     $HOMEBREW_PREFIX/opt/libpq/bin
     $PNPM_HOME
     $path
@@ -289,9 +286,6 @@ if (( $+functions[toggle-home-git-repo] )); then
 fi
 
 # Define functions and completions.
-# bun completions
-[ -s "~/.bun/_bun" ] && source "~/.bun/_bun"
-
 # List terminal colour codes.
 function colours {
     for i in {0..255}; do
