@@ -155,20 +155,16 @@ export EDITOR=nano
 export LESS='--ignore-case --quit-if-one-screen --LONG-PROMPT --RAW-CONTROL-CHARS --HILITE-UNREAD --tabs=4 --window=-4'
 export NPM_CONFIG_USERCONFIG="~/.config/npm/npmrc"
 export PNPM_HOME="~/Library/pnpm"
-
-# If you are using a two-line prompt with an empty line before it, add this
-# for smoother rendering:
-POSTEDIT=$'\n\n\e[2A'
 export NPM_CONFIG_USERCONFIG=${npm_config_userconfig/#\~/$HOME}
 export SCREENRC=${screenrc/#\~/$HOME}
 
 # Extend PATH.
 path=(
-    ~/bin
-    $HOMEBREW_PREFIX/opt/libpq/bin
     $PNPM_HOME
-    $path
-    ~/.local/bin
+  $HOME/bin
+  $HOME/.local/bin
+  $path
+  $HOMEBREW_PREFIX/opt/libpq/bin # After $path, to defer to any installed Postgres.
 )
 local zsh_site_fns=$XDG_CONFIG_HOME/zsh/site-functions
 fpath=(
@@ -271,26 +267,25 @@ fi
 autoload -Uz -- zmv ${zsh_site_fns}/[^_]*(N:t)
 
 # Define key bindings.
-z4h bindkey z4h-eof Ctrl+D
-z4h bindkey undo Ctrl+/   Shift+Tab  # undo the last command line change
-z4h bindkey redo Option+/            # redo the last undone command line change
+z4h bindkey     z4h-eof                 Ctrl+D              # help make transient prompt behave consistently from SSH
+z4h bindkey     undo                    Ctrl+/ Shift+Tab    # undo the last command line change
+z4h bindkey     redo                    Option+/            # redo the last undone command line change
 
-z4h bindkey z4h-cd-back    Shift+Left   # cd into the previous directory
-z4h bindkey z4h-cd-forward Shift+Right  # cd into the next directory
-z4h bindkey z4h-cd-up      Shift+Up     # cd into the parent directory
-z4h bindkey z4h-cd-down    Shift+Down   # cd into a child directory
-
+z4h bindkey     z4h-cd-back             Shift+Left          # cd into the previous directory
+z4h bindkey     z4h-cd-forward          Shift+Right         # cd into the next directory
+z4h bindkey     z4h-cd-up               Shift+Up            # cd into the parent directory
+z4h bindkey     z4h-cd-down             Shift+Down          # cd into a child directory
 if (( $+functions[toggle-home-git-repo] )); then
-    zle -N toggle-home-git-repo
-    bindkey '^P' toggle-home-git-repo
+  zle -N toggle-home-git-repo
+  z4h bindkey toggle-home-git-repo    Ctrl+P              # cycle home git repository
 fi
 
 # Define functions and completions.
 # List terminal colour codes.
 function colours {
-    for i in {0..255}; do
-        print -Pn "%K{$i}  %k%F{$i} ${(l:3::0:)i}%f   " ${${(M)$((i%6)):#3}:+$'\n'}
-    done
+  for i in {0..255}; do
+    print -Pn "%K{$i}  %k%F{$i} ${(l:3::0:)i}%f   " ${${(M)$((i%6)):#3}:+$'\n'}
+  done
 }
 
 # Free up an in-use port.
