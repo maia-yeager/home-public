@@ -5,7 +5,6 @@
 # Documentation: https://github.com/romkatv/zsh4humans/blob/v5/README.md.
 
 # Lifted variables that are required for zstyle configuration commands.
-export SCREENRC="~/.config/screen/screenrc"
 
 # Tip: Replace %m with ${${${Z4H_SSH##*:}//\%/%%}:-%m}. This makes a difference
 # when using SSH teleportation: the title will show the hostname as you typed
@@ -13,6 +12,10 @@ export SCREENRC="~/.config/screen/screenrc"
 # the remote machine.
 zstyle ':z4h:term-title:ssh' preexec '%n@'${${${Z4H_SSH##*:}//\%/%%}:-%m}': ${1//\%/%%}'
 zstyle ':z4h:term-title:ssh' precmd  '%n@'${${${Z4H_SSH##*:}//\%/%%}:-%m}': %~'
+local xdg_config_home='~/.config' # Quote to prevent in-place expansion.
+
+local npm_config_userconfig=$xdg_config_home/npm/rc
+local screenrc=$xdg_config_home/screen/rc
 
 # Periodic auto-update on Zsh startup: 'ask' or 'no'.
 # You can manually run `z4h update` to update everything.
@@ -79,6 +82,7 @@ zstyle ':completion:*:(ssh|scp|rdp):*:hosts' hosts
 z4h init || return
 
 # Export environment variables.
+export XDG_CONFIG_HOME=${xdg_config_home/#\~/$HOME}
 export GPG_TTY=$TTY
 export EDITOR=nano
 export LESS='--ignore-case --quit-if-one-screen --LONG-PROMPT --RAW-CONTROL-CHARS --HILITE-UNREAD --tabs=4 --window=-4'
@@ -90,6 +94,8 @@ export PNPM_HOME="~/Library/pnpm"
 # If you are using a two-line prompt with an empty line before it, add this
 # for smoother rendering:
 POSTEDIT=$'\n\n\e[2A'
+export NPM_CONFIG_USERCONFIG=${npm_config_userconfig/#\~/$HOME}
+export SCREENRC=${screenrc/#\~/$HOME}
 
 # Extend PATH.
 path=(
