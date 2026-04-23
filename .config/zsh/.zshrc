@@ -352,6 +352,7 @@ alias fp="free-port"
 alias root="sudo -Es"
 type mise &> /dev/null && alias x="mise run"
 
+alias cat="${aliases[cat]:-cat} -v"
 alias diff="${aliases[diff]:-diff} --color=auto -u"
 type say &> /dev/null && alias say="${aliases[say]:-say} --interactive"
 type tree &> /dev/null && alias tree="${aliases[tree]:-tree} -aI .git"
