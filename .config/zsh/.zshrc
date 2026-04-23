@@ -265,6 +265,7 @@ fi
 
 # Autoload functions.
 autoload -Uz -- zmv ${zsh_site_fns}/[^_]*(N:t)
+[[ $COLORTERM = *(24bit|truecolor)* ]] || zmodload zsh/nearcolor
 
 # Define key bindings.
 z4h bindkey     z4h-eof                 Ctrl+D              # help make transient prompt behave consistently from SSH
