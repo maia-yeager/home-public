@@ -345,6 +345,7 @@ compdef _directories md
 alias clear="z4h-clear-screen-soft-top"
 alias colors="colours"
 alias fp="free-port"
+alias root="sudo -Es"
 type mise &> /dev/null && alias x="mise run"
 
 alias diff="${aliases[diff]:-diff} --color=auto -u"
