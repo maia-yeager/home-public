@@ -172,6 +172,7 @@ path=(
   "$HOME/Library/Application Support/JetBrains/Toolbox/scripts"
   $HOMEBREW_PREFIX/opt/gawk/libexec/gnubin
   $HOMEBREW_PREFIX/opt/ffmpeg-full/bin
+  $HOMEBREW_PREFIX/opt/rustup/bin # Before $path, in case rust is already installed.
   $path
   $HOMEBREW_PREFIX/opt/libpq/bin # After $path, to defer to any installed Postgres.
   $ANDROID_HOME/emulator
