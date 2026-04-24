@@ -66,15 +66,15 @@ return
 })
 
 -- Music link handling.
-local musicURLFragments = {
+local musicURLs = {
   "https://open.spotify.com/",
   "https://music.youtube.com/watch",
 }
 ---@param value string
 ---@return boolean
 local function hasFragment(value)
-  return hs.fnutils.some(musicURLFragments, function(fragment)
-    return value:find(fragment, 1, true)
+  return hs.fnutils.some(musicURLs, function(fragment)
+    return value:match("^" .. fragment) ~= nil
   end)
 end
 ---@param value string
@@ -92,7 +92,7 @@ end)
 -- Song.link results returns https://geo.music.apple.com/, so this
 -- shouldn't cause any loops.
 m.clipboard:addCallback({ URL = true }, function(value)
-  if value:find("https://music.apple.com/", 1, true) then
+  if value:match("^https://music.apple.com/") ~= nil then
     hs.pasteboard.writeObjects(createSongLinkURL(value))
     return true
   end
@@ -114,7 +114,7 @@ m.clipboard:addCallback({ URL = true }, function(value)
         hs.notify.show("Song.link", "", "Copied URL to clipboard.")
       end
     )
-  end
 
-  return true
+    return true
+  end
 end)
