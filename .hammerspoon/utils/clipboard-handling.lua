@@ -30,10 +30,10 @@ local obj = class() --[[@as ClipboardHandling]]
 --- Selector for callbacks targeting text-only clipboard content.
 --- @type ClipboardItemTypes
 obj.textOnlySelector = tablex.readonly({
-  image = nil,
-  sound = nil,
-  URL = nil,
-  color = nil,
+  image = false,
+  sound = false,
+  URL = false,
+  color = false,
   string = true,
 })
 
@@ -53,11 +53,11 @@ function obj:_init()
       end
 
       local types = hs.pasteboard.typesAvailable() --[[@as ClipboardItemTypes]]
-      for _, callback in ipairs(self.callbacks) do
+      for _, callback in pairs(self.callbacks) do
         -- Ensure all selectors match the clipboard types.
         local allMatched = true
         for k, v in pairs(callback.selectors) do
-          allMatched = v == types[k]
+          allMatched = (v or nil) == types[k]
           if allMatched == false then
             break
           end
@@ -65,7 +65,7 @@ function obj:_init()
 
         -- Stop even propagation if specified.
         if allMatched and callback.fn(value) then
-          break
+          return
         end
       end
     end
@@ -100,7 +100,7 @@ function obj:addCallback(selectors, fn)
     ---@param a Callback
     ---@param b Callback
     function(a, b)
-      return #a.selectors > #b.selectors
+      return tablex.size(a.selectors) > tablex.size(b.selectors)
     end
   )
 
@@ -112,10 +112,5 @@ end
 function obj:associateHotkey(hotkey)
   self.hotkeys:append(hotkey)
 end
-
---- Callbacks are executed in the order specified. If a callback returns
---- `true`, the event is consumed and no further callbacks are processed.
----@type { [ClipboardItemTypes]: CallbackFn }
-local callbacks = {}
 
 return obj
