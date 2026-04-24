@@ -69,6 +69,8 @@ return
 local musicURLs = {
   "https://open.spotify.com/",
   "https://music.youtube.com/watch",
+  "https://.+.bandcamp.com/album/",
+  "https://.+.bandcamp.com/track/",
 }
 ---@param value string
 ---@return boolean
