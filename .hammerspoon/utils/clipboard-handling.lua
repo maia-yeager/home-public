@@ -5,12 +5,12 @@ local class = require("pl.class")
 --- Types associated with the current clipboard contents.
 --- Manually-generated from hs.pasteboard.typesAvailable() docs.
 ---@class ClipboardItemTypes
----@field string? true Whether the contents contain a string value.
----@field styledText? true Whether the contents contain styled text.
----@field sound? true Whether the contents contain an sound.
----@field image? true Whether the contents contain an image.
----@field URL? true Whether the contents contain a URL.
----@field color? true Whether the contents contain a color value.
+---@field string? boolean Whether the contents contain a string value.
+---@field styledText? boolean Whether the contents contain styled text.
+---@field sound? boolean Whether the contents contain an sound.
+---@field image? boolean Whether the contents contain an image.
+---@field URL? boolean Whether the contents contain a URL.
+---@field color? boolean Whether the contents contain a color value.
 
 ---@alias CallbackFn fun(value: string): boolean?
 
