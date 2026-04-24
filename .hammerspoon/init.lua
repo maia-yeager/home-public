@@ -14,6 +14,7 @@ m.clipboard = require("utils.clipboard-handling")()
 m.upp = require("utils.universal-play-pause")()
 m.internetStatus = hs.network.reachability.internet() --[[@as hs.network.reachability]]
 m.tz = require("utils.timezone")()
+m.messageIndicator = require("utils.message-indicator")()
 
 -- Paste clipboard contents as keystrokes.
 m.clipboard:associateHotkey(hs.hotkey.new("cmd-alt", "v", function()
@@ -22,6 +23,11 @@ m.clipboard:associateHotkey(hs.hotkey.new("cmd-alt", "v", function()
     hs.eventtap.keyStrokes(value)
   end
 end))
+
+m.messageIndicator:addApp("com.hnc.discord"):addApp(
+  "com.apple.mobilesms",
+  [=[sqlite3 ~/Library/Messages/chat.db "SELECT COUNT(guid) FROM message WHERE NOT(is_read) AND NOT(is_from_me) AND text !=''"]=]
+)
 
 require("media")
 require("network")
