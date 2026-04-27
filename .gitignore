@@ -1,4 +1,4 @@
-# directories
+# root directories
 /.cache/
 /.git-private/
 /.git-public/
@@ -20,16 +20,18 @@
 /Obsidian/
 /Pictures/
 /Public/
+# floating directories
 
-# files
-*_history
-*.sock
-*.swp
+# root files
 /.CFUserTextEncoding
 /.gtk-bookmarks
 /.lesshst
 /.viminfo
 /.wget-hsts
+# floating files
+*_history
+*.sock
+*.swp
 
 
 ### Linux
