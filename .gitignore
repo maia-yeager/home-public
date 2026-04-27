@@ -5,6 +5,7 @@
 .local/
 .swiftpm/
 .terminfo/
+.Trash/
 .venv/
 .vscode/
 Applications/
