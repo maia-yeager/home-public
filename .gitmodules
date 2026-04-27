@@ -1,0 +1,6 @@
+[submodule ".hammerspoon/types/lsqlite3"]
+	path = .hammerspoon/types/lsqlite3
+	url = https://github.com/KaitlynEthylia/LuaSQLite3-annotations.git
+[submodule ".hammerspoon/types/penlight"]
+	path = .hammerspoon/types/penlight
+	url = https://github.com/goldenstein64/pl-definitions.git
