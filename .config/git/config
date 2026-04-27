@@ -1,5 +1,5 @@
 [include]
-    path = includes/local.config
+    path = config.d/*.local.gitconfig
 [includeIf "gitdir/i:~/.git-public"]
     path = config.d/public.gitconfig
 [includeIf "gitdir/i:~/.git-private"]
