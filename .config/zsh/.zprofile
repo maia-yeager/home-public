@@ -1,2 +1,5 @@
 # Only load Homebrew environment if not an interactive shell (e.g. Sublime Merge).
-[[ ! -o interactive ]] && eval "$(/opt/homebrew/bin/brew shellenv)"
+if [[ ! -o interactive ]]; then
+  eval "$(/opt/homebrew/bin/brew shellenv)"
+  export SSH_AUTH_SOCK=${HOME}/.ssh/agent.sock
+fi
