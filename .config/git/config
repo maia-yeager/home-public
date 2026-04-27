@@ -1,5 +1,9 @@
 [include]
     path = includes/local.config
+[includeIf "gitdir/i:~/.git-public"]
+    path = config.d/public.gitconfig
+[includeIf "gitdir/i:~/.git-private"]
+    path = config.d/private.gitconfig
 [gpg]
     format = ssh
 [gpg "ssh"]
