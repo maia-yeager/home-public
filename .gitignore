@@ -1,7 +1,7 @@
 # directories
 .cache/
-.home-private/
-.home-public/
+.git-private/
+.git-public/
 .local/
 .swiftpm/
 .terminfo/

@@ -370,7 +370,7 @@
     [[ -n $GIT_DIR ]] || return
     local repo=${GIT_DIR:t}
     [[ $repo == .git ]] && repo=${GIT_DIR:h:t}
-    [[ $repo == .home-(public|private) ]] && repo=${repo#.home-}
+    [[ $repo == .git-(public|private) ]] && repo=${repo#.git-}
     p10k segment -b 0 -f 208 -t ${repo//\%/%%}
   }
 
