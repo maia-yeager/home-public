@@ -21,6 +21,7 @@
 /Pictures/
 /Public/
 # floating directories
+.history/
 
 # root files
 /.CFUserTextEncoding
