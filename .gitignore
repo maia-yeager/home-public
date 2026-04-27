@@ -1,35 +1,35 @@
 # directories
-.cache/
-.git-private/
-.git-public/
-.local/
-.swiftpm/
-.terminfo/
-.Trash/
-.venv/
-.vscode/
-Applications/
-bin/
-Calibre/
-Desktop/
-Documents/
-Downloads/
-Library/
-Movies/
-Music/
-Obsidian/
-Pictures/
-Public/
+/.cache/
+/.git-private/
+/.git-public/
+/.local/
+/.swiftpm/
+/.terminfo/
+/.Trash/
+/.venv/
+/.vscode/
+/Applications/
+/bin/
+/Calibre/
+/Desktop/
+/Documents/
+/Downloads/
+/Library/
+/Movies/
+/Music/
+/Obsidian/
+/Pictures/
+/Public/
 
 # files
 *_history
 *.sock
 *.swp
-.CFUserTextEncoding
-.gtk-bookmarks
-.lesshst
-.viminfo
-.wget-hsts
+/.CFUserTextEncoding
+/.gtk-bookmarks
+/.lesshst
+/.viminfo
+/.wget-hsts
 
 
 ### Linux
