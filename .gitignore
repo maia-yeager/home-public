@@ -1,13 +1,9 @@
 # root directories
-/.cache/
 /.git-private/
 /.git-public/
-/.local/
-/.swiftpm/
 /.terminfo/
 /.Trash/
 /.venv/
-/.vscode/
 /Applications/
 /bin/
 /Calibre/
