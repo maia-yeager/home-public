@@ -1,0 +1,20 @@
+{
+	"signature_error_highlighting": "no_signature",
+	"theme": "auto",
+	"editor_argument_format": "${file} --line ${line}",
+	"editor_path": "~/Library/Application Support/JetBrains/Toolbox/scripts/webstorm",
+	"added_words":
+	[
+		"textarea",
+		"async",
+		"stringify",
+		"formatter",
+		"bundler",
+		"unoptimized",
+		"serverless",
+		"Cloudflare",
+		"editorconfig",
+		"allowlist",
+	],
+	"git_binary": "git",
+}
