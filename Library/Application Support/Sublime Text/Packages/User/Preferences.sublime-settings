@@ -1,0 +1,13 @@
+{
+	"ignored_packages":
+	[
+		"Vintage",
+	],
+	"theme": "Monokai Pro.sublime-theme",
+	"color_scheme": "Monokai Pro.sublime-color-scheme",
+	"index_files": false,
+	"font_size": 13,
+	"translate_tabs_to_spaces": true,
+	"scroll_past_end": true,
+	"tab_size": 2,
+}
