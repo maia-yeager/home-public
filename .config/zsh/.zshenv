@@ -9,8 +9,15 @@
 if [ -n "${ZSH_VERSION-}" ]; then
   # If you are certain that you must export some environment variables
   # in ~/.zshenv (see comments at the top!), do it here:
+  export XDG_CACHE_HOME=${XDG_DATA_HOME:-$HOME/.cache}
+  export XDG_CONFIG_HOME=${XDG_CONFIG_HOME:-$HOME/.config}
+  export XDG_DATA_HOME=${XDG_DATA_HOME:-$HOME/.local/share}
+  export XDG_STATE_HOME=${XDG_STATE_HOME:-$HOME/.local/state}
+
+  export ANDROID_HOME=$HOME/Library/Android/sdk
   export DO_NOT_TRACK=1
-  
+  export NPM_CONFIG_USERCONFIG=${npm_config_userconfig/#\~/$HOME}
+
   # Do not change anything else in this file.
 
   : ${ZDOTDIR:=~}

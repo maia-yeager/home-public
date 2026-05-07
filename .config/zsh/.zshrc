@@ -10,7 +10,7 @@
 # Lifted variables that are required for zstyle configuration commands.
 export ITERM_ENABLE_SHELL_INTEGRATION_WITH_TMUX=1
 
-local xdg_config_home=${XDG_CONFIG_HOME:-'~/.config'} # Quote to prevent in-place expansion.
+local xdg_config_home=${XDG_CONFIG_HOME/#$HOME/\~}
 
 local extra_env=$xdg_config_home/.env.zsh
 local npm_config_userconfig=$xdg_config_home/npm/rc
@@ -155,16 +155,9 @@ zstyle ':z4h:term-title:ssh' precmd  '􀤆 %n@'${${${Z4H_SSH##*:}//\%/%%}:-%m}':
 z4h init || return
 
 # Export environment variables.
-export XDG_CACHE_HOME=${XDG_DATA_HOME:-$HOME/.cache}
-export XDG_CONFIG_HOME=${xdg_config_home/#\~/$HOME}
-export XDG_DATA_HOME=${XDG_DATA_HOME:-$HOME/.local/share}
-export XDG_STATE_HOME=${XDG_STATE_HOME:-$HOME/.local/state}
-export ANDROID_HOME=$HOME/Library/Android/sdk
-
 export GPG_TTY=$TTY
 export LESS='--ignore-case --quit-if-one-screen --LONG-PROMPT --RAW-CONTROL-CHARS --HILITE-UNREAD --tabs=4 --window=-4'
 export MANPAGER='less +Gg' # Show scroll progress in man pages.
-export NPM_CONFIG_USERCONFIG=${npm_config_userconfig/#\~/$HOME}
 export SCREENRC=${screenrc/#\~/$HOME}
 
 # Extend PATH.
