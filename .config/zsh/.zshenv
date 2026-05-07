@@ -9,8 +9,7 @@
 if [ -n "${ZSH_VERSION-}" ]; then
   # If you are certain that you must export some environment variables
   # in ~/.zshenv (see comments at the top!), do it here:
-  #   export GOPATH=$HOME/go
-  # export TERM=screen-256color
+  export DO_NOT_TRACK=1
   
   # Do not change anything else in this file.
 
