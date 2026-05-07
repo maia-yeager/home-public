@@ -114,7 +114,7 @@ zstyle ':z4h:ssh:*' ssh-command command ssh
 
 # Send these files over to the remote host when connecting over SSH to the
 # enabled hosts.
-local ssh_dir='~/.ssh'
+local ssh_dir='~/.ssh' # Quote to prevent in-place expansion.
 local -a ssh_extra_files=(
   $extra_env
   $npm_config_userconfig
