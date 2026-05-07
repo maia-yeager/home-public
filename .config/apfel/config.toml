@@ -61,6 +61,14 @@ mode = "single" # | "stream" | "chat" | "serve" | "benchmark" | "model-info"
 # path = "/opt/homebrew/bin/apfel-mcp-search-and-fetch"
 # enabled = true
 
+[profile.cmd]
+mode = "single"
+system_prompt = "You are a shell command generator for macOS (zsh/bash). Output ONLY the command — no explanation, no markdown, no code fences, no comments. If multiple commands are needed, join them with && or |. Never output anything except the command itself."
+
+[profile.explain]
+mode = "single"
+system_prompt = "Explain what this command, error, or code snippet does in 2-3 sentences. Be specific about each part. If it's an error, explain what caused it and how to fix it. No code fences, no bullet points — just plain sentences."
+
 # -------------------------------------------------------------------
 # Example server profile:
 #
