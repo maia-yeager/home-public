@@ -119,7 +119,10 @@ local -a ssh_extra_files=(
   ${ssh_dir}/config
   ${tmux_config/#$HOME/\~}
   ${xdg_config_home}/env.d
+  ${xdg_config_home}/git/config
   ${xdg_config_home}/git/ignore
+  ${xdg_config_home}/glow
+  ${xdg_config_home}/homebrew
   ${xdg_config_home}/htop
   ${xdg_config_home}/mise
   ${xdg_config_home}/nano
