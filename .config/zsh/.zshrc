@@ -10,7 +10,7 @@
 # Lifted variables that are required for zstyle configuration commands.
 export ITERM_ENABLE_SHELL_INTEGRATION_WITH_TMUX=1
 
-local xdg_config_home='~/.config' # Quote to prevent in-place expansion.
+local xdg_config_home=${XDG_CONFIG_HOME:-'~/.config'} # Quote to prevent in-place expansion.
 
 local extra_env=$xdg_config_home/.env.zsh
 local npm_config_userconfig=$xdg_config_home/npm/rc
