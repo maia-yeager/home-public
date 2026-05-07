@@ -155,7 +155,10 @@ zstyle ':z4h:term-title:ssh' precmd  '􀤆 %n@'${${${Z4H_SSH##*:}//\%/%%}:-%m}':
 z4h init || return
 
 # Export environment variables.
+export XDG_CACHE_HOME=${XDG_DATA_HOME:-$HOME/.cache}
 export XDG_CONFIG_HOME=${xdg_config_home/#\~/$HOME}
+export XDG_DATA_HOME=${XDG_DATA_HOME:-$HOME/.local/share}
+export XDG_STATE_HOME=${XDG_STATE_HOME:-$HOME/.local/state}
 export ANDROID_HOME=$HOME/Library/Android/sdk
 
 export GPG_TTY=$TTY
