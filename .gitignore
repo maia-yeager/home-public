@@ -1,45 +1,27 @@
 # root directories
-/.bun/
 /.cache/
-/.copilot/
-/.cups/
-/.degit/
+# https://github.com/expo/expo/discussions/18448
 /.expo/
-/.gem/
 /.git-private/
 /.git-public/
-/.gk/
 /.local/
-/.npm/
-/.rustup/
-/.swiftpm/
-/.terminfo/
 /.Trash/
-/.venv/
 /Applications/
 /Calibre/
 /Desktop/
 /dev/
 /Documents/
 /Downloads/
-/go/
 /Library/
 /Movies/
 /Music/
 /Obsidian/
 /Pictures/
 /Public/
-# floating directories
-.history/
 
 # root files
 /.CFUserTextEncoding
-/.gtk-bookmarks
-/.lesshst
-/.viminfo
-/.wget-hsts
 # floating files
-*_history
 *.sock
 *.swp
 

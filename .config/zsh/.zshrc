@@ -10,12 +10,7 @@
 # Lifted variables that are required for zstyle configuration commands.
 export ITERM_ENABLE_SHELL_INTEGRATION_WITH_TMUX=1
 
-local xdg_config_home=${XDG_CONFIG_HOME/#$HOME/\~}
-
-local extra_env=$xdg_config_home/.env.zsh
-local npm_config_userconfig=$xdg_config_home/npm/rc
-local screenrc=$xdg_config_home/screen/rc
-local tmux_config=$xdg_config_home/tmux/tmux.conf
+local tmux_config=$XDG_CONFIG_HOME/tmux/tmux.conf
 
 # If you are using a two-line prompt with an empty line before it, add this
 # for smoother rendering:
@@ -48,7 +43,7 @@ if ! type tmux &> /dev/null || [[
   zstyle ':z4h:' start-tmux 'no'
 else
   sock=${sock%/}/z4h-tmux-$UID-$TERM
-  local tmux_args=(-uf "${tmux_config/#\~/$HOME}")
+  local tmux_args=(-uf "$tmux_config")
   local -a tmux_cmds=()
   # Enable iTerm tmux integration. Don't use LC_TERMINAL.
   [[ "$LC_TERMINAL" == "iTerm2" ]] && tmux_args+=(-CC)
@@ -115,18 +110,21 @@ zstyle ':z4h:ssh:*' ssh-command command ssh
 # Send these files over to the remote host when connecting over SSH to the
 # enabled hosts.
 local ssh_dir='~/.ssh' # Quote to prevent in-place expansion.
+local xdg_config_home=${XDG_CONFIG_HOME/#$HOME/\~}
 local -a ssh_extra_files=(
-  $extra_env
-  $npm_config_userconfig
-  $screenrc
+  ${NPM_CONFIG_USERCONFIG/#$HOME/\~}
+  ${SCREENRC/#$HOME/\~}
   $ssh_dir/allowed_signers
   $ssh_dir/conf.d
   $ssh_dir/config
-  $tmux_config
+  ${tmux_config/#$HOME/\~}
   $xdg_config_home/git/ignore
   $xdg_config_home/htop
   $xdg_config_home/mise
   $xdg_config_home/nano
+  $xdg_config_home/python
+  $xdg_config_home/vim
+  ${xdg_config_home}/env.d
 )
 zstyle ':z4h:ssh:*' send-extra-files $ssh_extra_files
 
@@ -158,7 +156,6 @@ z4h init || return
 export GPG_TTY=$TTY
 export LESS='--ignore-case --quit-if-one-screen --LONG-PROMPT --RAW-CONTROL-CHARS --HILITE-UNREAD --tabs=4 --window=-4'
 export MANPAGER='less +Gg' # Show scroll progress in man pages.
-export SCREENRC=${screenrc/#\~/$HOME}
 
 # Extend PATH.
 path=(
@@ -180,7 +177,7 @@ fpath=(
 )
 
 # Source additional local files if they exist.
-z4h source ${extra_env/#\~/$HOME}
+z4h source ${XDG_CONFIG_HOME}/env.d/*(N)
 
 # This function is invoked by zsh4humans on every ssh command after
 # the instructions from ssh-related zstyles have been applied. It allows
@@ -367,10 +364,13 @@ if type htop &> /dev/null; then
 fi
 
 # Define new defaults as aliases.
+type adb &> /dev/null && alias adb="HOME=${XDG_DATA_HOME}/android adb"
+type bash &> /dev/null && alias bash="HISTFILE=${XDG_STATE_HOME}/bash/history bash"
 alias cat="${aliases[cat]:-cat} -v"
 alias diff="${aliases[diff]:-diff} --color=auto -u"
 type say &> /dev/null && alias say="${aliases[say]:-say} --interactive"
 type tree &> /dev/null && alias tree="${aliases[tree]:-tree} -aI .git"
+type wget &> /dev/null && alias wget="${aliases[tree]:-wget} --hsts-file=${XDG_DATA_HOME}/wget-hsts"
 
 }
 

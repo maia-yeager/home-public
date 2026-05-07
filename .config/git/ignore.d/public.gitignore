@@ -1,3 +1,5 @@
 /.ssh/authorized_keys
 /.ssh/known_hosts
-/.config/zsh/.env.zsh
+/.config/env.d/secrets.zsh
+.history/
+*_history
