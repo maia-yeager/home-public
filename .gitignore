@@ -1,6 +1,18 @@
 # root directories
+/.bun/
+/.cache/
+/.copilot/
+/.cups/
+/.degit/
+/.expo/
+/.gem/
 /.git-private/
 /.git-public/
+/.gk/
+/.local/
+/.npm/
+/.rustup/
+/.swiftpm/
 /.terminfo/
 /.Trash/
 /.venv/
@@ -8,8 +20,10 @@
 /bin/
 /Calibre/
 /Desktop/
+/dev/
 /Documents/
 /Downloads/
+/go/
 /Library/
 /Movies/
 /Music/
