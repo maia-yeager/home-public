@@ -27,18 +27,18 @@ zstyle ':z4h:bindkey' keyboard  'mac'
 
 # Start tmux if appropriate.
 local sock
-if [[ -n "$TMUX_TMPDIR" && -d "$TMUX_TMPDIR" && -w "$TMUX_TMPDIR" ]]; then
+if [[ -n ${TMUX_TMPDIR} && -d ${TMUX_TMPDIR} && -w ${TMUX_TMPDIR} ]]; then
   sock=$TMUX_TMPDIR
 elif [[ -d /tmp && -w /tmp ]]; then
   sock=/tmp
-elif [[ -n "$TMPDIR" && -d "$TMPDIR" && -w "$TMPDIR" ]]; then
+elif [[ -n ${TMPDIR} && -d ${TMPDIR} && -w ${TMPDIR} ]]; then
   sock=$TMPDIR
 fi
 if ! type tmux &> /dev/null || [[
-  -z "$sock"
-  || -z "${Z4H_SSH}" # SSH tmux within local tmux isn't a great experience.
-  || "$TERM_PROGRAM" == "tmux"
-  || "$TERMINAL_EMULATOR" == "JetBrains-JediTerm"
+  -z ${sock}
+  || -z ${Z4H_SSH} # SSH tmux within local tmux isn't a great experience.
+  || ${TERM_PROGRAM} == tmux
+  || ${TERMINAL_EMULATOR} == JetBrains-JediTerm
 ]]; then
   zstyle ':z4h:' start-tmux 'no'
 else
@@ -46,7 +46,7 @@ else
   local tmux_args=(-uf "$tmux_config")
   local -a tmux_cmds=()
   # Enable iTerm tmux integration. Don't use LC_TERMINAL.
-  [[ "$LC_TERMINAL" == "iTerm2" ]] && tmux_args+=(-CC)
+  [[ ${LC_TERMINAL} == "iTerm2" ]] && tmux_args+=(-CC)
 
   # Below adapted from Z4H built-in tmux logic.
   # Specify supported terminal colours and features.
@@ -61,9 +61,9 @@ else
   fi
   # Append a unique per-installation number to the socket path to work
   # around a bug in tmux. See https://github.com/romkatv/zsh4humans/issues/71.
-  if [[ -e $Z4H/tmux/stamp ]]; then
+  if [[ -e ${Z4H}/tmux/stamp ]]; then
     local stamp
-    IFS= read -r stamp < $Z4H/tmux/stamp || return
+    IFS= read -r stamp < ${Z4H}/tmux/stamp || return
     sock+=-${stamp%%.*}
   fi
   tmux_args+=(-S "$sock")
@@ -114,17 +114,17 @@ local xdg_config_home=${XDG_CONFIG_HOME/#$HOME/\~}
 local -a ssh_extra_files=(
   ${NPM_CONFIG_USERCONFIG/#$HOME/\~}
   ${SCREENRC/#$HOME/\~}
-  $ssh_dir/allowed_signers
-  $ssh_dir/conf.d
-  $ssh_dir/config
+  ${ssh_dir}/allowed_signers
+  ${ssh_dir}/conf.d
+  ${ssh_dir}/config
   ${tmux_config/#$HOME/\~}
-  $xdg_config_home/git/ignore
-  $xdg_config_home/htop
-  $xdg_config_home/mise
-  $xdg_config_home/nano
-  $xdg_config_home/python
-  $xdg_config_home/vim
   ${xdg_config_home}/env.d
+  ${xdg_config_home}/git/ignore
+  ${xdg_config_home}/htop
+  ${xdg_config_home}/mise
+  ${xdg_config_home}/nano
+  ${xdg_config_home}/python
+  ${xdg_config_home}/vim
 )
 zstyle ':z4h:ssh:*' send-extra-files $ssh_extra_files
 
@@ -159,16 +159,16 @@ export MANPAGER='less +Gg' # Show scroll progress in man pages.
 
 # Extend PATH.
 path=(
-  $HOME/bin
-  $HOME/.local/bin
-  $HOME/Library/"Application Support"/JetBrains/Toolbox/scripts
-  $HOMEBREW_PREFIX/opt/gawk/libexec/gnubin
-  $HOMEBREW_PREFIX/opt/ffmpeg-full/bin
-  $HOMEBREW_PREFIX/opt/rustup/bin # Before $path, in case rust is already installed.
+  ${HOME}/bin
+  ${HOME}/.local/bin
+  ${HOME}/Library/"Application Support"/JetBrains/Toolbox/scripts
+  ${HOMEBREW_PREFIX}/opt/gawk/libexec/gnubin
+  ${HOMEBREW_PREFIX}/opt/ffmpeg-full/bin
+  ${HOMEBREW_PREFIX}/opt/rustup/bin # Before $path, in case rust is already installed.
   $path
-  $HOMEBREW_PREFIX/opt/libpq/bin # After $path, to defer to any installed Postgres.
-  $ANDROID_HOME/emulator
-  $ANDROID_HOME/platform-tools
+  ${HOMEBREW_PREFIX}/opt/libpq/bin # After $path, to defer to any installed Postgres.
+  ${ANDROID_HOME}/emulator
+  ${ANDROID_HOME}/platform-tools
 )
 local zsh_site_fns=$XDG_CONFIG_HOME/zsh/site-functions
 fpath=(
