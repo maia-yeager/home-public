@@ -11,7 +11,9 @@ if [ -n "${ZSH_VERSION-}" ]; then
   # in ~/.zshenv (see comments at the top!), do it here:
   export DO_NOT_TRACK=1
 
-  export XDG_RUNTIME_DIR=${XDG_RUNTIME_DIR:-$(getconf DARWIN_USER_TEMP_DIR)}
+  export XDG_RUNTIME_DIR=${XDG_RUNTIME_DIR:-$(
+    [[ $(uname) == "Darwin" ]] && getconf DARWIN_USER_TEMP_DIR || echo "/run/user/$UID"
+  )}
   export XDG_CACHE_HOME=${XDG_DATA_HOME:-$HOME/.cache}
   export XDG_CONFIG_HOME=${XDG_CONFIG_HOME:-$HOME/.config}
   export XDG_DATA_HOME=${XDG_DATA_HOME:-$HOME/.local/share}
