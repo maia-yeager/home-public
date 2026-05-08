@@ -359,8 +359,8 @@ if type eza &> /dev/null; then
   function lt { eza --tree --icons -aI '.git|__pycache__|.mypy_cache|.ipynb_checkpoints' $@ }
   compdef _eza ll ls la lt
 else
-  alias la="${aliases[ls]:-ls} -al $@"
-  alias ll="${aliases[ls]:-ls} -l $@"
+  alias la="${aliases[ls]:-ls} -al"
+  alias ll="${aliases[ls]:-ls} -l"
 fi
 if type htop &> /dev/null; then
   function top { htop $@ }
