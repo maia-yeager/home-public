@@ -349,6 +349,8 @@ fi
 alias clear="z4h-clear-screen-soft-top"
 alias colors="colours"
 alias fp="free-port"
+type tree &> /dev/null &&
+  alias lt="${aliases[tree]:-tree -a --gitignore --metafirst --noreport}"
 alias root="sudo -Es"
 type mise &> /dev/null && alias x="mise run"
 
@@ -356,8 +358,7 @@ if type eza &> /dev/null; then
   function la { eza --icons -1aaglo $@ }
   function ll { eza --icons -1glo $@ }
   function ls { eza --icons $@ }
-  function lt { eza --tree --icons -aI '.git|__pycache__|.mypy_cache|.ipynb_checkpoints' $@ }
-  compdef _eza ll ls la lt
+  compdef _eza ll ls la
 else
   alias la="${aliases[ls]:-ls} -al"
   alias ll="${aliases[ls]:-ls} -l"
