@@ -359,7 +359,7 @@ if type eza &> /dev/null; then
   function la { eza --icons -1aaglo $@ }
   function ll { eza --icons -1glo $@ }
   function ls { eza --icons $@ }
-  compdef _eza ll ls la
+  compdef _eza la ll ls
 else
   alias la="${aliases[ls]:-ls} -al"
   alias ll="${aliases[ls]:-ls} -l"
