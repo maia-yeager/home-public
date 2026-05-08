@@ -361,8 +361,9 @@ if type eza &> /dev/null; then
   function ls { ${aliases[eza]:-eza} --icons $@ }
   compdef _eza la ll ls
 else
-  alias la="${aliases[ls]:-ls} -al"
-  alias ll="${aliases[ls]:-ls} -l"
+  function la { ${aliases[ls]:-ls} -al $@ }
+  function ll { ${aliases[ls]:-ls} -l $@ }
+  compdef _ls la ll
 fi
 if type htop &> /dev/null; then
   function top { ${aliases[htop]:-htop} $@ }
