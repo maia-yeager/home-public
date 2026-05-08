@@ -158,7 +158,7 @@ z4h init || return
 # Export environment variables.
 export ANDROID_HOME=$HOME/Library/Android/sdk
 export GPG_TTY=$TTY
-export LESS='--ignore-case --quit-if-one-screen --LONG-PROMPT --RAW-CONTROL-CHARS --HILITE-UNREAD --tabs=4 --window=-4'
+export LESS='-FiMR --tabs=4 --window=-4'
 export MANPAGER='less +Gg' # Show scroll progress in man pages.
 
 # Extend PATH.
