@@ -367,13 +367,10 @@ if type htop &> /dev/null; then
 fi
 
 # Define new defaults as aliases.
-type adb &> /dev/null && alias adb="HOME=${XDG_DATA_HOME}/android adb"
-type bash &> /dev/null && alias bash="HISTFILE=${XDG_STATE_HOME}/bash/history bash"
 alias cat="${aliases[cat]:-cat} -v"
 alias diff="${aliases[diff]:-diff} --color=auto -u"
 type say &> /dev/null && alias say="${aliases[say]:-say} --interactive"
 type tree &> /dev/null && alias tree="${aliases[tree]:-tree} -aI .git"
-type wget &> /dev/null && alias wget="${aliases[tree]:-wget} --hsts-file=${XDG_DATA_HOME}/wget-hsts"
 
 }
 
