@@ -343,9 +343,9 @@ compdef _directories md
 
 # Define aliases.
 if type apfel-run &> /dev/null; then
-  alias ai="apfel-run"
-  alias cmd="apfel-run -p cmd"
-  alias explain="apfel-run -p explain"
+  alias ai="${aliases[apfel-run]:-apfel-run}"
+  alias cmd="${aliases[apfel-run]:-apfel-run} -p cmd"
+  alias explain="${aliases[apfel-run]:-apfel-run} -p explain"
 fi
 alias clear="z4h-clear-screen-soft-top"
 alias colors="colours"
@@ -353,19 +353,19 @@ alias fp="free-port"
 type tree &> /dev/null &&
   alias lt="${aliases[tree]:-tree -a --gitignore --metafirst --noreport}"
 alias root="sudo -Es"
-type mise &> /dev/null && alias x="mise run"
+type mise &> /dev/null && alias x="${aliases[mise]:-mise} run"
 
 if type eza &> /dev/null; then
-  function la { eza --icons -1aaglo $@ }
-  function ll { eza --icons -1glo $@ }
-  function ls { eza --icons $@ }
+  function la { ${aliases[eza]:-eza} --icons -1aaglo $@ }
+  function ll { ${aliases[eza]:-eza} --icons -1glo $@ }
+  function ls { ${aliases[eza]:-eza} --icons $@ }
   compdef _eza la ll ls
 else
   alias la="${aliases[ls]:-ls} -al"
   alias ll="${aliases[ls]:-ls} -l"
 fi
 if type htop &> /dev/null; then
-  function top { htop $@ }
+  function top { ${aliases[htop]:-htop} $@ }
   compdef _htop top
 fi
 
