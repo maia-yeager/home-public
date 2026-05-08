@@ -1,7 +1,6 @@
 # Coerce non-conformant apps to use XDG-like file structures.
 defaults write org.hammerspoon.Hammerspoon MJConfigFile ${XDG_CONFIG_HOME}/hammerspoon/init.lua
 export ANDROID_AVD_HOME=$XDG_DATA_HOME/android/avd
-export ANDROID_HOME=$HOME/Library/Android/sdk
 export ANDROID_USER_HOME=$XDG_DATA_HOME/android
 export CARGO_HOME=$XDG_DATA_HOME/cargo
 export COPILOT_HOME=$XDG_DATA_HOME/copilot
