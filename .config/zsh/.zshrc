@@ -166,15 +166,16 @@ export PAGER='less'
 
 # Set editor in order of preference based on what's available.
 if command -v nano &> /dev/null; then
-  export EDITOR=nano
+  export VISUAL=nano
 elif command -v pico &> /dev/null; then
-  export EDITOR=pico
+  export VISUAL=pico
 elif command -v vim &> /dev/null; then
-  export EDITOR=vim
+  export VISUAL=vim
 elif command -v vi &> /dev/null; then
-  export EDITOR=vi
+  export VISUAL=vi
 fi
-[[ -n $EDITOR ]] && export VISUAL=$EDITOR
+# Compatibility for tools that don't support $VISUAL.
+[[ -n $VISUAL ]] && export EDITOR=$VISUAL
 
 # Extend PATH.
 path=(
