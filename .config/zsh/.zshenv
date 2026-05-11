@@ -31,7 +31,7 @@ if [ -n "${ZSH_VERSION-}" ]; then
   export XDG_CONFIG_HOME=${XDG_CONFIG_HOME:-$HOME/.config}
   export XDG_DATA_HOME=${XDG_DATA_HOME:-$HOME/.local/share}
   export XDG_STATE_HOME=${XDG_STATE_HOME:-$HOME/.local/state}
-  source ${XDG_CONFIG_HOME}/env.d/xdg.zsh
+  source $XDG_CONFIG_HOME/env.d/xdg.zsh
 
   # Do not change anything else in this file.
 
