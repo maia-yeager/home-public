@@ -34,7 +34,7 @@ elif [[ -d /tmp && -w /tmp ]]; then
 elif [[ -n ${TMPDIR} && -d ${TMPDIR} && -w ${TMPDIR} ]]; then
   sock=$TMPDIR
 fi
-if ! type tmux &> /dev/null || [[
+if ! command -v tmux &> /dev/null || [[
   -z ${sock}
   || -z ${Z4H_SSH} # SSH tmux within local tmux isn't a great experience.
   || ${TERM_PROGRAM} == tmux
@@ -266,16 +266,16 @@ if [[ -z ${Z4H_SSH} ]]; then
   fi
 fi
 # Set editor in order of preference based on what's available.
-if type nano &> /dev/null; then
+if command -v nano &> /dev/null; then
   export EDITOR=nano
-elif type pico &> /dev/null; then
+elif command -v pico &> /dev/null; then
   export EDITOR=pico
-elif type vim &> /dev/null; then
+elif command -v vim &> /dev/null; then
   export EDITOR=vim
-elif type vi &> /dev/null; then
+elif command -v vi &> /dev/null; then
   export EDITOR=vi
 fi
-type mise &> /dev/null && eval "$(mise activate zsh)"
+command -v mise &> /dev/null && eval "$(mise activate zsh)"
 
 # Use additional Git repositories pulled in with `z4h install`.
 #
@@ -329,7 +329,7 @@ function free-port {
     kill $(awk 'NR > 1 {print $2}' <<< $processes)
 }
 
-if type ffmpeg &> /dev/null; then
+if command -v ffmpeg &> /dev/null; then
   function dv { discord-video $@ }
   compdef _files discord-video dv
 fi
@@ -342,7 +342,7 @@ compdef _directories md
 [[ -n $z4h_win_home ]] && hash -d w=$z4h_win_home
 
 # Define aliases.
-if type apfel-run &> /dev/null; then
+if command -v apfel-run &> /dev/null; then
   alias ai="${aliases[apfel-run]:-apfel-run}"
   alias cmd="${aliases[apfel-run]:-apfel-run} -p cmd"
   alias explain="${aliases[apfel-run]:-apfel-run} -p explain"
@@ -350,12 +350,12 @@ fi
 alias clear="z4h-clear-screen-soft-top"
 alias colors="colours"
 alias fp="free-port"
-type tree &> /dev/null &&
+command -v tree &> /dev/null &&
   alias lt="${aliases[tree]:-tree -a --gitignore --metafirst --noreport}"
 alias root="sudo -Es"
-type mise &> /dev/null && alias x="${aliases[mise]:-mise} run"
+command -v mise &> /dev/null && alias x="${aliases[mise]:-mise} run"
 
-if type eza &> /dev/null; then
+if command -v eza &> /dev/null; then
   function la { ${aliases[eza]:-eza} --icons -1aaglo $@ }
   function ll { ${aliases[eza]:-eza} --icons -1glo $@ }
   function ls { ${aliases[eza]:-eza} --icons $@ }
@@ -365,7 +365,7 @@ else
   function ll { ${aliases[ls]:-ls} -l $@ }
   compdef _ls la ll
 fi
-if type htop &> /dev/null; then
+if command -v htop &> /dev/null; then
   function top { ${aliases[htop]:-htop} $@ }
   compdef _htop top
 fi
@@ -373,8 +373,8 @@ fi
 # Define new defaults as aliases.
 alias cat="${aliases[cat]:-cat} -v"
 alias diff="${aliases[diff]:-diff} --color=auto -u"
-type say &> /dev/null && alias say="${aliases[say]:-say} --interactive"
-type tree &> /dev/null && alias tree="${aliases[tree]:-tree} -aI .git"
+command -v say &> /dev/null && alias say="${aliases[say]:-say} --interactive"
+command -v tree &> /dev/null && alias tree="${aliases[tree]:-tree} -aI .git"
 
 }
 

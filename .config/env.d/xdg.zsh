@@ -21,6 +21,6 @@ export SQLITE_HISTORY=$XDG_STATE_HOME/sqlite_history
 export TERMINFO=$XDG_DATA_HOME/terminfo
 export TERMINFO_DIRS=$XDG_DATA_HOME/terminfo:/usr/share/terminfo
 export VIMINIT='let $MYVIMRC="$XDG_CONFIG_HOME/vim/vimrc" | source $MYVIMRC'
-type adb &> /dev/null && alias adb="HOME=${XDG_DATA_HOME}/android ${aliases[adb]:-adb}"
-type bash &> /dev/null && alias bash="HISTFILE=${XDG_STATE_HOME}/bash/history ${aliases[bash]:-bash}"
-type wget &> /dev/null && alias wget="${aliases[wget]:-wget} --hsts-file=${XDG_DATA_HOME}/wget-hsts"
+command -v adb &> /dev/null && alias adb="HOME=${XDG_DATA_HOME}/android ${aliases[adb]:-adb}"
+command -v bash &> /dev/null && alias bash="HISTFILE=${XDG_STATE_HOME}/bash/history ${aliases[bash]:-bash}"
+command -v wget &> /dev/null && alias wget="${aliases[wget]:-wget} --hsts-file=${XDG_DATA_HOME}/wget-hsts"
