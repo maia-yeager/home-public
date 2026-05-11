@@ -164,6 +164,16 @@ export LESS='-FiMR --tabs=4 --window=-4'
 export MANPAGER='less +Gg' # Show scroll progress in man pages.
 export PAGER='less'
 
+# Set editors in order of preference based on what's available.
+if command -v nano &> /dev/null; then
+  export EDITOR=nano
+elif command -v pico &> /dev/null; then
+  export EDITOR=pico
+elif command -v vim &> /dev/null; then
+  export EDITOR=vim
+elif command -v vi &> /dev/null; then
+  export EDITOR=vi
+fi
 # Extend PATH.
 path=(
   $HOME/bin
@@ -266,16 +276,6 @@ if [[ -z $Z4H_SSH ]]; then
     export SSH_AUTH_SOCK=$HOME/.ssh/agent.sock
     ln -sf ${ssh_auth_sock} ${SSH_AUTH_SOCK}
   fi
-fi
-# Set editor in order of preference based on what's available.
-if command -v nano &> /dev/null; then
-  export EDITOR=nano
-elif command -v pico &> /dev/null; then
-  export EDITOR=pico
-elif command -v vim &> /dev/null; then
-  export EDITOR=vim
-elif command -v vi &> /dev/null; then
-  export EDITOR=vi
 fi
 command -v mise &> /dev/null && eval "$(mise activate zsh)"
 
