@@ -361,28 +361,30 @@ fi
 alias cat="${aliases[cat]:-cat} -v"
 alias clear="z4h-clear-screen-soft-top"
 alias colors="colours"
-command -v tree &> /dev/null &&
-  alias lt="${aliases[tree]:-tree -a --gitignore --metafirst --noreport}"
 alias diff="${aliases[diff]:-diff} --color=auto -u"
 if command -v eza &> /dev/null; then
-  function la { ${aliases[eza]:-eza} --icons -1aaglo $@ }
-  function ll { ${aliases[eza]:-eza} --icons -1glo $@ }
-  function ls { ${aliases[eza]:-eza} --icons $@ }
+  function la { ${=aliases[eza]:-eza} --icons -1aaglo $@ }
+  function ll { ${=aliases[eza]:-eza} --icons -1glo $@ }
+  function ls { ${=aliases[eza]:-eza} --icons $@ }
   compdef _eza la ll ls
 else
-  function la { ${aliases[ls]:-ls} -al $@ }
-  function ll { ${aliases[ls]:-ls} -l $@ }
+  function la { ${=aliases[ls]:-ls} -al $@ }
+  function ll { ${=aliases[ls]:-ls} -l $@ }
   compdef _ls la ll
 fi
 alias fp="free-port"
 if command -v htop &> /dev/null; then
-  function top { ${aliases[htop]:-htop} $@ }
+  function top { ${=aliases[htop]:-htop} $@ }
   compdef _htop top
 fi
 command -v mise &> /dev/null && alias x="${aliases[mise]:-mise} run"
 alias root="sudo -Es"
 command -v say &> /dev/null && alias say="${aliases[say]:-say} --interactive"
-command -v tree &> /dev/null && alias tree="${aliases[tree]:-tree} -aI .git"
+if command -v tree &> /dev/null; then
+  alias tree="${aliases[tree]:-tree} -aI .git"
+  function lt { ${=aliases[tree]:-tree} --gitignore --metafirst --noreport $@ }
+  compdef _tree lt
+fi
 
 }
 
