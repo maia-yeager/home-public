@@ -45,7 +45,7 @@ else
   sock=${sock%/}/z4h-tmux-$UID-$TERM
   local tmux_args=(-uf "$tmux_config")
   local -a tmux_cmds=()
-  # Enable iTerm tmux integration. Don't use LC_TERMINAL.
+  # Enable iTerm tmux integration.
   [[ ${LC_TERMINAL} == "iTerm2" ]] && tmux_args+=(-CC)
 
   # Below adapted from Z4H built-in tmux logic.
