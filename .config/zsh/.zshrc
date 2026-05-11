@@ -176,7 +176,10 @@ elif command -v vi &> /dev/null; then
   export VISUAL=vi
 fi
 # Compatibility for tools that don't support $VISUAL.
-[[ -n $VISUAL ]] && export EDITOR=$VISUAL
+if [[ -n $VISUAL ]]; then
+  export EDITOR=$VISUAL
+  export SUDO_EDITOR=$VISUAL
+fi
 
 # Extend PATH.
 path=(
