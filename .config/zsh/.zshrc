@@ -351,20 +351,19 @@ compdef _directories md
 # Define named directories: ~w <=> Windows home directory on WSL.
 [[ -n $z4h_win_home ]] && hash -d w=$z4h_win_home
 
-# Define aliases.
+# Define aliases. If using mixing functions and aliases, use the format
+# `${=aliases[eza]:-eza}` to expand the alias like non-zsh shells.
 if command -v apfel-run &> /dev/null; then
   alias ai="${aliases[apfel-run]:-apfel-run}"
   alias cmd="${aliases[apfel-run]:-apfel-run} -p cmd"
   alias explain="${aliases[apfel-run]:-apfel-run} -p explain"
 fi
+alias cat="${aliases[cat]:-cat} -v"
 alias clear="z4h-clear-screen-soft-top"
 alias colors="colours"
-alias fp="free-port"
 command -v tree &> /dev/null &&
   alias lt="${aliases[tree]:-tree -a --gitignore --metafirst --noreport}"
-alias root="sudo -Es"
-command -v mise &> /dev/null && alias x="${aliases[mise]:-mise} run"
-
+alias diff="${aliases[diff]:-diff} --color=auto -u"
 if command -v eza &> /dev/null; then
   function la { ${aliases[eza]:-eza} --icons -1aaglo $@ }
   function ll { ${aliases[eza]:-eza} --icons -1glo $@ }
@@ -375,14 +374,13 @@ else
   function ll { ${aliases[ls]:-ls} -l $@ }
   compdef _ls la ll
 fi
+alias fp="free-port"
 if command -v htop &> /dev/null; then
   function top { ${aliases[htop]:-htop} $@ }
   compdef _htop top
 fi
-
-# Define new defaults as aliases.
-alias cat="${aliases[cat]:-cat} -v"
-alias diff="${aliases[diff]:-diff} --color=auto -u"
+command -v mise &> /dev/null && alias x="${aliases[mise]:-mise} run"
+alias root="sudo -Es"
 command -v say &> /dev/null && alias say="${aliases[say]:-say} --interactive"
 command -v tree &> /dev/null && alias tree="${aliases[tree]:-tree} -aI .git"
 
