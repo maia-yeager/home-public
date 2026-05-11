@@ -24,9 +24,11 @@ if [ -n "${ZSH_VERSION-}" ]; then
   fi
   unset system_type # self-executing fns don't work here.
 
+  # Define XDG base dir spec.
   export XDG_RUNTIME_DIR=${XDG_RUNTIME_DIR:-$(
     [[ -n $IS_MACOS ]] && getconf DARWIN_USER_TEMP_DIR || echo "/run/user/$UID"
   )}
+  # Explicitly set the defaults, sinc some tools ignore the spec if not set.
   export XDG_CACHE_HOME=${XDG_DATA_HOME:-$HOME/.cache}
   export XDG_CONFIG_HOME=${XDG_CONFIG_HOME:-$HOME/.config}
   export XDG_DATA_HOME=${XDG_DATA_HOME:-$HOME/.local/share}

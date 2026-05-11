@@ -94,7 +94,7 @@ zstyle ':z4h:direnv' enable 'no'
 # Enable ('yes') or disable ('no') automatic teleportation of z4h over
 # Defer to custom implementation.
 zstyle ':z4h:ssh:*'                    enable 'yes'
-# Determine using :my:z4h:ssh:<user>:<host> settings.
+# Determine using :my:z4h:ssh:<user>:<host>:<port> settings.
 zstyle ':my:z4h:ssh:maia*:*:*'            enable 'yes'
 zstyle ':my:z4h:ssh:*yeager:*:*'          enable 'yes'
 zstyle ':my:z4h:ssh:*:*.am.yeagers.co:22' enable 'yes'
@@ -110,7 +110,8 @@ zstyle ':my:z4h:ssh:*:*' send-vars        COLORTERM
 zstyle ':z4h:ssh:*' ssh-command command ssh
 
 # Send these files over to the remote host when connecting over SSH to the
-# enabled hosts.
+# enabled hosts. Ensure that home directory refs start with '~', not $HOME, in
+# case the local $HOME path doesn't match the remote $HOME path.
 local ssh_dir='~/.ssh' # Quote to prevent in-place expansion.
 local xdg_config_home=${XDG_CONFIG_HOME/#$HOME/\~}
 local -a ssh_extra_files=(
@@ -182,8 +183,8 @@ path=(
   $HOME/bin
   $HOME/.local/bin
   $HOME/Library/"Application Support"/JetBrains/Toolbox/scripts
-  $HOMEBREW_PREFIX/opt/gawk/libexec/gnubin
-  $HOMEBREW_PREFIX/opt/ffmpeg-full/bin
+  $HOMEBREW_PREFIX/opt/gawk/libexec/gnubin # Not linked by default.
+  $HOMEBREW_PREFIX/opt/ffmpeg-full/bin # Not linked by default.
   $HOMEBREW_PREFIX/opt/rustup/bin # Before $path, in case rust is already installed.
   $path
   $HOMEBREW_PREFIX/opt/libpq/bin # After $path, to defer to any installed Postgres.
@@ -222,7 +223,8 @@ z4h source $XDG_CONFIG_HOME/env.d/*(N)
 z4h-ssh-configure() {
   emulate -L zsh
 
-  # Link SSH_AUTH_SOCK to common location.
+  # Link SSH_AUTH_SOCK to common location. This will be executed with the
+  # default shell (e.g. bash), so adapt commands accordingly.
   z4h_ssh_prelude+=(
     'my_z4h_ssh_auth_sock="$HOME/.ssh/agent.sock"'
     '
