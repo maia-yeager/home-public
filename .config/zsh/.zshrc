@@ -43,7 +43,7 @@ if ! type tmux &> /dev/null || [[
   zstyle ':z4h:' start-tmux 'no'
 else
   sock=${sock%/}/z4h-tmux-$UID-$TERM
-  local tmux_args=(-uf "$tmux_config")
+  local tmux_args=(-uf ${tmux_config})
   local -a tmux_cmds=()
   # Enable iTerm tmux integration.
   [[ ${LC_TERMINAL} == "iTerm2" ]] && tmux_args+=(-CC)
@@ -66,7 +66,7 @@ else
     IFS= read -r stamp < ${Z4H}/tmux/stamp || return
     sock+=-${stamp%%.*}
   fi
-  tmux_args+=(-S "$sock")
+  tmux_args+=(-S ${sock})
 
   zstyle ':z4h:' start-tmux command tmux $tmux_args -- "${tmux_cmds[@]}" new -As main
 fi
@@ -252,7 +252,7 @@ z4h-ssh-configure() {
 }
 
 # Application configuration.
-if [[ -z "${Z4H_SSH}" ]]; then
+if [[ -z ${Z4H_SSH} ]]; then
   # Link the local SSH authentication socket.
   local ssh_auth_sock
   if [[ -n $IS_MACOS ]]; then
@@ -260,7 +260,7 @@ if [[ -z "${Z4H_SSH}" ]]; then
   else
     ssh_auth_sock=${HOME}/.1password/agent.sock
   fi
-  if [[ -e "$ssh_auth_sock" ]]; then
+  if [[ -e ${ssh_auth_sock} ]]; then
     export SSH_AUTH_SOCK=${HOME}/.ssh/agent.sock
     ln -sf ${ssh_auth_sock} ${SSH_AUTH_SOCK}
   fi
