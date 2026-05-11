@@ -255,8 +255,8 @@ z4h-ssh-configure() {
 if [[ -z "${Z4H_SSH}" ]]; then
   # Link the local SSH authentication socket.
   local ssh_auth_sock
-  if [[ "$(uname)" == "Darwin" ]]; then
-    ssh_auth_sock="$HOME/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock"
+  if [[ -n $IS_MACOS ]]; then
+    ssh_auth_sock=$HOME/Library/"Group Containers"/2BUA8C4S2C.com.1password/t/agent.sock
   else
     ssh_auth_sock=${HOME}/.1password/agent.sock
   fi

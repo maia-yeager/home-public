@@ -11,8 +11,21 @@ if [ -n "${ZSH_VERSION-}" ]; then
   # in ~/.zshenv (see comments at the top!), do it here:
   export DO_NOT_TRACK=1
 
+  # Export system type.
+  local system_type=$(uname)
+  if [[ $system_type == Darwin ]]; then
+    export IS_MACOS=1
+  elif [[ $system_type == Linux ]]; then
+    export IS_LINUX=1
+  elif [[ $system_type == FreeBSD ]]; then
+    export IS_FREEBSD=1
+  else
+    echo "⚠️ Unknown OS!"
+  fi
+  unset system_type # self-executing fns don't work here.
+
   export XDG_RUNTIME_DIR=${XDG_RUNTIME_DIR:-$(
-    [[ $(uname) == "Darwin" ]] && getconf DARWIN_USER_TEMP_DIR || echo "/run/user/$UID"
+    [[ -n $IS_MACOS ]] && getconf DARWIN_USER_TEMP_DIR || echo "/run/user/$UID"
   )}
   export XDG_CACHE_HOME=${XDG_DATA_HOME:-$HOME/.cache}
   export XDG_CONFIG_HOME=${XDG_CONFIG_HOME:-$HOME/.config}
