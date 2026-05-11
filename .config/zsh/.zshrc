@@ -29,10 +29,10 @@ zstyle ':z4h:bindkey' keyboard  'mac'
 local sock
 if [[ -n $TMUX_TMPDIR && -d $TMUX_TMPDIR && -w $TMUX_TMPDIR ]]; then
   sock=$TMUX_TMPDIR
-elif [[ -d /tmp && -w /tmp ]]; then
-  sock=/tmp
 elif [[ -n $TMPDIR && -d $TMPDIR && -w $TMPDIR ]]; then
   sock=$TMPDIR
+elif [[ -d /tmp && -w /tmp ]]; then
+  sock=/tmp
 fi
 if ! command -v tmux &> /dev/null || [[
   -z $sock
