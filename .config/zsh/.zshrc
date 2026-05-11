@@ -29,6 +29,8 @@ zstyle ':z4h:bindkey' keyboard  'mac'
 local sock
 if [[ -n $TMUX_TMPDIR && -d $TMUX_TMPDIR && -w $TMUX_TMPDIR ]]; then
   sock=$TMUX_TMPDIR
+elif [[ -n $XDG_RUNTIME_DIR && -d $XDG_RUNTIME_DIR && -w $XDG_RUNTIME_DIR ]]; then
+  sock=$XDG_RUNTIME_DIR
 elif [[ -n $TMPDIR && -d $TMPDIR && -w $TMPDIR ]]; then
   sock=$TMPDIR
 elif [[ -d /tmp && -w /tmp ]]; then
