@@ -93,16 +93,16 @@ zstyle ':z4h:direnv' enable 'no'
 
 # Enable ('yes') or disable ('no') automatic teleportation of z4h over
 # Defer to custom implementation.
-zstyle ':z4h:ssh:*'                    enable 'yes'
+zstyle ':z4h:ssh:*'                       enable 'yes'
 # Determine using :my:z4h:ssh:<user>:<host>:<port> settings.
-zstyle ':my:z4h:ssh:maia*:*:*'            enable 'yes'
-zstyle ':my:z4h:ssh:*yeager:*:*'          enable 'yes'
+zstyle ':my:z4h:ssh:maia*:*'              enable 'yes'
+zstyle ':my:z4h:ssh:*yeager:*'            enable 'yes'
 zstyle ':my:z4h:ssh:*:*.am.yeagers.co:22' enable 'yes'
-zstyle ':my:z4h:ssh:*:*:*'                enable 'no'
+zstyle ':my:z4h:ssh:*'                    enable 'no'
 
 # Copy these environment variables over to the remote host.
-zstyle ':my:z4h:ssh:*:*' send-vars-prefix LC_MY_Z4H_
-zstyle ':my:z4h:ssh:*:*' send-vars        COLORTERM
+zstyle ':my:z4h:ssh:*' send-vars-prefix LC_MY_Z4H_
+zstyle ':my:z4h:ssh:*' send-vars        COLORTERM
 
 # Explicitly set the default command, so Z4H doesn't override settings
 # from .ssh/config
