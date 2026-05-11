@@ -198,7 +198,7 @@ fpath=(
 )
 
 # Source additional local files if they exist.
-z4h source $XDG_CONFIG_HOME/env.d/*(N)
+z4h source $XDG_CONFIG_HOME/env.d/[^_]*(N)
 
 # This function is invoked by zsh4humans on every ssh command after
 # the instructions from ssh-related zstyles have been applied. It allows
