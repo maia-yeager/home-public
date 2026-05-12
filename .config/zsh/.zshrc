@@ -213,7 +213,7 @@ command -v mise &>/dev/null && eval "$(mise activate zsh)"
 # z4h load   ohmyzsh/ohmyzsh/plugins/emoji-clock  # load a plugin
 
 # Autoload functions.
-autoload -Uz -- zmv $zsh_site_fns/[^_]*(N:t)
+autoload -Uz -- age zmv $zsh_site_fns/[^_]*(N:t)
 [[ $COLORTERM = *(24bit|truecolor)* ]] || zmodload zsh/nearcolor
 
 # Define key bindings.
