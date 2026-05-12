@@ -1,3 +1,4 @@
+#!/usr/bin/env zsh
 # No emulate zsh here because it calls reset-prompt.
 
 if (( ARGC == 0 )); then

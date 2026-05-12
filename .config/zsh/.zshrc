@@ -36,11 +36,11 @@ elif [[ -n $TMPDIR && -d $TMPDIR && -w $TMPDIR ]]; then
 elif [[ -d /tmp && -w /tmp ]]; then
   sock=/tmp
 fi
-if ! command -v tmux &> /dev/null || [[
+if ! command -v tmux &>/dev/null || [[
   -z $sock
   || -z $Z4H_SSH # SSH tmux within local tmux isn't a great experience.
   || $TERM_PROGRAM == tmux
-  || $TERMINAL_EMULATOR == JetBrains-JediTerm
+  || $TERMINAL_EMULATOR = JetBrains*
 ]]; then
   zstyle ':z4h:' start-tmux 'no'
 else
@@ -48,7 +48,7 @@ else
   local tmux_args=(-uf $tmux_config)
   local -a tmux_cmds=()
   # Enable iTerm tmux integration.
-  [[ ${LC_TERMINAL} == iTerm2 ]] && tmux_args+=(-CC)
+  [[ $LC_TERMINAL == iTerm2 ]] && tmux_args+=(-CC)
 
   # Below adapted from Z4H built-in tmux logic.
   # Specify supported terminal colours and features.
@@ -166,13 +166,13 @@ export MANPAGER='less +Gg' # Show scroll progress in man pages.
 export PAGER='less'
 
 # Set editor in order of preference based on what's available.
-if command -v nano &> /dev/null; then
+if command -v nano &>/dev/null; then
   export VISUAL=nano
-elif command -v pico &> /dev/null; then
+elif command -v pico &>/dev/null; then
   export VISUAL=pico
-elif command -v vim &> /dev/null; then
+elif command -v vim &>/dev/null; then
   export VISUAL=vim
-elif command -v vi &> /dev/null; then
+elif command -v vi &>/dev/null; then
   export VISUAL=vi
 fi
 # Compatibility for tools that don't support $VISUAL.
@@ -285,7 +285,7 @@ if [[ -z $Z4H_SSH ]]; then
     ln -sf ${ssh_auth_sock} ${SSH_AUTH_SOCK}
   fi
 fi
-command -v mise &> /dev/null && eval "$(mise activate zsh)"
+command -v mise &>/dev/null && eval "$(mise activate zsh)"
 
 # Use additional Git repositories pulled in with `z4h install`.
 #
@@ -294,21 +294,21 @@ command -v mise &> /dev/null && eval "$(mise activate zsh)"
 # z4h load   ohmyzsh/ohmyzsh/plugins/emoji-clock  # load a plugin
 
 # Autoload functions.
-autoload -Uz -- zmv ${zsh_site_fns}/[^_]*(N:t)
+autoload -Uz -- zmv $zsh_site_fns/[^_]*(N:t)
 [[ $COLORTERM = *(24bit|truecolor)* ]] || zmodload zsh/nearcolor
 
 # Define key bindings.
-z4h bindkey     z4h-eof                 Ctrl+D              # help make transient prompt behave consistently from SSH
-z4h bindkey     undo                    Ctrl+/ Shift+Tab    # undo the last command line change
-z4h bindkey     redo                    Option+/            # redo the last undone command line change
+z4h bindkey     z4h-eof             Ctrl+D              # help make transient prompt behave consistently from SSH
+z4h bindkey     undo                Ctrl+/ Shift+Tab    # undo the last command line change
+z4h bindkey     redo                Option+/            # redo the last undone command line change
 
-z4h bindkey     z4h-cd-back             Shift+Left          # cd into the previous directory
-z4h bindkey     z4h-cd-forward          Shift+Right         # cd into the next directory
-z4h bindkey     z4h-cd-up               Shift+Up            # cd into the parent directory
-z4h bindkey     z4h-cd-down             Shift+Down          # cd into a child directory
+z4h bindkey     z4h-cd-back         Shift+Left          # cd into the previous directory
+z4h bindkey     z4h-cd-forward      Shift+Right         # cd into the next directory
+z4h bindkey     z4h-cd-up           Shift+Up            # cd into the parent directory
+z4h bindkey     z4h-cd-down         Shift+Down          # cd into a child directory
 if (( $+functions[toggle-home-git-repo] )); then
   zle -N toggle-home-git-repo
-  z4h bindkey toggle-home-git-repo    Ctrl+P              # cycle home git repository
+  z4h bindkey toggle-home-git-repo  Ctrl+P              # cycle home git repository
 fi
 
 # Define functions and completions.
@@ -339,7 +339,7 @@ function free-port {
     kill $(awk 'NR > 1 {print $2}' <<< $processes)
 }
 
-if command -v ffmpeg &> /dev/null; then
+if command -v ffmpeg &>/dev/null; then
   function dv { discord-video $@ }
   compdef _files discord-video dv
 fi
@@ -353,7 +353,7 @@ compdef _directories md
 
 # Define aliases. If using mixing functions and aliases, use the format
 # `${=aliases[eza]:-eza}` to expand the alias like non-zsh shells.
-if command -v apfel-run &> /dev/null; then
+if command -v apfel-run &>/dev/null; then
   alias ai="${aliases[apfel-run]:-apfel-run}"
   alias cmd="${aliases[apfel-run]:-apfel-run} -p cmd"
   alias explain="${aliases[apfel-run]:-apfel-run} -p explain"
@@ -362,7 +362,7 @@ alias cat="${aliases[cat]:-cat} -v"
 alias clear="z4h-clear-screen-soft-top"
 alias colors="colours"
 alias diff="${aliases[diff]:-diff} --color=auto -u"
-if command -v eza &> /dev/null; then
+if command -v eza &>/dev/null; then
   function la { ${=aliases[eza]:-eza} --icons -1aaglo $@ }
   function ll { ${=aliases[eza]:-eza} --icons -1glo $@ }
   function ls { ${=aliases[eza]:-eza} --icons $@ }
@@ -373,14 +373,14 @@ else
   compdef _ls la ll
 fi
 alias fp="free-port"
-if command -v htop &> /dev/null; then
+if command -v htop &>/dev/null; then
   function top { ${=aliases[htop]:-htop} $@ }
   compdef _htop top
 fi
-command -v mise &> /dev/null && alias x="${aliases[mise]:-mise} run"
+command -v mise &>/dev/null && alias x="${aliases[mise]:-mise} run"
 alias root="sudo -Es"
-command -v say &> /dev/null && alias say="${aliases[say]:-say} --interactive"
-if command -v tree &> /dev/null; then
+command -v say &>/dev/null && alias say="${aliases[say]:-say} --interactive"
+if command -v tree &>/dev/null; then
   alias tree="${aliases[tree]:-tree} -aI .git"
   function lt { ${=aliases[tree]:-tree} --gitignore --metafirst --noreport $@ }
   compdef _tree lt

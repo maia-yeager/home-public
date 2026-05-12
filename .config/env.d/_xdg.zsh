@@ -1,26 +1,54 @@
-# Coerce non-conformant apps to use XDG-like file structures.
-[[ -n $IS_MACOS ]] && defaults write org.hammerspoon.Hammerspoon MJConfigFile ${XDG_CONFIG_HOME}/hammerspoon/init.lua
-export ANDROID_AVD_HOME=$XDG_DATA_HOME/android/avd
+# Explicitly set the XDG basedir spec, sinc some tools ignore the spec if
+# not set.
+export XDG_RUNTIME_DIR=${XDG_RUNTIME_DIR:-${$(
+  getconf DARWIN_USER_TEMP_DIR 2>/dev/null
+):-/run/user/$UID}}
+export XDG_CACHE_HOME=${XDG_DATA_HOME:-$HOME/.cache}
+export XDG_CONFIG_HOME=${XDG_CONFIG_HOME:-$HOME/.config}
+export XDG_DATA_HOME=${XDG_DATA_HOME:-$HOME/.local/share}
+export XDG_STATE_HOME=${XDG_STATE_HOME:-$HOME/.local/state}
+
+# Coerce non-conformant apps to use XDG-like file structures where feasible.
+# Android Studio
 export ANDROID_USER_HOME=$XDG_DATA_HOME/android
-export CARGO_HOME=$XDG_DATA_HOME/cargo
+export ANDROID_AVD_HOME=$ANDROID_USER_HOME/avd
+command -v adb &>/dev/null && alias adb="HOME=$ANDROID_USER_HOME ${aliases[adb]:-adb}"
+# bash
+command -v bash &>/dev/null && alias bash="HISTFILE=$XDG_STATE_HOME/bash/history ${aliases[bash]:-bash}"
+# Copilot
 export COPILOT_HOME=$XDG_DATA_HOME/copilot
+# gnupg
 export GNUPGHOME=$XDG_DATA_HOME/gnupg
+# go
 export GOPATH=$XDG_DATA_HOME/go
-export GVIMINIT='let $MYGVIMRC="$XDG_CONFIG_HOME/vim/gvimrc" | source $MYGVIMRC'
-export LESSHISTFILE=$XDG_STATE_HOME/lesshst # for versions lower than 598
+# Hammerspoon
+[[ -n $IS_MACOS ]] &&
+  defaults write org.hammerspoon.Hammerspoon MJConfigFile ${XDG_CONFIG_HOME}/hammerspoon/init.lua
+# less, for versions lower than 598
+export LESSHISTFILE=$XDG_STATE_HOME/lesshst
+# ncurses
+export TERMINFO=$XDG_DATA_HOME/terminfo
+export TERMINFO_DIRS=$XDG_DATA_HOME/terminfo:/usr/share/terminfo
+# Node.js
 export NODE_REPL_HISTORY=$XDG_STATE_HOME/node_repl_history
 export NPM_CONFIG_CACHE=$XDG_CACHE_HOME/npm
 export NPM_CONFIG_INIT_MODULE=$XDG_CONFIG_HOME/npm/config/npm-init.js
 export NPM_CONFIG_TMP=$XDG_RUNTIME_DIR/npm
 export NPM_CONFIG_USERCONFIG=$XDG_CONFIG_HOME/npm/npmrc
+# Python, for versions lower than 3.13.0a3
 export PYTHON_HISTORY=$XDG_STATE_HOME/python_history
-export PYTHONSTARTUP=$XDG_CONFIG_HOME/python/pythonrc # for versions lower than 3.13.0a3
+export PYTHONSTARTUP=$XDG_CONFIG_HOME/python/pythonrc
+# Rust
+export CARGO_HOME=$XDG_DATA_HOME/cargo
 export RUSTUP_HOME=$XDG_DATA_HOME/rustup
+# screen
 export SCREENRC=$XDG_CONFIG_HOME/screen/screenrc
+# sh
+command -v sh &>/dev/null && alias sh="HISTFILE=$XDG_STATE_HOME/sh/history ${aliases[sh]:-sh}"
+# SQLite
 export SQLITE_HISTORY=$XDG_STATE_HOME/sqlite_history
-export TERMINFO=$XDG_DATA_HOME/terminfo
-export TERMINFO_DIRS=$XDG_DATA_HOME/terminfo:/usr/share/terminfo
+# Vim
+export GVIMINIT='let $MYGVIMRC="$XDG_CONFIG_HOME/vim/gvimrc" | source $MYGVIMRC'
 export VIMINIT='let $MYVIMRC="$XDG_CONFIG_HOME/vim/vimrc" | source $MYVIMRC'
-command -v adb &> /dev/null && alias adb="HOME=$XDG_DATA_HOME/android ${aliases[adb]:-adb}"
-command -v bash &> /dev/null && alias bash="HISTFILE=$XDG_STATE_HOME/bash/history ${aliases[bash]:-bash}"
-command -v wget &> /dev/null && alias wget="${aliases[wget]:-wget} --hsts-file=$XDG_DATA_HOME/wget-hsts"
+# wget
+command -v wget &>/dev/null && alias wget="${aliases[wget]:-wget} --hsts-file=$XDG_DATA_HOME/wget-hsts"
