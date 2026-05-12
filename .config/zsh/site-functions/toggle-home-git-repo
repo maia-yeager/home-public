@@ -4,11 +4,11 @@
 if (( ARGC == 0 )); then
   case "${GIT_DIR-}" in
     '')
-      export GIT_DIR=~/.git-public
+      export GIT_DIR=$XDG_DATA_HOME/home/public
       export GIT_WORK_TREE=~
     ;;
-    ~/.git-public)
-      export GIT_DIR=~/.git-private
+    $XDG_DATA_HOME/home/public)
+      export GIT_DIR=$XDG_DATA_HOME/home/private
       export GIT_WORK_TREE=~
     ;;
     *)
@@ -19,11 +19,11 @@ if (( ARGC == 0 )); then
 elif (( ARGC == 1 )); then
   case "$1" in
     public)
-      export GIT_DIR=~/.git-public
+      export GIT_DIR=$XDG_DATA_HOME/home/public
       export GIT_WORK_TREE=~
     ;;
     private)
-      export GIT_DIR=~/.git-private
+      export GIT_DIR=$XDG_DATA_HOME/home/private
       export GIT_WORK_TREE=~
     ;;
     '')

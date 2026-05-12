@@ -1,8 +1,8 @@
 [include]
     path = config.d/*.local.gitconfig
-[includeIf "gitdir/i:~/.git-public"]
+[includeIf "gitdir/i:~/.local/share/home/public"]
     path = config.d/public.gitconfig
-[includeIf "gitdir/i:~/.git-private"]
+[includeIf "gitdir/i:~/.local/share/home/private"]
     path = config.d/private.gitconfig
 [gpg]
     format = ssh
