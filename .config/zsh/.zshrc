@@ -308,6 +308,9 @@ if command -v tree &>/dev/null; then
   function lt { ${=aliases[tree]:-tree} --gitignore --metafirst --noreport $@ }
   compdef _tree lt
 fi
+# Disable globbing for specific commands.
+for com in alias expr find mattrib mcopy mdir mdel which;
+  alias $com="noglob $com"
 
 }
 
