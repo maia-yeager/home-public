@@ -1,0 +1,2 @@
+[core]
+    excludesFile = ~/.config/git/conf.d/private.gitignore

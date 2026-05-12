@@ -1,4 +1,4 @@
-# root directories
+# static items
 /.cache/
 # https://github.com/expo/expo/discussions/18448
 /.expo/
@@ -18,12 +18,12 @@
 /Obsidian/
 /Pictures/
 /Public/
-
-# root files
 /.CFUserTextEncoding
-# floating files
+# floating items
 *.sock
 *.swp
+*_history
+.history/
 
 
 ### Linux

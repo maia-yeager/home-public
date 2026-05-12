@@ -1,5 +1,0 @@
-/.ssh/authorized_keys
-/.ssh/known_hosts
-/.config/env.d/secrets.zsh
-.history/
-*_history
