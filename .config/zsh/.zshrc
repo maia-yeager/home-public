@@ -310,6 +310,10 @@ if (( $+functions[toggle-home-git-repo] )); then
   zle -N toggle-home-git-repo
   z4h bindkey toggle-home-git-repo  Ctrl+P              # cycle home git repository
 fi
+if (( $+functions[rationalize-dot] )); then
+  zle -N rationalize-dot
+  z4h bindkey rationalize-dot       .
+fi
 
 # Define functions and completions.
 # List terminal colour codes.
