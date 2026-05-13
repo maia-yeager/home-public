@@ -8,8 +8,6 @@
 () {
 
 # Lifted variables that are required for zstyle configuration commands.
-export ITERM_ENABLE_SHELL_INTEGRATION_WITH_TMUX=1
-
 local tmux_config=$XDG_CONFIG_HOME/tmux/tmux.conf
 
 # If you are using a two-line prompt with an empty line before it, add this
