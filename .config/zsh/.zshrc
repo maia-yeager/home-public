@@ -239,34 +239,14 @@ function colours {
   done
 }
 
-# Free up an in-use port.
-function free-port {
-  emulate -L zsh
-
-  local input=${1:?Specify a port, e.g. 80}
-  # Prepend "tcp:" if no protocol is specified.
-  local port=${${${input:#(tcp|udp):*}:+tcp:$input}:-$input}
-  local -a args=(-wi ${port})
-  [[ ${port} = tcp:* ]] && args+=(-s tcp:LISTEN)
-
-  local processes=$(sudo lsof $args)
-  if [[ -z ${processes} ]]; then
-    echo No processes found listening on $port.
-    return 1
-  fi
-  echo "Found the following processes:\n\n$processes\n"
-  read -q "?Press Y/y to kill the above processes: " &&
-    kill $(awk 'NR > 1 {print $2}' <<< $processes)
-}
+# Make directory and switch to it.
+function md { [[ $# == 1 ]] && mkdir -p -- ${1} && cd -- ${1} }
+compdef _directories md
 
 if command -v ffmpeg &>/dev/null; then
   function dv { discord-video $@ }
   compdef _files discord-video dv
 fi
-
-# Make directory and switch to it.
-function md { [[ $# == 1 ]] && mkdir -p -- ${1} && cd -- ${1} }
-compdef _directories md
 
 # Define named directories: ~w <=> Windows home directory on WSL.
 [[ -n $z4h_win_home ]] && hash -d w=$z4h_win_home

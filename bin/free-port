@@ -1,0 +1,18 @@
+#!/bin/zsh
+
+emulate -L zsh
+
+local input=${1:?Specify a port, e.g. 80}
+# Prepend "tcp:" if no protocol is specified.
+local port=${${${input:#(tcp|udp):*}:+tcp:$input}:-$input}
+local -a args=(-wi ${port})
+[[ ${port} = tcp:* ]] && args+=(-s tcp:LISTEN)
+
+local processes=$(sudo lsof $args)
+if [[ -z ${processes} ]]; then
+  echo No processes found listening on $port.
+  return 1
+fi
+echo "Found the following processes:\n\n$processes\n"
+read -q "?Press Y/y to kill the above processes: " &&
+  kill $(awk 'NR > 1 {print $2}' <<< $processes)
