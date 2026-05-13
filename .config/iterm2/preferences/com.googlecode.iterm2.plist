@@ -3429,6 +3429,9 @@
 				<string>zsh</string>
 				<string>bash</string>
 				<string>sh</string>
+				<string>man</string>
+				<string>bat</string>
+				<string>less</string>
 			</array>
 			<key>Keyboard Map</key>
 			<dict>
