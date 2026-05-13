@@ -131,6 +131,7 @@ local -a ssh_extra_files=(
   $xdg_config_home/nano
   $xdg_config_home/python
   $xdg_config_home/vim
+  $xdg_config_home/zsh/zle
 )
 zstyle ':z4h:ssh:*' send-extra-files $ssh_extra_files
 
@@ -194,9 +195,9 @@ path=(
   $ANDROID_HOME/emulator
   $ANDROID_HOME/platform-tools
 )
-local zsh_site_fns=$XDG_CONFIG_HOME/zsh/site-functions
+local zle_fns=$XDG_CONFIG_HOME/zsh/zle
 fpath=(
-  $zsh_site_fns
+  $zle_fns
   $fpath
 )
 
@@ -213,26 +214,24 @@ command -v mise &>/dev/null && eval "$(mise activate zsh)"
 # z4h load   ohmyzsh/ohmyzsh/plugins/emoji-clock  # load a plugin
 
 # Autoload functions.
-autoload -Uz -- age zmv $zsh_site_fns/[^_]*(N:t)
+autoload -Uz -- age zmv _init-zle
+(( $+functions[_init-zle] )) && _init-zle
 [[ $COLORTERM = *(24bit|truecolor)* ]] || zmodload zsh/nearcolor
 
 # Define key bindings.
-z4h bindkey     z4h-eof             Ctrl+D              # help make transient prompt behave consistently from SSH
-z4h bindkey     undo                Ctrl+/ Shift+Tab    # undo the last command line change
-z4h bindkey     redo                Option+/            # redo the last undone command line change
+z4h bindkey   z4h-eof                     Ctrl+D            # help make transient prompt behave consistently from SSH
+z4h bindkey   undo                        Ctrl+/ Shift+Tab  # undo the last command line change
+z4h bindkey   redo                        Option+/          # redo the last undone command line change
 
-z4h bindkey     z4h-cd-back         Shift+Left          # cd into the previous directory
-z4h bindkey     z4h-cd-forward      Shift+Right         # cd into the next directory
-z4h bindkey     z4h-cd-up           Shift+Up            # cd into the parent directory
-z4h bindkey     z4h-cd-down         Shift+Down          # cd into a child directory
-if (( $+functions[toggle-home-git-repo] )); then
-  zle -N toggle-home-git-repo
-  z4h bindkey toggle-home-git-repo  Ctrl+P              # cycle home git repository
+z4h bindkey   z4h-cd-back                 Shift+Left        # cd into the previous directory
+z4h bindkey   z4h-cd-forward              Shift+Right       # cd into the next directory
+z4h bindkey   z4h-cd-up                   Shift+Up          # cd into the parent directory
+z4h bindkey   z4h-cd-down                 Shift+Down        # cd into a child directory
+
+if [[ -z $Z4H_SSH ]]; then
+  z4h bindkey local.toggle-home-git-repo  Ctrl+P            # cycle home git repository
 fi
-if (( $+functions[rationalize-dot] )); then
-  zle -N rationalize-dot
-  z4h bindkey rationalize-dot       .
-fi
+z4h bindkey   rationalize-dot       .
 
 # Define functions and completions.
 # List terminal colour codes.
