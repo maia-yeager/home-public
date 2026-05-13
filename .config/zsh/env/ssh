@@ -1,3 +1,5 @@
+#!/usr/bin/env zsh
+
 () {
 
 # Link the local SSH authentication socket. Account for Z4H possibly not being

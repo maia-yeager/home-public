@@ -119,7 +119,6 @@ local -a ssh_extra_files=(
   $ssh_dir/conf.d
   $ssh_dir/config
   ${tmux_config/#$HOME/\~}
-  $xdg_config_home/env.d
   $xdg_config_home/git/config
   $xdg_config_home/git/ignore
   $xdg_config_home/glow
@@ -129,6 +128,7 @@ local -a ssh_extra_files=(
   $xdg_config_home/nano
   $xdg_config_home/python
   $xdg_config_home/vim
+  $xdg_config_home/zsh/env
   $xdg_config_home/zsh/zle
 )
 zstyle ':z4h:ssh:*' send-extra-files $ssh_extra_files
@@ -200,7 +200,7 @@ fpath=(
 )
 
 # Source additional local files if they exist.
-z4h source $XDG_CONFIG_HOME/env.d/[^_]*(N)
+z4h source $XDG_CONFIG_HOME/zsh/env/[^_.]*(N)
 
 # Application configuration.
 command -v mise &>/dev/null && eval "$(mise activate zsh)"

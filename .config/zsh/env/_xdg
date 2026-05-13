@@ -1,3 +1,5 @@
+#!/usr/bin/env zsh
+
 # Explicitly set the XDG basedir spec, sinc some tools ignore the spec if
 # not set.
 export XDG_RUNTIME_DIR=${XDG_RUNTIME_DIR:-${$(

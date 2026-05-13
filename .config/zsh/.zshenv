@@ -10,8 +10,8 @@ if [ -n "${ZSH_VERSION-}" ]; then
   # If you are certain that you must export some environment variables
   # in ~/.zshenv (see comments at the top!), do it here:
   export DO_NOT_TRACK=1
-  source ${XDG_CONFIG_HOME:-$HOME/.config}/env.d/_os.zsh
-  source ${XDG_CONFIG_HOME:-$HOME/.config}/env.d/_xdg.zsh
+  source ${XDG_CONFIG_HOME:-$HOME/.config}/zsh/env/_os
+  source ${XDG_CONFIG_HOME:-$HOME/.config}/zsh/env/_xdg
 
   # Do not change anything else in this file.
 
