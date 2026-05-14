@@ -150,6 +150,8 @@ zstyle ':z4h:term-title:ssh' precmd  '􀤆 %n@'${${${Z4H_SSH##*:}//\%/%%}:-%m}':
 # example. If you don't plan to use Oh My Zsh, delete this line.
 # z4h install ohmyzsh/ohmyzsh || return
 
+}
+
 # Install or update core components (fzf, zsh-autosuggestions, etc.) and
 # initialize Zsh. After this point console I/O is unavailable until Zsh
 # is fully initialized. Everything that requires user interaction or can
@@ -271,8 +273,6 @@ for com in alias expr find mattrib mcopy mdir mdel which;
 # Enable Bash-like keyboard handling for editors.
 for com in dash nc;
   alias $com="${aliases[rlwrap]:-rlwrap} $com"
-
-}
 
 # Set shell options: http://zsh.sourceforge.net/Doc/Release/Options.html.
 setopt glob_dots     # no special treatment for file names with a leading dot
