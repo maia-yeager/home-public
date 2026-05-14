@@ -28,8 +28,8 @@ z4h_ssh_prelude+=(
   'my_z4h_ssh_auth_sock="$HOME/.ssh/agent.sock"'
   '
   if test -e "$SSH_AUTH_SOCK"; then
-    ln -sf "$SSH_AUTH_SOCK" "$my_z4h_ssh_auth_sock"
-    export SSH_AUTH_SOCK="$my_z4h_ssh_auth_sock"
+    ln -sf "$SSH_AUTH_SOCK" "$my_z4h_ssh_auth_sock" &&
+      export SSH_AUTH_SOCK="$my_z4h_ssh_auth_sock"
   else
     rm -f "$my_z4h_ssh_auth_sock"
   fi
