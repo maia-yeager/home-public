@@ -232,7 +232,7 @@ else
   function ll { ${=aliases[ls]:-ls} -l $@ }
   compdef _ls la ll
 fi
-if command -v ffmpeg &>/dev/null; then
+if command -v discord-video &>/dev/null; then
   function dv { discord-video $@ }
   compdef _files discord-video dv
 fi
