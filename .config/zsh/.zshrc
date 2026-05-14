@@ -190,9 +190,8 @@ path=(
   $ANDROID_HOME/emulator
   $ANDROID_HOME/platform-tools
 )
-local zle_fns=$XDG_CONFIG_HOME/zsh/zle
 fpath=(
-  $zle_fns
+  $XDG_CONFIG_HOME/zsh/zle
   $fpath
 )
 
@@ -209,8 +208,8 @@ command -v mise &>/dev/null && eval "$(mise activate zsh)"
 # z4h load   ohmyzsh/ohmyzsh/plugins/emoji-clock  # load a plugin
 
 # Autoload functions.
-autoload -Uz -- age zmv _init-zle
-(( $+functions[_init-zle] )) && _init-zle
+autoload -Uz -- age zmv -init-zle
+(( $+functions[-init-zle] )) && -init-zle
 [[ $COLORTERM = *(24bit|truecolor)* ]] || zmodload zsh/nearcolor
 
 # Define key bindings.

@@ -1,5 +1,5 @@
 #!/usr/bin/env zsh
 
-local zle_fns=($XDG_CONFIG_HOME/zsh/zle/[^_]*(N))
+local zle_fns=($XDG_CONFIG_HOME/zsh/zle/[^_-]*(N))
 autoload -Uz -- $zle_fns
 for fn (${zle_fns:t}) zle -N $fn
