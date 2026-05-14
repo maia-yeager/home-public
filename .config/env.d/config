@@ -1,0 +1,24 @@
+#!/usr/bin/env sh
+
+export ANDROID_HOME="$HOME/Library/Android/sdk"
+export DO_NOT_TRACK=1
+export GPG_TTY="$TTY"
+export LESS='-iMR~ --tabs=4 --window=-4'
+export MANPAGER='less +Gg' # Show scroll progress in man pages.
+export PAGER='less'
+
+# Set editor in order of preference based on what's available.
+if command -v nano >/dev/null 2>&1; then
+  export VISUAL='nano'
+elif command -v pico >/dev/null 2>&1; then
+  export VISUAL='pico'
+elif command -v vim >/dev/null 2>&1; then
+  export VISUAL='vim'
+elif command -v vi >/dev/null 2>&1; then
+  export VISUAL='vi'
+fi
+# Compatibility for tools that don't support $VISUAL.
+if [ -n "$VISUAL" ]; then
+  export EDITOR="$VISUAL"
+  export SUDO_EDITOR="$VISUAL"
+fi

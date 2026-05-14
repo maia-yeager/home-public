@@ -110,12 +110,10 @@ zstyle ':z4h:ssh:*' ssh-command command ssh
 local ssh_dir='~/.ssh' # Quote to prevent in-place expansion.
 local xdg_config_home=${XDG_CONFIG_HOME/#$HOME/\~}
 local -a ssh_extra_files=(
-  ${NPM_CONFIG_USERCONFIG/#$HOME/\~}
-  ${SCREENRC/#$HOME/\~}
   $ssh_dir/allowed_signers
   $ssh_dir/conf.d
   $ssh_dir/config
-  ${TMUX_CONFIG/#$HOME/\~}
+  $xdg_config_home/env.d
   $xdg_config_home/git/config
   $xdg_config_home/git/ignore
   $xdg_config_home/glow
@@ -125,8 +123,12 @@ local -a ssh_extra_files=(
   $xdg_config_home/nano
   $xdg_config_home/python
   $xdg_config_home/vim
-  $xdg_config_home/zsh/env
+  $xdg_config_home/zsh/fn
   $xdg_config_home/zsh/zle
+  ${NPM_CONFIG_USERCONFIG/#$HOME/\~}
+  ${SCREENRC/#$HOME/\~}
+  ${TMUX_CONFIG/#$HOME/\~}
+  '~'/.profile
 )
 zstyle ':z4h:ssh:*' send-extra-files $ssh_extra_files
 
@@ -155,27 +157,7 @@ zstyle ':z4h:term-title:ssh' precmd  '􀤆 %n@'${${${Z4H_SSH##*:}//\%/%%}:-%m}':
 z4h init || return
 
 # Export environment variables.
-export ANDROID_HOME=$HOME/Library/Android/sdk
-export GPG_TTY=$TTY
-export LESS='-iMR~ --tabs=4 --window=-4'
-export MANPAGER='less +Gg' # Show scroll progress in man pages.
-export PAGER='less'
-
-# Set editor in order of preference based on what's available.
-if command -v nano &>/dev/null; then
-  export VISUAL=nano
-elif command -v pico &>/dev/null; then
-  export VISUAL=pico
-elif command -v vim &>/dev/null; then
-  export VISUAL=vim
-elif command -v vi &>/dev/null; then
-  export VISUAL=vi
-fi
-# Compatibility for tools that don't support $VISUAL.
-if [[ -n $VISUAL ]]; then
-  export EDITOR=$VISUAL
-  export SUDO_EDITOR=$VISUAL
-fi
+# export DO_NOT_TRACK=1
 
 # Extend PATH.
 path=(
@@ -191,12 +173,13 @@ path=(
   $ANDROID_HOME/platform-tools
 )
 fpath=(
+  $XDG_CONFIG_HOME/zsh/fn
   $XDG_CONFIG_HOME/zsh/zle
   $fpath
 )
 
 # Source additional local files if they exist.
-z4h source $XDG_CONFIG_HOME/zsh/env/[^_.]*(N)
+z4h source $XDG_CONFIG_HOME/env.d/[^_.]*(N)
 
 # Application configuration.
 command -v mise &>/dev/null && eval "$(mise activate zsh)"
@@ -208,7 +191,7 @@ command -v mise &>/dev/null && eval "$(mise activate zsh)"
 # z4h load   ohmyzsh/ohmyzsh/plugins/emoji-clock  # load a plugin
 
 # Autoload functions.
-autoload -Uz -- age zmv -init-zle
+autoload -Uz -- -init-zle age z4h-ssh-configure zmv
 (( $+functions[-init-zle] )) && -init-zle
 [[ $COLORTERM = *(24bit|truecolor)* ]] || zmodload zsh/nearcolor
 
@@ -278,12 +261,16 @@ alias colors="colours"
 alias diff="${aliases[diff]:-diff} --color=auto -u"
 alias fp="free-port"
 command -v mise &>/dev/null && alias x="${aliases[mise]:-mise} run"
+command -v rlwrap &>/dev/null && alias rlwrap="${aliases[rlwrap]:-rlwrap} -Atdumb"
 alias root="sudo -Es"
 command -v say &>/dev/null && alias say="${aliases[say]:-say} --interactive"
 command -v tree &>/dev/null && alias tree="${aliases[tree]:-tree} -aI .git"
 # Disable globbing for specific commands.
 for com in alias expr find mattrib mcopy mdir mdel which;
   alias $com="noglob $com"
+# Enable Bash-like keyboard handling for editors.
+for com in dash nc;
+  alias $com="${aliases[rlwrap]:-rlwrap} $com"
 
 }
 

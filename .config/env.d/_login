@@ -1,0 +1,6 @@
+#!/usr/bin/env sh
+
+# Homebrew
+brew_path="/opt/homebrew/bin/brew"
+[ -f $brew_path ] && eval "$($brew_path shellenv)"
+unset brew_path

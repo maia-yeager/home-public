@@ -1,0 +1,19 @@
+#!/usr/bin/env sh
+
+# Link the local SSH authentication socket. Account for Z4H possibly not being
+# initialized (e.g. in a non-interactive shell).
+if [ -z "$Z4H_SSH" ] && [ -z "$SSH_CLIENT" ] && [ -z "$SSH_HOST" ]; then
+  auth_sock_target="$HOME/.ssh/agent.sock"
+  if [ -n "$IS_MACOS" ]; then
+    auth_sock_source="$HOME/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock"
+  else
+    auth_sock_source="$HOME/.1password/agent.sock"
+  fi
+  if [ -e "$auth_sock_source" ]; then
+    ln -sf "$auth_sock_source" "$auth_sock_target" &&
+      export SSH_AUTH_SOCK="$auth_sock_target"
+  else
+    rm -f "$auth_sock_target"
+  fi
+fi
+unset auth_sock_source auth_sock_target

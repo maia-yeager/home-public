@@ -1,12 +1,7 @@
-() {
-
-# Only load if not an interactive shell (e.g. Sublime Merge).
+# Don't duplicate work done by z4h and .zshrc.
 if [[ ! -o interactive ]]; then
-  local brew_path=/opt/homebrew/bin/brew
-  [[ -f $brew_path ]] && eval "$($brew_path shellenv)"
-
-  [[ -f $XDG_CONFIG_HOME/env.d/ssh.zsh ]] &&
-    source $XDG_CONFIG_HOME/env.d/ssh.zsh
+  source ${XDG_CONFIG_HOME:-$HOME/.config}/env.d/_login
+  # Re-source _xdg to process $PATH changes from _login
+  source ${XDG_CONFIG_HOME:-$HOME/.config}/env.d/_xdg
+  source $XDG_CONFIG_HOME/env.d/[^_.]*(N)
 fi
-
-}
