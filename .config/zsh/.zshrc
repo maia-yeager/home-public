@@ -7,9 +7,6 @@
 # Wrap in self-executing function for easy locals cleanup.
 () {
 
-# Lifted variables that are required for zstyle configuration commands.
-local tmux_config=$XDG_CONFIG_HOME/tmux/tmux.conf
-
 # If you are using a two-line prompt with an empty line before it, add this
 # for smoother rendering:
 POSTEDIT=$'\n\n\e[2A'
@@ -43,7 +40,7 @@ if ! command -v tmux &>/dev/null || [[
   zstyle ':z4h:' start-tmux 'no'
 else
   sock=${sock%/}/z4h-tmux-$UID-$TERM
-  local tmux_args=(-uf $tmux_config)
+  local tmux_args=(-uf $TMUX_CONFIG)
   local -a tmux_cmds=()
   # Enable iTerm tmux integration.
   [[ $LC_TERMINAL == iTerm2 ]] && tmux_args+=(-CC)
@@ -118,7 +115,7 @@ local -a ssh_extra_files=(
   $ssh_dir/allowed_signers
   $ssh_dir/conf.d
   $ssh_dir/config
-  ${tmux_config/#$HOME/\~}
+  ${TMUX_CONFIG/#$HOME/\~}
   $xdg_config_home/git/config
   $xdg_config_home/git/ignore
   $xdg_config_home/glow

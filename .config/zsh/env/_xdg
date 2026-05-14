@@ -49,6 +49,10 @@ export SCREENRC=$XDG_CONFIG_HOME/screen/screenrc
 command -v sh &>/dev/null && alias sh="HISTFILE=$XDG_STATE_HOME/sh/history ${aliases[sh]:-sh}"
 # SQLite
 export SQLITE_HISTORY=$XDG_STATE_HOME/sqlite_history
+# tmux, for versions lower than 3.1
+# While this SHOULD be an alias ($TMUX_CONFIG isn't a var used by tmux itself),
+# using a variable here and aliasing later makes bootstrapping easier.
+export TMUX_CONFIG=$XDG_CONFIG_HOME/tmux/tmux.conf
 # Vim
 export GVIMINIT='let $MYGVIMRC="$XDG_CONFIG_HOME/vim/gvimrc" | source $MYGVIMRC'
 export VIMINIT='let $MYVIMRC="$XDG_CONFIG_HOME/vim/vimrc" | source $MYVIMRC'
