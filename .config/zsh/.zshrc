@@ -105,32 +105,31 @@ zstyle ':my:z4h:ssh:*' send-vars        COLORTERM
 zstyle ':z4h:ssh:*' ssh-command command ssh
 
 # Send these files over to the remote host when connecting over SSH to the
-# enabled hosts. Ensure that home directory refs start with '~', not $HOME, in
-# case the local $HOME path doesn't match the remote $HOME path.
-local ssh_dir='~/.ssh' # Quote to prevent in-place expansion.
-local xdg_config_home=${XDG_CONFIG_HOME/#$HOME/\~}
-local -a ssh_extra_files=(
-  $ssh_dir/allowed_signers
-  $ssh_dir/conf.d
-  $ssh_dir/config
-  $xdg_config_home/env.d
-  $xdg_config_home/git/config
-  $xdg_config_home/git/ignore
-  $xdg_config_home/glow
-  $xdg_config_home/homebrew
-  $xdg_config_home/htop
-  $xdg_config_home/mise
-  $xdg_config_home/nano
-  $xdg_config_home/python
-  $xdg_config_home/vim
-  $xdg_config_home/zsh/fn
-  $xdg_config_home/zsh/zle
-  ${NPM_CONFIG_USERCONFIG/#$HOME/\~}
-  ${SCREENRC/#$HOME/\~}
-  ${TMUX_CONFIG/#$HOME/\~}
-  '~'/.profile
+# enabled hosts.
+local -aU ssh_extra_files=(
+  $HOME/.profile
+  $HOME/.ssh/allowed_signers
+  $HOME/.ssh/conf.d
+  $HOME/.ssh/config
+  $NPM_CONFIG_USERCONFIG
+  $SCREENRC
+  $TMUX_CONFIG
+  $XDG_CONFIG_HOME/env.d
+  $XDG_CONFIG_HOME/git/config
+  $XDG_CONFIG_HOME/git/ignore
+  $XDG_CONFIG_HOME/glow
+  $XDG_CONFIG_HOME/homebrew
+  $XDG_CONFIG_HOME/htop
+  $XDG_CONFIG_HOME/mise
+  $XDG_CONFIG_HOME/nano
+  $XDG_CONFIG_HOME/python
+  $XDG_CONFIG_HOME/vim
+  $XDG_CONFIG_HOME/zsh/fn
+  $XDG_CONFIG_HOME/zsh/zle
 )
-zstyle ':z4h:ssh:*' send-extra-files $ssh_extra_files
+# Ensure that home directory refs start with '~', not $HOME, since the remote
+# $HOME path might not match the local $HOME path.
+zstyle ':z4h:ssh:*' send-extra-files ${ssh_extra_files/#$HOME/\~}
 
 zstyle ':completion:*:ssh:argument-1:'       tag-order  hosts users
 zstyle ':completion:*:scp:argument-rest:'    tag-order  hosts files users
