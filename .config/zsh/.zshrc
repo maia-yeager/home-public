@@ -106,10 +106,9 @@ zstyle ':z4h:ssh:*' ssh-command command ssh
 
 # Send these files over to the remote host when connecting over SSH to the
 # enabled hosts.
-local -aU ssh_extra_files=(
+local -aU ssh_global_extra_files=(
   $HOME/.profile
   $HOME/.ssh/allowed_signers
-  $HOME/.ssh/conf.d
   $HOME/.ssh/config
   $NPM_CONFIG_USERCONFIG
   $SCREENRC
@@ -129,7 +128,12 @@ local -aU ssh_extra_files=(
 )
 # Ensure that home directory refs start with '~', not $HOME, since the remote
 # $HOME path might not match the local $HOME path.
-zstyle ':z4h:ssh:*' send-extra-files ${ssh_extra_files/#$HOME/\~}
+zstyle ':z4h:ssh:*'               send-extra-files ${ssh_global_extra_files/#$HOME/\~}
+local -aU ssh_home_extra_files=(
+  $ssh_global_extra_files
+  $HOME/.ssh/conf.d/home
+)
+zstyle ':z4h:ssh:*.am.yeagers.co' send-extra-files ${ssh_home_extra_files/#$HOME/\~}
 
 zstyle ':completion:*:ssh:argument-1:'       tag-order  hosts users
 zstyle ':completion:*:scp:argument-rest:'    tag-order  hosts files users
