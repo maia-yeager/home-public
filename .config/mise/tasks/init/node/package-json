@@ -10,10 +10,7 @@ fi
 jq --indent 2 '.' << EOF > package.Ω.json
 {
   "main": null,
-  "module": null,
-  "license": "AGPL-3.0-only",
-  "private": true,
-  "version": "0.1.0"
+  "module": null
 }
 EOF
 
