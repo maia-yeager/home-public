@@ -17,6 +17,8 @@ idiomatic_version_file_enable_tools = [
 trusted_config_paths = [
   '~/dev',
 ]
+# load env vars from a dotenv file, see `MISE_ENV_FILE`
+env_file = '.env'
 
 [settings.npm]
 package_manager = "bun"
