@@ -21,6 +21,10 @@ trusted_config_paths = [
 [settings.npm]
 package_manager = "bun"
 
+[settings.status]
+show_env = true
+show_tools = true
+
 [tools]
 "cargo:cargo-generate" = "latest"
 go = "latest"

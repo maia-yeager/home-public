@@ -187,7 +187,7 @@ fpath=(
 z4h source $XDG_CONFIG_HOME/env.d/[^_.]*(N)
 
 # Application configuration.
-command -v mise &>/dev/null && eval "$(mise activate zsh)"
+command -v mise &>/dev/null && eval "$(mise activate zsh)" &>/dev/null
 
 # Use additional Git repositories pulled in with `z4h install`.
 #
