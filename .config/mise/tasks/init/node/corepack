@@ -8,12 +8,37 @@
 mise set COREPACK_ENABLE_DOWNLOAD_PROMPT=0
 mise exec -- npm install --global corepack@latest
 
+local parsed_pm=(${(s:@:)usage_package_manager})
+local pm=$parsed_pm[1]
+local pm_version=$parsed_pm[2]
+
 if ! corepack install &> /dev/null; then
   [[ -f package.json ]] && local had_package_json=1
-  local latest=$(mise ls-remote $usage_package_manager | sort -rV | head -n 1)
-  mise exec -- corepack use $usage_package_manager@$latest
+
+  if [[ -z $pm_version ]]; then
+    local remote_versions=$(mise ls-remote $pm | sort -rV)
+    if [[ -f package.json ]]; then
+      local target_range=$(jq -r ".engines.$pm" package.json)
+      if [[ $target_range != null ]]; then
+        # Use bun for comparison since it has npm-style semver range comparison built-in.
+        pm_version=$(mise exec bun@1 -- bun -b --no-env-file - << EOF
+for (const version of \`$remote_versions\`.split('\n')) {
+  if (Bun.semver.satisfies(version, '$target_range')) {
+    console.log(version)
+    break
+  }
+}
+EOF
+        )
+      fi
+    else
+      local pm_version=$(mise ls-remote $pm | sort -rV | head -n 1)
+    fi
+  fi
+
+  mise exec -- corepack use $pm@$pm_version
   [[ -z $had_package_json ]] && mv package.json package.corepack.json
 fi
 
-mise config set shell_alias.$usage_package_manager "corepack $usage_package_manager"
+mise config set shell_alias.$pm "corepack $pm"
 mise config set shell_alias.$usage_exec_command "corepack $usage_exec_command"

@@ -1,5 +1,19 @@
 [settings]
-idiomatic_version_file_enable_tools = ["go", "java", "node", "python", "ruby", "terraform", "yarn"]
+# read version files used by other version managers, such as .nvmrc
+idiomatic_version_file_enable_tools = [
+  "bun",
+  "deno",
+  "go",
+  "java",
+  "node",
+  "npm",
+  "pnpm",
+  "python",
+  "ruby",
+  "rust",
+  "terraform",
+  "yarn",
+]
 
 [settings.npm]
 package_manager = "bun"
