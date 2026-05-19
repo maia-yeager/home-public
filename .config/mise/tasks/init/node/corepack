@@ -3,7 +3,6 @@
 #MISE depends=["init:config"]
 #MISE depends_post=["init:node:package-json"]
 #USAGE arg "[package-manager]" default="npm"
-#USAGE flag "-x --exec-command <command>" help="Package manager execution command" default="npx"
 
 mise set COREPACK_ENABLE_DOWNLOAD_PROMPT=0
 mise exec -- npm install --global corepack@latest
@@ -41,4 +40,3 @@ EOF
 fi
 
 mise config set shell_alias.$pm "corepack $pm"
-mise config set shell_alias.$usage_exec_command "corepack $usage_exec_command"

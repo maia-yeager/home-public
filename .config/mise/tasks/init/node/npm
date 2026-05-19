@@ -7,4 +7,5 @@
 mise run init:node $usage_node_version
 
 mise run init:node:corepack
+mise config set shell_alias.npx "corepack npx"
 [[ -f package.json ]] || mise exec -c 'npm init ---init-type module -y > /dev/null'
