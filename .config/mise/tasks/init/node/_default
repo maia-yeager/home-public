@@ -5,12 +5,8 @@
 #MISE depends_post=["init:node:package-json", "init:node:path"]
 #USAGE arg "[version]"
 
-# Enforce node version.
-if ! grep -qe '^engine-strict=true$' .npmrc 2> /dev/null; then
-  # Ensure .npmrc ends in a newline before appending to it.
-  [[ -f .npmrc && ! $(tail -c1 .npmrc | wc -l) -gt 0 ]] && echo "" >> .npmrc
-  echo "engine-strict=true" >> .npmrc
-fi
+# Enforce node version during development.
+mise set NPM_CONFIG_ENGINE_STRICT=true
 
 # Install Node.js.
 mise use node@$usage_version
