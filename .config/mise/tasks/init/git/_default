@@ -2,3 +2,4 @@
 #MISE dir="{{cwd}}"
 
 git init .
+[[ -f .gitignore ]] || git ignore -a 2>/dev/null > .gitignore
