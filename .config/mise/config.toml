@@ -14,6 +14,9 @@ idiomatic_version_file_enable_tools = [
   "terraform",
   "yarn",
 ]
+trusted_config_paths = [
+  '~/dev',
+]
 
 [settings.npm]
 package_manager = "bun"
