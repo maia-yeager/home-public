@@ -1,8 +1,8 @@
 {
 	"signature_error_highlighting": "no_signature",
 	"theme": "auto",
-	"editor_argument_format": "${file} --line ${line}",
-	"editor_path": "~/Library/Application Support/JetBrains/Toolbox/scripts/webstorm",
+	/*"editor_argument_format": "${file} --line ${line}",*/
+	/*"editor_path": "~/Library/Application Support/JetBrains/Toolbox/scripts/webstorm",*/
 	"added_words":
 	[
 		"textarea",
