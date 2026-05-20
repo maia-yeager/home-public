@@ -22,23 +22,23 @@ zstyle ':z4h:bindkey' keyboard  'mac'
 
 # Start tmux if appropriate.
 local sock
-if [[ -n $TMUX_TMPDIR && -d $TMUX_TMPDIR && -w $TMUX_TMPDIR ]]; then
+if [[ -n $TMUX_TMPDIR && -d $TMUX_TMPDIR && -w $TMUX_TMPDIR ]] {
   sock=$TMUX_TMPDIR
-elif [[ -n $XDG_RUNTIME_DIR && -d $XDG_RUNTIME_DIR && -w $XDG_RUNTIME_DIR ]]; then
+} elif [[ -n $XDG_RUNTIME_DIR && -d $XDG_RUNTIME_DIR && -w $XDG_RUNTIME_DIR ]] {
   sock=$XDG_RUNTIME_DIR
-elif [[ -n $TMPDIR && -d $TMPDIR && -w $TMPDIR ]]; then
+} elif [[ -n $TMPDIR && -d $TMPDIR && -w $TMPDIR ]] {
   sock=$TMPDIR
-elif [[ -d /tmp && -w /tmp ]]; then
+} elif [[ -d /tmp && -w /tmp ]] {
   sock=/tmp
-fi
+}
 if ! command -v tmux &>/dev/null || [[
   -z $sock
   || -z $Z4H_SSH # SSH tmux within local tmux isn't a great experience.
   || $TERM_PROGRAM == tmux
   || $TERMINAL_EMULATOR = JetBrains*
-]]; then
+]] {
   zstyle ':z4h:' start-tmux 'no'
-else
+} else {
   sock=${sock%/}/z4h-tmux-$UID-$TERM
   local tmux_args=(-uf $TMUX_CONFIG)
   local -a tmux_cmds=()
@@ -47,26 +47,26 @@ else
 
   # Below adapted from Z4H built-in tmux logic.
   # Specify supported terminal colours and features.
-  if (( terminfo[colors] >= 256 )); then
+  if (( terminfo[colors] >= 256 )) {
     tmux_cmds+=(set -g default-terminal tmux-256color ';')
     if [[ $COLORTERM = *(24bit|truecolor)* ]]; then
       tmux_cmds+=(set -ga terminal-features ',*:RGB:usstyle:overline' ';')
       sock+='-tc'
     fi
-  else
+  } else {
     tmux_cmds+=(set -g default-terminal screen ';')
-  fi
+  }
   # Append a unique per-installation number to the socket path to work
   # around a bug in tmux. See https://github.com/romkatv/zsh4humans/issues/71.
-  if [[ -e $Z4H/tmux/stamp ]]; then
+  if [[ -e $Z4H/tmux/stamp ]] {
     local stamp
     IFS= read -r stamp < $Z4H/tmux/stamp || return
     sock+=-${stamp%%.*}
-  fi
+  }
   tmux_args+=(-S $sock)
 
   zstyle ':z4h:' start-tmux command tmux $tmux_args -- "${tmux_cmds[@]}" new -As main
-fi
+}
 
 # Whether to move prompt to the bottom when zsh starts and on Ctrl+L.
 zstyle ':z4h:' prompt-at-bottom 'no'
@@ -210,17 +210,17 @@ z4h bindkey   z4h-cd-forward              Shift+Right       # cd into the next d
 z4h bindkey   z4h-cd-up                   Shift+Up          # cd into the parent directory
 z4h bindkey   z4h-cd-down                 Shift+Down        # cd into a child directory
 
-if [[ -z $Z4H_SSH ]]; then
+if [[ -z $Z4H_SSH ]] {
   z4h bindkey local.toggle-home-git-repo  Ctrl+P            # cycle home git repository
-fi
+}
 z4h bindkey   rationalize-dot       .
 
 # Define functions and completions.
 # List terminal colour codes.
 function colours {
-  for i in {0..255}; do
+  for i ({0..255}) {
     print -Pn "%K{$i}  %k%F{$i} ${(l:3::0:)i}%f   " ${${(M)$((i%6)):#3}:+$'\n'}
-  done
+  }
 }
 
 # Make directory and switch to it.
@@ -271,11 +271,13 @@ alias root="sudo -Es"
 command -v say &>/dev/null && alias say="${aliases[say]:-say} --interactive"
 command -v tree &>/dev/null && alias tree="${aliases[tree]:-tree} -aI .git"
 # Disable globbing for specific commands.
-for com in alias expr find mattrib mcopy mdir mdel which;
+for com (alias expr find mattrib mcopy mdir mdel which) {
   alias $com="noglob $com"
+}
 # Enable Bash-like keyboard handling for editors.
-for com in dash nc;
+for com (dash nc) {
   alias $com="${aliases[rlwrap]:-rlwrap} $com"
+}
 
 # Set shell options: http://zsh.sourceforge.net/Doc/Release/Options.html.
 setopt glob_dots     # no special treatment for file names with a leading dot
