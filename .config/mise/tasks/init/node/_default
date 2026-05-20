@@ -12,11 +12,11 @@ mise set NPM_CONFIG_ENGINE_STRICT=true
 mise use node@$usage_version
 
 # Lock Node.js version in package.json, if not already locked.
-if [[ -n ${usage_version} || $(jq -r '.engines.node' package.json) == null ]]; then
+if [[ -n $usage_version || $(jq -r '.engines.node' package.json) == null ]] {
   installed=$(mise ls --local --current --json node | jq -r '.[0].version')
-  if [[ -n ${installed} && ${installed} != null ]]; then
-    echo '{}' | jq --arg v "^$installed" '.engines.node = $v' > package.node.json
-  fi
-fi
+  if [[ -n $installed && $installed != null ]] {
+    echo '{}' | jq --arg v "^$installed" '.engines.node = $v' >package.node.json
+  }
+}
 # Prefer package.json.
 rm -f .node-version .nvmrc

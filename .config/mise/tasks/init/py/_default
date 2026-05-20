@@ -11,13 +11,13 @@ mise config set env._.python.venv.create true -t bool
 UV_NO_MANAGED_PYTHON=0
 UV_NATIVE_TLS=1
 # If python version not provided, try using .python-version first.
-if [[ -z ${usage_version} && -f .python-version ]] && mise install python; then
+if [[ -z $usage_version && -f .python-version ]] && mise install python; then
     # No-op.
 # Otherwise, try using pyproject.toml's project.
 else
-  if [[ -z ${usage_version} && -f pyproject.toml ]]; then
+  if [[ -z $usage_version && -f pyproject.toml ]] {
     local target_range=$(yq -ro json '.project.requires-python' pyproject.toml)
-    if [[ ${target_range} != null ]]; then
+    if [[ $target_range != null ]] {
       usage_version=$(mise exec python@3.14 -- uv run --isolated --no-sync --with 'packaging>=25,<26' python << EOF
 from packaging.specifiers import SpecifierSet
 from packaging.version import Version
@@ -35,13 +35,16 @@ for version_string in '''$(mise ls-remote python | sort -rV)'''.split('\n'):
     break
 EOF
       )
-    fi
-  fi
+    }
+  }
 
   # Install Python.
   mise use python@$usage_version
 
   # Lock Python version in .python-version. Don't check for existing lock.
-  local installed_version=$(mise ls --local --current python --json | jq -r '.[0].version')
-  [[ -n ${installed_version} && ${installed_version} != null ]] && echo ${installed_version%.*} > .python-version
+  local installed_version=$(
+    mise ls --local --current python --json | jq -r '.[0].version'
+  )
+  [[ -n $installed_version && $installed_version != null ]] &&
+    echo ${installed_version%.*} > .python-version
 fi

@@ -1,8 +1,8 @@
 #!/usr/bin/env zsh
 # No emulate zsh here because it calls reset-prompt.
 
-if (( ARGC == 0 )); then
-  case "${GIT_DIR-}" in
+if (( ARGC == 0 )) {
+  case "${GIT_DIR-}" {
     '')
       export GIT_DIR=$XDG_DATA_HOME/home/public
       export GIT_WORK_TREE=~
@@ -15,9 +15,9 @@ if (( ARGC == 0 )); then
       unset GIT_DIR
       unset GIT_WORK_TREE
     ;;
-  esac
-elif (( ARGC == 1 )); then
-  case "$1" in
+  }
+} elif (( ARGC == 1 )) {
+  case "$1" {
     public)
       export GIT_DIR=$XDG_DATA_HOME/home/public
       export GIT_WORK_TREE=~
@@ -34,21 +34,21 @@ elif (( ARGC == 1 )); then
       print -ru2 -- "toggle-home-git-repo: invalid argument: ${(qqq)1}"
       return 1
     ;;
-  esac
-else
+  }
+} else {
   print -ru2 -- "toggle-home-git-repo: too many arguments"
   return 1
-fi
+}
 
 zle || return 0
 
 local f
-for f in precmd "${precmd_functions[@]}"; do
+for f (precmd "${precmd_functions[@]}") {
   (( ${+functions[$f]} )) && "$f" &>/dev/null
-done
+}
 
-if (( ${+functions[p10k]} )); then
+if (( ${+functions[p10k]} )) {
   p10k display -r
-else
+} else {
   zle .reset-prompt
-fi
+}

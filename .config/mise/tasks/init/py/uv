@@ -10,4 +10,5 @@ mise set UV_INIT_BUILD_BACKEND=uv
 mise set UV_NATIVE_TLS=1
 mise set UV_NO_MANAGED_PYTHON=1
 mise set UV_UNMANAGED_INSTALL=1
-[[ -f pyproject.toml || -n $usage_no_init ]] || mise exec -- uv init --lib --no-readme --description "" --vcs none
+[[ -f pyproject.toml || -n $usage_no_init ]] ||
+  mise exec -- uv init --lib --no-readme --description '' --vcs none

@@ -7,4 +7,5 @@
 mise use bun@$usage_bun_version
 
 mise set NODE_OPTIONS=--use-system-ca
-[[ -f package.json ]] || (mise exec -c 'bun init --yes > /dev/null' && rm -f index.ts README.md)
+[[ -f package.json ]] ||
+  (mise exec -c 'bun init --yes > /dev/null' && rm -f index.ts README.md)

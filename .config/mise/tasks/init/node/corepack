@@ -13,11 +13,11 @@ if ! corepack install &> /dev/null; then
   local pm=$parsed_pm[1]
   local pm_version=$parsed_pm[2]
 
-  if [[ -z $pm_version ]]; then
+  if [[ -z $pm_version ]] {
     local remote_versions=$(mise ls-remote $pm | sort -rV)
-    if [[ -f package.json ]]; then
+    if [[ -f package.json ]] {
       local target_range=$(jq -r ".engines.$pm" package.json)
-      if [[ $target_range != null ]]; then
+      if [[ $target_range != null ]] {
         # Use bun for comparison since it has npm-style semver range comparison built-in.
         pm_version=$(mise exec bun@1 -- bun -b --no-env-file - << EOF
 for (const version of \`$remote_versions\`.split('\n')) {
@@ -28,11 +28,11 @@ for (const version of \`$remote_versions\`.split('\n')) {
 }
 EOF
         )
-      fi
-    else
+      }
+    } else {
       local pm_version=$(mise ls-remote $pm | sort -rV | head -n 1)
-    fi
-  fi
+    }
+  }
 
   mise exec -- corepack use $pm@$pm_version
   [[ -z $had_package_json ]] && mv package.json package.corepack.json

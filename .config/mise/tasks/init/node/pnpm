@@ -5,7 +5,8 @@
 #USAGE arg "[node-version]"
 
 mise run init:node $usage_node_version
-
 mise run init:node:corepack pnpm
+
 mise config set shell_alias.pnpx "corepack pnpx"
-[[ -f package.json ]] || mise exec -c 'pnpm init --init-package-manager false --init-type module &> /dev/null'
+[[ -f package.json ]] ||
+  mise exec -c 'pnpm init --init-package-manager false --init-type module &> /dev/null'

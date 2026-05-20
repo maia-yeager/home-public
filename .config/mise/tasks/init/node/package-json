@@ -1,10 +1,10 @@
 #!/usr/bin/env zsh
 #MISE dir="{{cwd}}"
 
-if [[ -z package*.json(#qN) ]]; then
+if [[ -z package*.json(#qN) ]] {
   echo "No package.json file(s) found."
   return 1
-fi
+}
 
 # Normalize properties.
 jq --indent 2 '.' << EOF > package.Ω.json

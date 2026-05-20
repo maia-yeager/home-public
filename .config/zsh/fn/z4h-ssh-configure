@@ -39,29 +39,29 @@ z4h_ssh_prelude+=(
 
 # Extend possible SSH teleportation to config based on user@host:port zstyles.
 local my_z4h_ssh_user my_z4h_ssh_host my_z4h_ssh_port
-if [[ -n $user_host ]]; then
+if [[ -n $user_host ]] {
   local ssh_config=$(command ssh $user_host -G)
   my_z4h_ssh_user=$(awk '$1 == tolower("User") {print $2}' <<< $ssh_config)
   # Get the finalized hostname, falling back to original host.
   my_z4h_ssh_host=${$(awk '$1 == tolower("Hostname") {print $2}' <<< $ssh_config):-$z4h_ssh_host}
   my_z4h_ssh_port=$(awk '$1 == tolower("Port") {print $2}' <<< $ssh_config)
-fi
+}
 local -r my_z4h_ssh_user my_z4h_ssh_host my_z4h_ssh_port
 local -r zstyle_namespace=:my:z4h:ssh:$my_z4h_ssh_user:$my_z4h_ssh_host:$my_z4h_ssh_port
 
 # Copy environment variables, if prefix exists.
 local ssh_vars_prefix
-if zstyle -s ${zstyle_namespace} send-vars-prefix ssh_vars_prefix; then
+if zstyle -s $zstyle_namespace send-vars-prefix ssh_vars_prefix; then
   local -a ssh_vars=()
-  if zstyle -a ${zstyle_namespace} send-vars ssh_vars; then
-    for ssh_var in $ssh_vars; do
+  if zstyle -a $zstyle_namespace send-vars ssh_vars; then
+    for ssh_var ($ssh_vars) {
       local ssh_send_var=$ssh_vars_prefix$ssh_var
       z4h_ssh_prelude+=("export $ssh_var=\$$ssh_send_var")
       z4h_ssh_command+=("-o SetEnv='$ssh_send_var=${(P)ssh_var}'")
-    done
+    }
     z4h_ssh_run+=("unset -m '$ssh_vars_prefix*'")
   fi
 fi
 
 # Enable or disable SSH teleportation based on custom config.
-zstyle -t ${zstyle_namespace} enable || z4h_ssh_enable=0
+zstyle -t $zstyle_namespace enable || z4h_ssh_enable=0

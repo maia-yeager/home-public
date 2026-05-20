@@ -3,16 +3,13 @@
 #USAGE arg "[env]"
 
 local target_file=mise${usage_env:+.}$usage_env.lock
-if [[ ! -f "$target_file" ]]; then
-  if touch "$target_file"; then
-  else
-    echo Could not create mise lock file.
-    return 1
-  fi
+if [[ ! -f $target_file ]] && ! touch $target_file; then
+  echo 'Could not create mise lock file.'
+  return 1
 fi
-if [[ -n $usage_env ]]; then
+if [[ -n $usage_env ]] {
   mise settings --local --env $usage_env experimental=true
-else
+} else {
   mise settings --local experimental=true
-fi
+}
 mise settings --local locked=true
