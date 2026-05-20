@@ -6,8 +6,6 @@ idiomatic_version_file_enable_tools = [
   "go",
   "java",
   "node",
-  "npm",
-  "pnpm",
   "python",
   "ruby",
   "rust",
