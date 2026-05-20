@@ -7,12 +7,11 @@
 mise set COREPACK_ENABLE_DOWNLOAD_PROMPT=0
 mise exec -- npm install --global corepack@latest
 
-local parsed_pm=(${(s:@:)usage_package_manager})
-local pm=$parsed_pm[1]
-local pm_version=$parsed_pm[2]
-
 if ! corepack install &> /dev/null; then
   [[ -f package.json ]] && local had_package_json=1
+  local parsed_pm=(${(s:@:)usage_package_manager})
+  local pm=$parsed_pm[1]
+  local pm_version=$parsed_pm[2]
 
   if [[ -z $pm_version ]]; then
     local remote_versions=$(mise ls-remote $pm | sort -rV)
