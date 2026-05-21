@@ -26,6 +26,7 @@
 	"line_padding_bottom": 2,
 	"margin": 1,
 	"mini_diff": "auto",
+	"open_files_in_new_window": "finder_only",
 	"preview_on_click": "only_left",
 	"show_minimap": false,
 	"rulers": [80],
