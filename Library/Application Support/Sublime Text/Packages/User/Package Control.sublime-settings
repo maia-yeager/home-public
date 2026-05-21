@@ -1,0 +1,22 @@
+{
+	"bootstrapped": true,
+	"in_process_packages":
+	[
+	],
+	"installed_packages":
+	[
+		"EditorConfig",
+		"Indent XML",
+		"INI",
+		"LSP",
+		"LSP-bash",
+		"LSP-json",
+		"LSP-yaml",
+		"Package Control",
+		"Pretty Shell",
+		"Remember Minimap Setting",
+		"rsub",
+		"SFTP",
+		"Theme - Monokai Pro",
+	],
+}
