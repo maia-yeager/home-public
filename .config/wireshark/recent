@@ -129,7 +129,7 @@ gui.endpoint_tabs_columns:
 gui.rlc_pdus_from_mac_frames: FALSE
 
 # Last directory navigated to in File Open dialog.
-gui.fileopen_remembered_dir: /Users/micah/Downloads/Attachments/
+gui.fileopen_remembered_dir: /Users/maia/Downloads/Attachments/
 
 # Additional Toolbars shown
 # List of additional toolbars to show.
