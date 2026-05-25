@@ -1,0 +1,14 @@
+{
+  "Profiles" : [
+    {
+      "Rewritable" : true,
+      "Command" : "\/bin\/zsh -lc 'env | sort'",
+      "Window Type" : 0,
+      "Close Sessions On End" : 0,
+      "Custom Command" : "Yes",
+      "Name" : "􁣕 Non-interactive",
+      "Guid" : "04556515-774E-4E6D-A902-81CFCA849CA5",
+      "Use Separate Colors for Light and Dark Mode" : true
+    }
+  ]
+}
