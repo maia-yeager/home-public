@@ -2,8 +2,6 @@
 /.cache/
 # https://github.com/expo/expo/discussions/18448
 /.expo/
-/.git-private/
-/.git-public/
 /.local/
 /.Trash/
 /Applications/
