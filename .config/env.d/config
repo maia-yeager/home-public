@@ -6,6 +6,7 @@ export GPG_TTY="$TTY"
 export LESS='-iMR~ --tabs=4 --window=-4'
 export MANPAGER='less +Gg' # Show scroll progress in man pages.
 export PAGER='less'
+export RSYNC_PARTIAL_DIR=.rsync-transfer
 
 # Set editor in order of preference based on what's available.
 if command -v nano >/dev/null 2>&1; then

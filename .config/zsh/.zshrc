@@ -245,6 +245,12 @@ if command -v htop &>/dev/null; then
   function top { ${=aliases[htop]:-htop} $@ }
   compdef _htop top
 fi
+if command -v rsync &>/dev/null; then
+  function archive {
+    ${=aliases[rsync]:-rsync} -aAUXf "R $RSYNC_PARTIAL_DIR/" --delete-after --partial-dir --info $@
+  }
+  compdef _rsync archive
+fi
 if command -v tree &>/dev/null; then
   function lt { ${=aliases[tree]:-tree} --gitignore --metafirst --noreport $@ }
   compdef _tree lt
@@ -268,6 +274,8 @@ alias fp="free-port"
 command -v mise &>/dev/null && alias x="${aliases[mise]:-mise} run"
 command -v rlwrap &>/dev/null && alias rlwrap="${aliases[rlwrap]:-rlwrap} -Atdumb"
 alias root="sudo -Es"
+command -v rsync &>/dev/null &&
+  alias rsync="${aliases[rsync]:-rsync} -h --info=name0,progress2,stats2 --timeout=60"
 command -v say &>/dev/null && alias say="${aliases[say]:-say} --interactive"
 command -v tree &>/dev/null && alias tree="${aliases[tree]:-tree} -aI .git"
 # Disable globbing for specific commands.
