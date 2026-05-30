@@ -1,13 +1,8 @@
 #!/usr/bin/env sh
 
-export ANDROID_HOME="$HOME/Library/Android/sdk"
+# Global configurations
 export DO_NOT_TRACK=1
-export GPG_TTY="$TTY"
-export LESS='-iMR~ --tabs=4 --window=-4'
-export MANPAGER='less +Gg' # Show scroll progress in man pages.
 export PAGER='less'
-export RSYNC_PARTIAL_DIR=.rsync-transfer
-
 # Set editor in order of preference based on what's available.
 if command -v nano >/dev/null 2>&1; then
   export VISUAL='nano'
@@ -23,3 +18,15 @@ if [ -n "$VISUAL" ]; then
   export EDITOR="$VISUAL"
   export SUDO_EDITOR="$VISUAL"
 fi
+
+# App-specific configurations
+# Android SDK
+export ANDROID_HOME="$HOME/Library/Android/sdk"
+# GPG
+export GPG_TTY="$TTY"
+# less
+export LESS='-iMR~ --tabs=4 --window=-4'
+# man
+export MANPAGER='less +Gg' # Show scroll progress in man pages.
+# rsync
+export RSYNC_PARTIAL_DIR='.rsync-transfer'
