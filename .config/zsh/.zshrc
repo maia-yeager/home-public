@@ -272,7 +272,13 @@ alias colors="colours"
 alias diff="${aliases[diff]:-diff} --color=auto -u"
 alias fp="free-port"
 command -v mise &>/dev/null && alias x="${aliases[mise]:-mise} run"
-command -v rlwrap &>/dev/null && alias rlwrap="${aliases[rlwrap]:-rlwrap} -Atdumb"
+if command -v rlwrap &>/dev/null; then
+  alias rlwrap="${aliases[rlwrap]:-rlwrap} -Atdumb"
+  # Add Bash-like keyboard handling.
+  for com (dash nc) {
+    command -v $com &>/dev/null && alias $com="${aliases[rlwrap]:-rlwrap} $com"
+  }
+fi
 alias root="sudo -Es"
 command -v rsync &>/dev/null &&
   alias rsync="${aliases[rsync]:-rsync} -h --info=name0,progress2,stats2 --timeout=60"
@@ -280,11 +286,7 @@ command -v say &>/dev/null && alias say="${aliases[say]:-say} --interactive"
 command -v tree &>/dev/null && alias tree="${aliases[tree]:-tree} -aI .git"
 # Disable globbing for specific commands.
 for com (alias expr find mattrib mcopy mdir mdel which) {
-  alias $com="noglob $com"
-}
-# Enable Bash-like keyboard handling for editors.
-for com (dash nc) {
-  alias $com="${aliases[rlwrap]:-rlwrap} $com"
+  command -v $com &>/dev/null && alias $com="noglob ${aliases[$com]:-$com}"
 }
 
 # Set shell options: http://zsh.sourceforge.net/Doc/Release/Options.html.
