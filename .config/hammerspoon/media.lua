@@ -16,6 +16,15 @@ end)
 
 -- Remove links from copied images.
 m.clipboard:addCallback({ image = true, URL = true }, function()
+  -- Skip file URLs.
+  local url = hs.pasteboard.readURL()
+  if url == nil then
+    return false
+  end
+  if url.url and url.url:match("^file:///") then
+    return false
+  end
+
   local image = hs.pasteboard.readImage()
   if image == nil then
     return false
