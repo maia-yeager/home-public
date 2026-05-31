@@ -2,6 +2,7 @@
 /.cache/
 # https://github.com/expo/expo/discussions/18448
 /.expo/
+/.vscode-shared/
 /.local/
 /.Trash/
 /Applications/
