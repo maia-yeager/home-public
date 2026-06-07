@@ -20,8 +20,6 @@ if [ -n "$VISUAL" ]; then
 fi
 
 # App-specific configurations
-# Android SDK
-export ANDROID_HOME="$HOME/Library/Android/sdk"
 # GPG
 export GPG_TTY="$TTY"
 # less
