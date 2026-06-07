@@ -1,0 +1,11 @@
+schema_version = 1
+
+[app_settings]
+launch_at_login = true
+check_for_updates = false
+update_prompt_seen = true
+show_in_menu_bar = true
+
+[devices.0b023.gesture_bindings]
+Left = "NextDesktop"
+Right = "PreviousDesktop"
