@@ -24,7 +24,7 @@ m.clipboard:associateHotkey(hs.hotkey.new("cmd-alt", "v", function()
   end
 end))
 
-m.messageIndicator:addApp("com.hnc.discord"):addApp(
+m.messageIndicator:addApp(
   "com.apple.mobilesms",
   [=[sqlite3 ~/Library/Messages/chat.db "SELECT COUNT(guid) FROM message WHERE NOT(is_read) AND NOT(is_from_me) AND text !=''"]=]
 )
