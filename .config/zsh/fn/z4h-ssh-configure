@@ -22,6 +22,10 @@ emulate -L zsh
 # - z4h_retrieve_history    list of local files into which remote $HISTFILE
 #                           should be merged at the end of the connection
 # - z4h_ssh_command         command to use instead of `ssh`
+#
+# Additional, undocumented parameters:
+#
+# - user_host               the supplied user / host combination
 
 # These will be executed with the default shell (e.g. bash), so adapt commands
 # accordingly.
