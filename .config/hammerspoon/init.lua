@@ -26,7 +26,7 @@ end))
 
 m.messageIndicator:addApp(
   "com.apple.mobilesms",
-  [=[sqlite3 ~/Library/Messages/chat.db "SELECT COUNT(guid) FROM message WHERE NOT(is_read) AND NOT(is_from_me) AND text !=''"]=]
+  [=[sqlite3 ~/Library/Messages/chat.db "SELECT COUNT(guid) FROM message WHERE NOT(is_read) AND NOT(is_from_me) AND NOT(is_spam) AND text !=''"]=]
 )
 
 require("media")
