@@ -89,17 +89,17 @@ zstyle ':z4h:direnv' enable 'no'
 # Explicitly set the default SSH command, so Z4H doesn't override settings
 # from '.ssh/config'.
 # https://github.com/romkatv/zsh4humans/blob/cd6c4770c802c3a17b4c43e5587adabb9a370a75/fn/-z4h-cmd-ssh#L81-L84
-zstyle ':z4h:ssh:*'               ssh-command command ssh
+zstyle ':z4h:ssh:*'             ssh-command command ssh
 # Enable ('yes') or disable ('no') automatic teleportation of z4h over
 # Defer to custom implementation.
-zstyle ':z4h:ssh:*'               enable      'yes'
+zstyle ':z4h:ssh:*'             enable      'yes'
 # Determine using :my:z4h:ssh:<user>:<host>:<port> settings.
-zstyle ':my:z4h:ssh:maia*:*:22'   enable      'yes'
-zstyle ':my:z4h:ssh:*yeager:*:22' enable      'yes'
-zstyle ':my:z4h:ssh:*'            enable      'no'
+zstyle ':my:z4h:ssh:maia*:*'    enable      'yes'
+zstyle ':my:z4h:ssh:*yeager:*'  enable      'yes'
+zstyle ':my:z4h:ssh:*'          enable      'no'
 # Copy these environment variables over to the remote host. Always sent
 # regardless of whether automatic teleportation is enabled for a host.
-zstyle ':my:z4h:ssh:*'            send-vars   COLORTERM
+zstyle ':my:z4h:ssh:*'          send-vars   COLORTERM
 # Send these files over to the remote host when connecting over SSH to the
 # enabled hosts.
 local -aU ssh_global_extra_files=(
@@ -124,12 +124,12 @@ local -aU ssh_global_extra_files=(
   $XDG_CONFIG_HOME/zsh/fn
   $XDG_CONFIG_HOME/zsh/zle/^local.*
 )
-zstyle ':my:z4h:ssh:*'                  send-extra-files $ssh_global_extra_files
+zstyle ':my:z4h:ssh:*'                send-extra-files $ssh_global_extra_files
 local -aU ssh_home_extra_files=(
   $ssh_global_extra_files
   $HOME/.ssh/conf.d/home
 )
-zstyle ':my:z4h:ssh:*.am.yeagers.co:22' send-extra-files $ssh_home_extra_files
+zstyle ':my:z4h:ssh:*.am.yeagers.co'  send-extra-files $ssh_home_extra_files
 
 zstyle ':completion:*:ssh:argument-1:'       tag-order  hosts users
 zstyle ':completion:*:scp:argument-rest:'    tag-order  hosts files users

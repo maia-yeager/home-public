@@ -50,16 +50,15 @@ z4h_ssh_prelude+=(
 )
 
 # Extend possible SSH teleportation to config based on user@host:port zstyles.
-local user host port
+local user host
 if [[ -n $user_host ]] {
   local ssh_config=$(command ssh $user_host -G)
   user=$(awk '$1 == tolower("User") {print $2}' <<< $ssh_config)
   # Get the finalized hostname, falling back to original host.
   host=${$(awk '$1 == tolower("Hostname") {print $2}' <<< $ssh_config):-$z4h_host}
-  port=$(awk '$1 == tolower("Port") {print $2}' <<< $ssh_config)
 }
-local -r user host port
-local -r namespace=":my:z4h:ssh:$user:$ssh_host:$port"
+local -r user host
+local -r namespace=":my:z4h:ssh:$user:$ssh_host"
 
 # Send indicated ENV vars. Use a configurable prefix when sending to work around
 # potential sshd security configurations.
