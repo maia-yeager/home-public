@@ -96,7 +96,6 @@ zstyle ':my:z4h:ssh:*:*.am.yeagers.co:22' enable 'yes'
 zstyle ':my:z4h:ssh:*'                    enable 'no'
 
 # Copy these environment variables over to the remote host.
-zstyle ':my:z4h:ssh:*' send-vars-prefix LC_MY_Z4H_
 zstyle ':my:z4h:ssh:*' send-vars        COLORTERM
 
 # Explicitly set the default command, so Z4H doesn't override settings
