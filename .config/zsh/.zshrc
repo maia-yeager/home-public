@@ -107,6 +107,7 @@ local -aU ssh_global_extra_files=(
   $HOME/.profile
   $HOME/.ssh/allowed_signers
   $HOME/.ssh/config
+  $HOME/.zshenv
   $NPM_CONFIG_USERCONFIG
   $SCREENRC
   $TMUX_CONFIG
