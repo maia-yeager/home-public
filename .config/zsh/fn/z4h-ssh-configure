@@ -67,10 +67,12 @@ local -a ssh_vars=()
 zstyle -a $zstyle_namespace send-vars ssh_vars
 for ssh_var ($ssh_vars) {
   local ssh_send_var=$ssh_vars_prefix$ssh_var
-  z4h_ssh_prelude+=("export $ssh_var=\$$ssh_send_var")
+  z4h_ssh_prelude+=(
+    "export $ssh_var=\"\$$ssh_send_var\""
+    "unset '$ssh_send_var'"
+  )
   z4h_ssh_command+=("-o SetEnv='$ssh_send_var=${(P)ssh_var}'")
 }
-z4h_ssh_run+=("unset -m '$ssh_vars_prefix*'")
 
 # Enable or disable SSH teleportation based on custom config.
 zstyle -t $zstyle_namespace enable || z4h_ssh_enable=0
