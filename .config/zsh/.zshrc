@@ -106,6 +106,7 @@ zstyle ':z4h:ssh:*' ssh-command command ssh
 # Send these files over to the remote host when connecting over SSH to the
 # enabled hosts.
 local -aU ssh_global_extra_files=(
+  $HOME/.hushlogin
   $HOME/.profile
   $HOME/.ssh/allowed_signers
   $HOME/.ssh/config
