@@ -41,7 +41,7 @@ if ! command -v tmux &>/dev/null || [[
 } else {
   sock=${sock%/}/z4h-tmux-$UID-$TERM
   local tmux_args=(-uf $TMUX_CONFIG)
-  local -a tmux_cmds=()
+  local -a tmux_cmds
   # Enable iTerm tmux integration.
   [[ $LC_TERMINAL == iTerm2 ]] && tmux_args+=(-CC)
 
