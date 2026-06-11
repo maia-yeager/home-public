@@ -125,14 +125,12 @@ local -aU ssh_global_extra_files=(
   $XDG_CONFIG_HOME/zsh/fn
   $XDG_CONFIG_HOME/zsh/zle
 )
-# Ensure that home directory refs start with '~', not $HOME, since the remote
-# $HOME path might not match the local $HOME path.
-zstyle ':z4h:ssh:*'               send-extra-files ${ssh_global_extra_files/#$HOME/\~}
+zstyle ':my:z4h:ssh:*'                  send-extra-files $ssh_global_extra_files
 local -aU ssh_home_extra_files=(
   $ssh_global_extra_files
   $HOME/.ssh/conf.d/home
 )
-zstyle ':z4h:ssh:*.am.yeagers.co' send-extra-files ${ssh_home_extra_files/#$HOME/\~}
+zstyle ':my:z4h:ssh:*.am.yeagers.co:22' send-extra-files $ssh_home_extra_files
 
 zstyle ':completion:*:ssh:argument-1:'       tag-order  hosts users
 zstyle ':completion:*:scp:argument-rest:'    tag-order  hosts files users

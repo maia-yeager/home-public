@@ -66,3 +66,23 @@ z4h_ssh_run+=("unset -m '$ssh_vars_prefix*'")
 
 # Enable or disable SSH teleportation based on custom config.
 zstyle -t $zstyle_namespace enable || z4h_ssh_enable=0
+(( z4h_ssh_enable )) || return 0
+
+# Load extra files from custom namespace.
+local -a extra_files
+if zstyle -a $zstyle_namespace send-extra-files extra_files; then
+  local src dst
+  for dst ($extra_files) {
+    eval "src=$dst"
+    z4h_ssh_send_files[$src]=$dst
+  }
+fi
+
+# Replace remote paths beginning with the local $HOME with '~' for portability
+# (e.g. macOS's '/Users/<name>' vs. Linux's '/home/<name>').
+for k (${(@k)z4h_ssh_send_files}) {
+  z4h_ssh_send_files[$k]=${z4h_ssh_send_files[$k]/#$HOME/\~}
+}
+for k (${(@k)z4h_ssh_retrieve_files}) {
+  z4h_ssh_retrieve_files[$k]=${z4h_ssh_retrieve_files[$k]/#$HOME/\~}
+}
