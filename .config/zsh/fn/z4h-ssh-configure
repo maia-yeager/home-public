@@ -1,4 +1,7 @@
 #!/usr/bin/env zsh
+
+emulate -L zsh
+
 # This function is invoked by zsh4humans on every ssh command after
 # the instructions from ssh-related zstyles have been applied. It allows
 # us to configure ssh teleportation in ways that cannot be done with
@@ -19,8 +22,6 @@
 # - z4h_retrieve_history    list of local files into which remote $HISTFILE
 #                           should be merged at the end of the connection
 # - z4h_ssh_command         command to use instead of `ssh`
-
-emulate -L zsh
 
 # These will be executed with the default shell (e.g. bash), so adapt commands
 # accordingly.

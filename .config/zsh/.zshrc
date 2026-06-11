@@ -86,23 +86,21 @@ zstyle ':z4h:fzf-complete' fzf-bindings tab:repeat
 # Enable direnv to automatically source .envrc files.
 zstyle ':z4h:direnv' enable 'no'
 
-# Enable ('yes') or disable ('no') automatic teleportation of z4h over
-# Defer to custom implementation.
-zstyle ':z4h:ssh:*'                       enable 'yes'
-# Determine using :my:z4h:ssh:<user>:<host>:<port> settings.
-zstyle ':my:z4h:ssh:maia*:*'              enable 'yes'
-zstyle ':my:z4h:ssh:*yeager:*'            enable 'yes'
-zstyle ':my:z4h:ssh:*:*.am.yeagers.co:22' enable 'yes'
-zstyle ':my:z4h:ssh:*'                    enable 'no'
-
-# Copy these environment variables over to the remote host.
-zstyle ':my:z4h:ssh:*' send-vars        COLORTERM
-
-# Explicitly set the default command, so Z4H doesn't override settings
-# from .ssh/config
+# Explicitly set the default SSH command, so Z4H doesn't override settings
+# from '.ssh/config'.
 # https://github.com/romkatv/zsh4humans/blob/cd6c4770c802c3a17b4c43e5587adabb9a370a75/fn/-z4h-cmd-ssh#L81-L84
 zstyle ':z4h:ssh:*' ssh-command command ssh
-
+# Enable ('yes') or disable ('no') automatic teleportation of z4h over
+# Defer to custom implementation.
+zstyle ':z4h:ssh:*' enable      'yes'
+# Determine using :my:z4h:ssh:<user>:<host>:<port> settings.
+zstyle ':my:z4h:ssh:maia*:*:22'           enable 'yes'
+zstyle ':my:z4h:ssh:*yeager:*:22'         enable 'yes'
+zstyle ':my:z4h:ssh:*:*.am.yeagers.co:22' enable 'yes'
+zstyle ':my:z4h:ssh:*'                    enable 'no'
+# Copy these environment variables over to the remote host. Always sent
+# regardless of whether automatic teleportation is enabled for a host.
+zstyle ':my:z4h:ssh:*'                    send-vars COLORTERM
 # Send these files over to the remote host when connecting over SSH to the
 # enabled hosts.
 local -aU ssh_global_extra_files=(
@@ -211,7 +209,7 @@ z4h bindkey   z4h-cd-down                 Shift+Down        # cd into a child di
 if [[ -z $Z4H_SSH ]] {
   z4h bindkey local.toggle-home-git-repo  Ctrl+P            # cycle home git repository
 }
-z4h bindkey   rationalize-dot       .
+z4h bindkey   rationalize-dot             .
 
 # Define functions and completions.
 # List terminal colour codes.
