@@ -122,7 +122,7 @@ local -aU ssh_global_extra_files=(
   $XDG_CONFIG_HOME/python
   $XDG_CONFIG_HOME/vim
   $XDG_CONFIG_HOME/zsh/fn
-  $XDG_CONFIG_HOME/zsh/zle
+  $XDG_CONFIG_HOME/zsh/zle/^local.*
 )
 zstyle ':my:z4h:ssh:*'                  send-extra-files $ssh_global_extra_files
 local -aU ssh_home_extra_files=(
