@@ -46,53 +46,46 @@ z4h_ssh_prelude+=(
 )
 
 # Extend possible SSH teleportation to config based on user@host:port zstyles.
-local my_z4h_ssh_user my_z4h_ssh_host my_z4h_ssh_port
+local user host port
 if [[ -n $user_host ]] {
   local ssh_config=$(command ssh $user_host -G)
-  my_z4h_ssh_user=$(awk '$1 == tolower("User") {print $2}' <<< $ssh_config)
+  user=$(awk '$1 == tolower("User") {print $2}' <<< $ssh_config)
   # Get the finalized hostname, falling back to original host.
-  my_z4h_ssh_host=${$(awk '$1 == tolower("Hostname") {print $2}' <<< $ssh_config):-$z4h_ssh_host}
-  my_z4h_ssh_port=$(awk '$1 == tolower("Port") {print $2}' <<< $ssh_config)
+  host=${$(awk '$1 == tolower("Hostname") {print $2}' <<< $ssh_config):-$z4h_host}
+  port=$(awk '$1 == tolower("Port") {print $2}' <<< $ssh_config)
 }
-local -r my_z4h_ssh_user my_z4h_ssh_host my_z4h_ssh_port
-local -r zstyle_namespace=:my:z4h:ssh:$my_z4h_ssh_user:$my_z4h_ssh_host:$my_z4h_ssh_port
+local -r user host port
+local -r namespace=":my:z4h:ssh:$user:$ssh_host:$port"
 
 # Send indicated ENV vars. Use a configurable prefix when sending to work around
 # potential sshd security configurations.
-local ssh_vars_prefix
-if ! zstyle -s $zstyle_namespace send-vars-prefix ssh_vars_prefix; then
-  ssh_vars_prefix='LC_MY_Z4H_'
-fi
-local -a ssh_vars=()
-zstyle -a $zstyle_namespace send-vars ssh_vars
-for ssh_var ($ssh_vars) {
-  local ssh_send_var=$ssh_vars_prefix$ssh_var
-  z4h_ssh_prelude+=(
-    "export $ssh_var=\"\$$ssh_send_var\""
-    "unset '$ssh_send_var'"
-  )
-  z4h_ssh_command+=("-o SetEnv='$ssh_send_var=${(P)ssh_var}'")
+local vars_prefix
+zstyle -s $namespace send-vars-prefix vars_prefix || vars_prefix='LC_MY_Z4H_'
+local -a env_vars
+zstyle -a $namespace send-vars env_vars
+for var ($env_vars) {
+  local prefixed_var="$vars_prefix$var"
+  z4h_ssh_prelude+=("export $var=\"\$$prefixed_var\"; unset '$prefixed_var'")
+  z4h_ssh_command+=("-o SetEnv='$prefixed_var=${(P)var}'")
 }
 
 # Enable or disable SSH teleportation based on custom config.
-zstyle -t $zstyle_namespace enable || z4h_ssh_enable=0
+zstyle -t $namespace enable || z4h_ssh_enable=0
 (( z4h_ssh_enable )) || return 0
 
 # Load extra files from custom namespace.
 local -a extra_files
-if zstyle -a $zstyle_namespace send-extra-files extra_files; then
+if zstyle -a $namespace send-extra-files extra_files; then
   local src dst
   for dst ($extra_files) {
     eval "src=$dst"
-    z4h_ssh_send_files[$src]=$dst
+    z4h_ssh_send_files[$src]=${dst/#$HOME/\~}
   }
 fi
-
-# Replace remote paths beginning with the local $HOME with '~' for portability
-# (e.g. macOS's '/Users/<name>' vs. Linux's '/home/<name>').
-for k (${(@k)z4h_ssh_send_files}) {
-  z4h_ssh_send_files[$k]=${z4h_ssh_send_files[$k]/#$HOME/\~}
-}
-for k (${(@k)z4h_ssh_retrieve_files}) {
-  z4h_ssh_retrieve_files[$k]=${z4h_ssh_retrieve_files[$k]/#$HOME/\~}
-}
+if zstyle -a $namespace retrieve-extra-files extra_files; then
+  local src dst
+  for src ($extra_files) {
+    eval "dst=$src"
+    z4h_ssh_retrieve_files[$src]=${dst/#$HOME/\~}
+  }
+fi
