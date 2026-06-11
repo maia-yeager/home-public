@@ -28,3 +28,5 @@ export LESS='-iMR~ --tabs=4 --window=-4'
 export MANPAGER='less +Gg' # Show scroll progress in man pages.
 # rsync
 export RSYNC_PARTIAL_DIR='.rsync-transfer'
+# tar
+[ -n "$IS_MACOS" ] && export COPYFILE_DISABLE=1 # https://superuser.com/a/260264/308015
