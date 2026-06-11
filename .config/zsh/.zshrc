@@ -281,7 +281,7 @@ command -v rsync &>/dev/null &&
 command -v say &>/dev/null && alias say="${aliases[say]:-say} --interactive"
 command -v tree &>/dev/null && alias tree="${aliases[tree]:-tree} -aI .git"
 # Disable globbing for specific commands.
-for com (alias expr find mattrib mcopy mdir mdel which) {
+for com (alias expr find mattrib mcopy mdir mdel which unset) {
   command -v $com &>/dev/null && alias $com="noglob ${aliases[$com]:-$com}"
 }
 
