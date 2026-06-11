@@ -22,19 +22,26 @@
 
 emulate -L zsh
 
-# Link SSH_AUTH_SOCK to common location. This will be executed with the
-# default shell (e.g. bash), so adapt commands accordingly.
+# These will be executed with the default shell (e.g. bash), so adapt commands
+# accordingly.
 z4h_ssh_prelude+=(
-  'my_z4h_ssh_auth_sock="$HOME/.ssh/agent.sock"'
+  # Ensure zsh files are placed in $XDG_CONFIG_HOME, not the home root.
   '
+  export ZDOTDIR="${XDG_CONFIG_HOME:-$HOME/.config}/zsh"
+  mkdir -p "$ZDOTDIR"
+  '
+  # Link the current SSH session's SSH_AUTH_SOCK to a well-known location, to
+  # work around tmux not picking up the ENV var change automatically.
+  '
+  my_z4h_ssh_auth_sock="$HOME/.ssh/agent.sock"
   if test -e "$SSH_AUTH_SOCK"; then
     ln -sf "$SSH_AUTH_SOCK" "$my_z4h_ssh_auth_sock" &&
       export SSH_AUTH_SOCK="$my_z4h_ssh_auth_sock"
   else
     rm -f "$my_z4h_ssh_auth_sock"
   fi
+  unset my_z4h_ssh_auth_sock
   '
-  'unset my_z4h_ssh_auth_sock'
 )
 
 # Extend possible SSH teleportation to config based on user@host:port zstyles.
