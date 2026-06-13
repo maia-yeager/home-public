@@ -13,6 +13,8 @@ export XDG_STATE_HOME="${XDG_STATE_HOME:-$HOME/.local/state}"
 mkdir -p "$XDG_RUNTIME_DIR" "$XDG_CACHE_HOME" "$XDG_CONFIG_HOME" "$XDG_DATA_HOME" "$XDG_STATE_HOME"
 
 # Coerce non-conformant apps to use XDG-like file structures where feasible.
+# abbr
+export ABBR_TMPDIR="$XDG_RUNTIME_DIR/zsh-abbr"
 # Android Studio
 export ANDROID_USER_HOME="$XDG_DATA_HOME/android"
 export ANDROID_AVD_HOME="$ANDROID_USER_HOME/avd"

@@ -123,6 +123,7 @@ zstyle ':my:z4h:ssh:*'          send-vars   COLORTERM
     $XDG_CONFIG_HOME/vim
     $XDG_CONFIG_HOME/zsh/fn
     $XDG_CONFIG_HOME/zsh/zle/^local.*
+    $XDG_CONFIG_HOME/zsh-abbr
   )
   zstyle ':my:z4h:ssh:*'                send-extra-files $ssh_global_extra_files
   local -aU ssh_home_extra_files=(
@@ -147,12 +148,14 @@ zstyle ':z4h:term-title:ssh' precmd  '􀤆 %n@'${${${Z4H_SSH##*:}//\%/%%}:-%m}':
 autoload -Uz -- $XDG_CONFIG_HOME/zsh/fn/-z4h-postinstall-zcomet
 zstyle ':z4h:agkozak/zcomet'  postinstall '-z4h-postinstall-zcomet'
 zstyle ':zcomet:*'            home-dir    $XDG_CACHE_HOME/zcomet
+zstyle ':my:zcomet:'          repos       olets/zsh-abbr
 
 # Clone additional Git repositories from GitHub.
 #
 # This doesn't do anything apart from cloning the repository and keeping it
 # up-to-date. Cloned files can be used after `z4h init`.
 z4h install agkozak/zcomet || return
+z4h install olets/zsh-autosuggestions-abbreviations-strategy || return
 
 # Install or update core components (fzf, zsh-autosuggestions, etc.) and
 # initialize Zsh. After this point console I/O is unavailable until Zsh
@@ -160,10 +163,7 @@ z4h install agkozak/zcomet || return
 # perform network I/O must be done above. Everything else is best done below.
 z4h init || return
 
-# Export environment variables.
-# export DO_NOT_TRACK=1
-
-# Extend PATH.
+# Environment variables targeting ZSH.
 path=(
   $HOME/bin
   $HOME/.local/bin
@@ -176,6 +176,12 @@ path=(
   $ANDROID_HOME/emulator
   $ANDROID_HOME/platform-tools
 )
+ABBR_EXPANSION_CURSOR_MARKER='%'
+ABBR_REGULAR_ABBREVIATION_GLOB_PREFIXES+=( '* -- ' )
+ABBR_REGULAR_ABBREVIATION_SCALAR_PREFIXES+=( ' ' )
+ABBR_SET_EXPANSION_CURSOR=1
+ABBR_SET_LINE_CURSOR=1
+ZSH_AUTOSUGGEST_STRATEGY=( abbreviations $ZSH_AUTOSUGGEST_STRATEGY )
 
 # Autoload functions.
 autoload -Uz -- $XDG_CONFIG_HOME/zsh/fn/-init-fn $XDG_CONFIG_HOME/zsh/zle/-init-zle age z4h-ssh-configure zmv
@@ -186,6 +192,7 @@ autoload -Uz -- $XDG_CONFIG_HOME/zsh/fn/-init-fn $XDG_CONFIG_HOME/zsh/zle/-init-
 # Source scripts and load plugins.
 z4h source $XDG_CONFIG_HOME/env.d/[^_.]*(N)
 init-zcomet
+z4h load olets/zsh-autosuggestions-abbreviations-strategy
 command -v mise &>/dev/null && eval "$(mise activate zsh)" &>/dev/null
 
 # Define key bindings.
