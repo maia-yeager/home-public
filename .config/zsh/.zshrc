@@ -189,8 +189,8 @@ ZSH_AUTOSUGGEST_STRATEGY=( abbreviations $ZSH_AUTOSUGGEST_STRATEGY )
 
 # Autoload functions.
 autoload -Uz -- -init-fn -init-zle age z4h-ssh-configure zmv
-(( $+functions[-init-fn] )) && -init-fn
-(( $+functions[-init-zle] )) && -init-zle
+-init-fn
+-init-zle
 [[ $COLORTERM = *(24bit|truecolor)* ]] || zmodload zsh/nearcolor
 
 # Source scripts and load plugins.
