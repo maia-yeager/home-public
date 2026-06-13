@@ -211,78 +211,47 @@ if [[ -z $Z4H_SSH ]] {
 z4h bindkey   rationalize-dot             .
 
 # Define functions and completions.
+command -v discord-video &>/dev/null && compdef _files discord-video
 # List terminal colour codes.
-function colours {
+function colors {
   for i ({0..255}) {
     print -Pn "%K{$i}  %k%F{$i} ${(l:3::0:)i}%f   " ${${(M)$((i%6)):#3}:+$'\n'}
   }
 }
-
 # Make directory and switch to it.
 function md { [[ $# == 1 ]] && mkdir -p -- ${1} && cd -- ${1} }
 compdef _directories md
 
-if command -v eza &>/dev/null; then
-  function la { ${=aliases[eza]:-eza} --icons -1aaglo $@ }
-  function ll { ${=aliases[eza]:-eza} --icons -1glo $@ }
-  function ls { ${=aliases[eza]:-eza} --icons $@ }
-  compdef _eza la ll ls
-else
-  function la { ${=aliases[ls]:-ls} -al $@ }
-  function ll { ${=aliases[ls]:-ls} -l $@ }
-  compdef _ls la ll
-fi
-if command -v discord-video &>/dev/null; then
-  function dv { discord-video $@ }
-  compdef _files discord-video dv
-fi
-if command -v htop &>/dev/null; then
-  function top { ${=aliases[htop]:-htop} $@ }
-  compdef _htop top
-fi
-if command -v rsync &>/dev/null; then
-  function archive {
-    ${=aliases[rsync]:-rsync} -aAUXf "R $RSYNC_PARTIAL_DIR/" --delete-after --partial-dir --info $@
-  }
-  compdef _rsync archive
-fi
-if command -v tree &>/dev/null; then
-  function lt { ${=aliases[tree]:-tree} --gitignore --metafirst --noreport $@ }
-  compdef _tree lt
-fi
-
 # Define named directories: ~w <=> Windows home directory on WSL.
 [[ -n $z4h_win_home ]] && hash -d w=$z4h_win_home
 
-# Define aliases. If using mixing functions and aliases, use the format
-# `${=aliases[eza]:-eza}` to expand the alias like non-zsh shells.
-if command -v apfel-run &>/dev/null; then
-  alias ai="${aliases[apfel-run]:-apfel-run}"
-  alias cmd="${aliases[apfel-run]:-apfel-run} -p cmd"
-  alias explain="${aliases[apfel-run]:-apfel-run} -p explain"
-fi
-alias cat="${aliases[cat]:-cat} -v"
+# Define aliases.
 alias clear="z4h-clear-screen-soft-top"
-alias colors="colours"
-alias diff="${aliases[diff]:-diff} --color=auto -u"
-alias fp="free-port"
-command -v mise &>/dev/null && alias x="${aliases[mise]:-mise} run"
-if command -v rlwrap &>/dev/null; then
-  alias rlwrap="${aliases[rlwrap]:-rlwrap} -Atdumb"
-  # Add Bash-like keyboard handling.
-  for com (dash nc) {
-    command -v $com &>/dev/null && alias $com="${aliases[rlwrap]:-rlwrap} $com"
-  }
+alias diff="${aliases[diff]:-diff} --color=auto"
+if command -v eza &>/dev/null; then
+  alias eza="${aliases[eza]:-eza} --icons"
+  function la { eza -1aaglo $@ }
+  function ll { eza -1glo $@ }
+  function ls { eza $@ }
+  compdef _eza la ll ls
+else
+  function la { ls -al $@ }
+  function ll { ls -l $@ }
+  compdef _ls la ll
 fi
-alias root="sudo -Es"
-command -v rsync &>/dev/null &&
-  alias rsync="${aliases[rsync]:-rsync} -h --info=name0,progress2,stats2 --timeout=60"
-command -v say &>/dev/null && alias say="${aliases[say]:-say} --interactive"
-command -v tree &>/dev/null && alias tree="${aliases[tree]:-tree} -aI .git"
-# Disable globbing for specific commands.
-for com (alias expr find mattrib mcopy mdir mdel which unset) {
-  command -v $com &>/dev/null && alias $com="noglob ${aliases[$com]:-$com}"
+if command -v htop &>/dev/null; then
+  function top { htop $@ }
+  compdef _htop top
+fi
+command -v rlwrap &>/dev/null && for com (dash nc) {
+  command -v $com &>/dev/null &&
+    alias $com="${aliases[rlwrap]:-rlwrap} -Atdumb $com"
 }
+if command -v tree &>/dev/null; then
+  alias tree="${aliases[tree]:-tree} -I .DS_Store"
+  function lt { tree -a --gitignore --metafirst --noreport $@ }
+  compdef _tree lt
+fi
 
 # Set shell options: http://zsh.sourceforge.net/Doc/Release/Options.html.
 setopt glob_dots     # no special treatment for file names with a leading dot
