@@ -174,6 +174,11 @@ path=(
   $path
   $HOMEBREW_PREFIX/opt/libpq/bin # After $path, to defer to any installed Postgres.
 )
+fpath=(
+  $XDG_CONFIG_HOME/zsh/fn
+  $XDG_CONFIG_HOME/zsh/zle
+  $fpath
+)
 ABBR_EXPANSION_CURSOR_MARKER='…'
 ABBR_LINE_CURSOR_MARKER=$ABBR_EXPANSION_CURSOR_MARKER
 ABBR_REGULAR_ABBREVIATION_GLOB_PREFIXES+=( '* -- ' )
@@ -183,7 +188,7 @@ ABBR_SET_LINE_CURSOR=1
 ZSH_AUTOSUGGEST_STRATEGY=( abbreviations $ZSH_AUTOSUGGEST_STRATEGY )
 
 # Autoload functions.
-autoload -Uz -- $XDG_CONFIG_HOME/zsh/fn/-init-fn $XDG_CONFIG_HOME/zsh/zle/-init-zle age z4h-ssh-configure zmv
+autoload -Uz -- -init-fn -init-zle age z4h-ssh-configure zmv
 (( $+functions[-init-fn] )) && -init-fn
 (( $+functions[-init-zle] )) && -init-zle
 [[ $COLORTERM = *(24bit|truecolor)* ]] || zmodload zsh/nearcolor
