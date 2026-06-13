@@ -4,9 +4,6 @@
 #
 # Documentation: https://github.com/romkatv/zsh4humans/blob/v5/README.md.
 
-# Wrap in self-executing function for easy locals cleanup.
-() {
-
 # If you are using a two-line prompt with an empty line before it, add this
 # for smoother rendering:
 POSTEDIT=$'\n\n\e[2A'
@@ -21,51 +18,53 @@ zstyle ':z4h:' auto-update-days '28'
 zstyle ':z4h:bindkey' keyboard  'mac'
 
 # Start tmux if appropriate.
-local sock
-if [[ -n $TMUX_TMPDIR && -d $TMUX_TMPDIR && -w $TMUX_TMPDIR ]] {
-  sock=$TMUX_TMPDIR
-} elif [[ -n $XDG_RUNTIME_DIR && -d $XDG_RUNTIME_DIR && -w $XDG_RUNTIME_DIR ]] {
-  sock=$XDG_RUNTIME_DIR
-} elif [[ -n $TMPDIR && -d $TMPDIR && -w $TMPDIR ]] {
-  sock=$TMPDIR
-} elif [[ -d /tmp && -w /tmp ]] {
-  sock=/tmp
-}
-if ! command -v tmux &>/dev/null || [[
-  -z $sock
-  || -z $Z4H_SSH # SSH tmux within local tmux isn't a great experience.
-  || $TERM_PROGRAM == tmux
-  || $TERMINAL_EMULATOR = JetBrains*
-]] {
-  zstyle ':z4h:' start-tmux 'no'
-} else {
-  sock=${sock%/}/z4h-tmux-$UID-$TERM
-  local tmux_args=(-uf $TMUX_CONFIG)
-  local -a tmux_cmds
-  # Enable iTerm tmux integration.
-  [[ $LC_TERMINAL == iTerm2 ]] && tmux_args+=(-CC)
-
-  # Below adapted from Z4H built-in tmux logic.
-  # Specify supported terminal colours and features.
-  if (( terminfo[colors] >= 256 )) {
-    tmux_cmds+=(set -g default-terminal tmux-256color ';')
-    if [[ $COLORTERM = *(24bit|truecolor)* ]]; then
-      tmux_cmds+=(set -ga terminal-features ',*:RGB:usstyle:overline' ';')
-      sock+='-tc'
-    fi
+() {
+  local sock
+  if [[ -n $TMUX_TMPDIR && -d $TMUX_TMPDIR && -w $TMUX_TMPDIR ]] {
+    sock=$TMUX_TMPDIR
+  } elif [[ -n $XDG_RUNTIME_DIR && -d $XDG_RUNTIME_DIR && -w $XDG_RUNTIME_DIR ]] {
+    sock=$XDG_RUNTIME_DIR
+  } elif [[ -n $TMPDIR && -d $TMPDIR && -w $TMPDIR ]] {
+    sock=$TMPDIR
+  } elif [[ -d /tmp && -w /tmp ]] {
+    sock=/tmp
+  }
+  if ! command -v tmux &>/dev/null || [[
+    -z $sock
+    || -z $Z4H_SSH # SSH tmux within local tmux isn't a great experience.
+    || $TERM_PROGRAM == tmux
+    || $TERMINAL_EMULATOR = JetBrains*
+  ]] {
+    zstyle ':z4h:' start-tmux 'no'
   } else {
-    tmux_cmds+=(set -g default-terminal screen ';')
-  }
-  # Append a unique per-installation number to the socket path to work
-  # around a bug in tmux. See https://github.com/romkatv/zsh4humans/issues/71.
-  if [[ -e $Z4H/tmux/stamp ]] {
-    local stamp
-    IFS= read -r stamp < $Z4H/tmux/stamp || return
-    sock+=-${stamp%%.*}
-  }
-  tmux_args+=(-S $sock)
+    sock=${sock%/}/z4h-tmux-$UID-$TERM
+    local tmux_args=(-uf $TMUX_CONFIG)
+    local -a tmux_cmds
+    # Enable iTerm tmux integration.
+    [[ $LC_TERMINAL == iTerm2 ]] && tmux_args+=(-CC)
 
-  zstyle ':z4h:' start-tmux command tmux $tmux_args -- "${tmux_cmds[@]}" new -As main
+    # Below adapted from Z4H built-in tmux logic.
+    # Specify supported terminal colours and features.
+    if (( terminfo[colors] >= 256 )) {
+      tmux_cmds+=(set -g default-terminal tmux-256color ';')
+      if [[ $COLORTERM = *(24bit|truecolor)* ]]; then
+        tmux_cmds+=(set -ga terminal-features ',*:RGB:usstyle:overline' ';')
+        sock+='-tc'
+      fi
+    } else {
+      tmux_cmds+=(set -g default-terminal screen ';')
+    }
+    # Append a unique per-installation number to the socket path to work
+    # around a bug in tmux. See https://github.com/romkatv/zsh4humans/issues/71.
+    if [[ -e $Z4H/tmux/stamp ]] {
+      local stamp
+      IFS= read -r stamp < $Z4H/tmux/stamp || return
+      sock+=-${stamp%%.*}
+    }
+    tmux_args+=(-S $sock)
+
+    zstyle ':z4h:' start-tmux command tmux $tmux_args -- "${tmux_cmds[@]}" new -As main
+  }
 }
 
 # Whether to move prompt to the bottom when zsh starts and on Ctrl+L.
@@ -100,36 +99,38 @@ zstyle ':my:z4h:ssh:*'          enable      'no'
 # Copy these environment variables over to the remote host. Always sent
 # regardless of whether automatic teleportation is enabled for a host.
 zstyle ':my:z4h:ssh:*'          send-vars   COLORTERM
-# Send these files over to the remote host when connecting over SSH to the
-# enabled hosts.
-local -aU ssh_global_extra_files=(
-  $HOME/.hushlogin
-  $HOME/.profile
-  $HOME/.ssh/allowed_signers
-  $HOME/.ssh/config
-  $HOME/.zshenv
-  $NPM_CONFIG_USERCONFIG
-  $SCREENRC
-  $TMUX_CONFIG
-  $XDG_CONFIG_HOME/env.d
-  $XDG_CONFIG_HOME/git/config
-  $XDG_CONFIG_HOME/git/ignore
-  $XDG_CONFIG_HOME/glow
-  $XDG_CONFIG_HOME/homebrew
-  $XDG_CONFIG_HOME/htop
-  $XDG_CONFIG_HOME/mise
-  $XDG_CONFIG_HOME/nano
-  $XDG_CONFIG_HOME/python
-  $XDG_CONFIG_HOME/vim
-  $XDG_CONFIG_HOME/zsh/fn
-  $XDG_CONFIG_HOME/zsh/zle/^local.*
-)
-zstyle ':my:z4h:ssh:*'                send-extra-files $ssh_global_extra_files
-local -aU ssh_home_extra_files=(
-  $ssh_global_extra_files
-  $HOME/.ssh/conf.d/home
-)
-zstyle ':my:z4h:ssh:*.am.yeagers.co'  send-extra-files $ssh_home_extra_files
+() {
+  # Send these files over to the remote host when connecting over SSH to the
+  # enabled hosts.
+  local -aU ssh_global_extra_files=(
+    $HOME/.hushlogin
+    $HOME/.profile
+    $HOME/.ssh/allowed_signers
+    $HOME/.ssh/config
+    $HOME/.zshenv
+    $NPM_CONFIG_USERCONFIG
+    $SCREENRC
+    $TMUX_CONFIG
+    $XDG_CONFIG_HOME/env.d
+    $XDG_CONFIG_HOME/git/config
+    $XDG_CONFIG_HOME/git/ignore
+    $XDG_CONFIG_HOME/glow
+    $XDG_CONFIG_HOME/homebrew
+    $XDG_CONFIG_HOME/htop
+    $XDG_CONFIG_HOME/mise
+    $XDG_CONFIG_HOME/nano
+    $XDG_CONFIG_HOME/python
+    $XDG_CONFIG_HOME/vim
+    $XDG_CONFIG_HOME/zsh/fn
+    $XDG_CONFIG_HOME/zsh/zle/^local.*
+  )
+  zstyle ':my:z4h:ssh:*'                send-extra-files $ssh_global_extra_files
+  local -aU ssh_home_extra_files=(
+    $ssh_global_extra_files
+    $HOME/.ssh/conf.d/home
+  )
+  zstyle ':my:z4h:ssh:*.am.yeagers.co'  send-extra-files $ssh_home_extra_files
+}
 
 zstyle ':completion:*:ssh:argument-1:'       tag-order  hosts users
 zstyle ':completion:*:scp:argument-rest:'    tag-order  hosts files users
