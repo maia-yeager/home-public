@@ -173,8 +173,6 @@ path=(
   $HOMEBREW_PREFIX/opt/rustup/bin # Before $path, in case rust is already installed.
   $path
   $HOMEBREW_PREFIX/opt/libpq/bin # After $path, to defer to any installed Postgres.
-  $ANDROID_HOME/emulator
-  $ANDROID_HOME/platform-tools
 )
 ABBR_EXPANSION_CURSOR_MARKER='…'
 ABBR_LINE_CURSOR_MARKER=$ABBR_EXPANSION_CURSOR_MARKER
