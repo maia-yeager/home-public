@@ -187,11 +187,13 @@ ABBR_SET_EXPANSION_CURSOR=1
 ABBR_SET_LINE_CURSOR=1
 ZSH_AUTOSUGGEST_STRATEGY=( abbreviations $ZSH_AUTOSUGGEST_STRATEGY )
 
+# Load modules.
+[[ $COLORTERM = *(24bit|truecolor)* ]] || zmodload zsh/nearcolor
+
 # Autoload functions.
 autoload -Uz -- -init-fn -init-zle age z4h-ssh-configure zmv
 -init-fn
 -init-zle
-[[ $COLORTERM = *(24bit|truecolor)* ]] || zmodload zsh/nearcolor
 
 # Source scripts and load plugins.
 z4h source $XDG_CONFIG_HOME/env.d/[^_.]*(N)
