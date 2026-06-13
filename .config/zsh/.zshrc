@@ -142,14 +142,16 @@ zstyle ':completion:*:(ssh|scp|rdp):*:hosts' hosts
 zstyle ':z4h:term-title:ssh' preexec '􀤆 %n@'${${${Z4H_SSH##*:}//\%/%%}:-%m}': ${1//\%/%%}'
 zstyle ':z4h:term-title:ssh' precmd  '􀤆 %n@'${${${Z4H_SSH##*:}//\%/%%}:-%m}': %~'
 
+# Plugin manager configuration. Used for recursively cloning Git repositories.
+autoload -Uz -- $XDG_CONFIG_HOME/zsh/fn/-z4h-postinstall-zcomet
+zstyle ':z4h:agkozak/zcomet'  postinstall '-z4h-postinstall-zcomet'
+zstyle ':zcomet:*'            home-dir    $XDG_CACHE_HOME/zcomet
+
 # Clone additional Git repositories from GitHub.
 #
 # This doesn't do anything apart from cloning the repository and keeping it
-# up-to-date. Cloned files can be used after `z4h init`. This is just an
-# example. If you don't plan to use Oh My Zsh, delete this line.
-# z4h install ohmyzsh/ohmyzsh || return
-
-}
+# up-to-date. Cloned files can be used after `z4h init`.
+z4h install agkozak/zcomet || return
 
 # Install or update core components (fzf, zsh-autosuggestions, etc.) and
 # initialize Zsh. After this point console I/O is unavailable until Zsh
@@ -173,28 +175,17 @@ path=(
   $ANDROID_HOME/emulator
   $ANDROID_HOME/platform-tools
 )
-fpath=(
-  $XDG_CONFIG_HOME/zsh/fn
-  $XDG_CONFIG_HOME/zsh/zle
-  $fpath
-)
-
-# Source additional local files if they exist.
-z4h source $XDG_CONFIG_HOME/env.d/[^_.]*(N)
-
-# Application configuration.
-command -v mise &>/dev/null && eval "$(mise activate zsh)" &>/dev/null
-
-# Use additional Git repositories pulled in with `z4h install`.
-#
-# This is just an example that you should delete. It does nothing useful.
-# z4h source ohmyzsh/ohmyzsh/lib/diagnostics.zsh  # source an individual file
-# z4h load   ohmyzsh/ohmyzsh/plugins/emoji-clock  # load a plugin
 
 # Autoload functions.
-autoload -Uz -- -init-zle age z4h-ssh-configure zmv
+autoload -Uz -- $XDG_CONFIG_HOME/zsh/fn/-init-fn $XDG_CONFIG_HOME/zsh/zle/-init-zle age z4h-ssh-configure zmv
+(( $+functions[-init-fn] )) && -init-fn
 (( $+functions[-init-zle] )) && -init-zle
 [[ $COLORTERM = *(24bit|truecolor)* ]] || zmodload zsh/nearcolor
+
+# Source scripts and load plugins.
+z4h source $XDG_CONFIG_HOME/env.d/[^_.]*(N)
+init-zcomet
+command -v mise &>/dev/null && eval "$(mise activate zsh)" &>/dev/null
 
 # Define key bindings.
 z4h bindkey   z4h-eof                     Ctrl+D            # help make transient prompt behave consistently from SSH
