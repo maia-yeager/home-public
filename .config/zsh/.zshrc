@@ -144,17 +144,13 @@ zstyle ':completion:*:(ssh|scp|rdp):*:hosts' hosts
 zstyle ':z4h:term-title:ssh' preexec '􀤆 %n@'${${${Z4H_SSH##*:}//\%/%%}:-%m}': ${1//\%/%%}'
 zstyle ':z4h:term-title:ssh' precmd  '􀤆 %n@'${${${Z4H_SSH##*:}//\%/%%}:-%m}': %~'
 
-# Plugin manager configuration. Used for recursively cloning Git repositories.
-autoload -Uz -- $XDG_CONFIG_HOME/zsh/fn/-z4h-postinstall-zcomet
-zstyle ':z4h:agkozak/zcomet'  postinstall '-z4h-postinstall-zcomet'
-zstyle ':zcomet:*'            home-dir    $XDG_CACHE_HOME/zcomet
-zstyle ':my:zcomet:'          repos       olets/zsh-abbr
-
 # Clone additional Git repositories from GitHub.
 #
 # This doesn't do anything apart from cloning the repository and keeping it
 # up-to-date. Cloned files can be used after `z4h init`.
-z4h install agkozak/zcomet || return
+z4h install olets/zsh-job-queue || return
+z4h install olets/zsh-abbr || return
+zstyle ':z4h:olets/zsh-abbr' postinstall 'ln -fFs $Z4H/olets/zsh-job-queue $Z4H_PACKAGE_DIR/'
 z4h install olets/zsh-autosuggestions-abbreviations-strategy || return
 
 # Install or update core components (fzf, zsh-autosuggestions, etc.) and
@@ -192,7 +188,7 @@ autoload -Uz -- $XDG_CONFIG_HOME/zsh/fn/-init-fn $XDG_CONFIG_HOME/zsh/zle/-init-
 
 # Source scripts and load plugins.
 z4h source $XDG_CONFIG_HOME/env.d/[^_.]*(N)
-init-zcomet
+z4h load olets/zsh-abbr
 z4h load olets/zsh-autosuggestions-abbreviations-strategy
 command -v mise &>/dev/null && eval "$(mise activate zsh)" &>/dev/null
 
