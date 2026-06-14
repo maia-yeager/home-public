@@ -9,4 +9,4 @@ source $file
 zcomet update
 
 autoload -Uz -- $XDG_CONFIG_HOME/zsh/fn/init-zcomet
-(( $+functions[init-zcomet] )) && init-zcomet
+init-zcomet
