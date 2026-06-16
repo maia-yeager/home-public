@@ -104,6 +104,9 @@ z4h install olets/zsh-autosuggestions-abbreviations-strategy || return
 # perform network I/O must be done above. Everything else is best done below.
 z4h init || return
 
+# Load modules.
+[[ $COLORTERM = *(24bit|truecolor)* ]] || zmodload zsh/nearcolor
+
 # Environment variables targeting ZSH.
 path=(
   $HOME/bin
@@ -127,9 +130,6 @@ ABBR_REGULAR_ABBREVIATION_SCALAR_PREFIXES+=( ' ' )
 ABBR_SET_EXPANSION_CURSOR=1
 ABBR_SET_LINE_CURSOR=1
 ZSH_AUTOSUGGEST_STRATEGY=( abbreviations $ZSH_AUTOSUGGEST_STRATEGY )
-
-# Load modules.
-[[ $COLORTERM = *(24bit|truecolor)* ]] || zmodload zsh/nearcolor
 
 # Autoload functions.
 () {
