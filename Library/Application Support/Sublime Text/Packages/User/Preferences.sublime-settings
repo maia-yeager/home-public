@@ -1,5 +1,4 @@
 {
-	"allow_git_home_dir": true,
 	"auto_complete_cycle": true,
 	"auto_complete_commit_on_tab": true,
 	"auto_complete_use_history": true,
