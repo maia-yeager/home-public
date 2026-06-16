@@ -1,6 +1,4 @@
 {
-  "show_open_button": "never",
-  "work_for_transient_view": true,
   "draw_uri_regions": {
     "enabled": "always",
     "scope": "comment",
@@ -12,4 +10,6 @@
       "DRAW_NO_OUTLINE",
     ],
   },
+  "show_open_button": "never",
+  "work_for_transient_view": true,
 }
