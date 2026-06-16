@@ -3,7 +3,7 @@
   "work_for_transient_view": true,
   "draw_uri_regions": {
     "enabled": "always",
-    "scope": "@scope",
+    "scope": "comment",
     "icon": "",
     "flags": [
       "HIDE_ON_MINIMAP",
