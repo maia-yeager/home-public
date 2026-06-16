@@ -85,64 +85,9 @@ zstyle ':z4h:fzf-complete' fzf-bindings tab:repeat
 # Enable direnv to automatically source .envrc files.
 zstyle ':z4h:direnv' enable 'no'
 
-# Explicitly set the default SSH command, so Z4H doesn't override settings
-# from '.ssh/config'.
-# https://github.com/romkatv/zsh4humans/blob/cd6c4770c802c3a17b4c43e5587adabb9a370a75/fn/-z4h-cmd-ssh#L81-L84
-zstyle ':z4h:ssh:*'             ssh-command command ssh
-# Enable ('yes') or disable ('no') automatic teleportation of z4h over
-# Defer to custom implementation.
-zstyle ':z4h:ssh:*'             enable      'yes'
-# Determine using :my:z4h:ssh:<user>:<host>:<port> settings.
-zstyle ':my:z4h:ssh:maia*:*'    enable      'yes'
-zstyle ':my:z4h:ssh:*yeager:*'  enable      'yes'
-zstyle ':my:z4h:ssh:*'          enable      'no'
-# Copy these environment variables over to the remote host. Always sent
-# regardless of whether automatic teleportation is enabled for a host.
-zstyle ':my:z4h:ssh:*'          send-vars   COLORTERM
-() {
-  # Send these files over to the remote host when connecting over SSH to the
-  # enabled hosts.
-  local -aU ssh_global_extra_files=(
-    $HOME/.hushlogin
-    $HOME/.profile
-    $HOME/.ssh/allowed_signers
-    $HOME/.ssh/config
-    $HOME/.zshenv
-    $NPM_CONFIG_USERCONFIG
-    $SCREENRC
-    $TMUX_CONFIG
-    $XDG_CONFIG_HOME/env.d
-    $XDG_CONFIG_HOME/git/config
-    $XDG_CONFIG_HOME/git/ignore
-    $XDG_CONFIG_HOME/glow
-    $XDG_CONFIG_HOME/homebrew
-    $XDG_CONFIG_HOME/htop
-    $XDG_CONFIG_HOME/mise
-    $XDG_CONFIG_HOME/nano
-    $XDG_CONFIG_HOME/python
-    $XDG_CONFIG_HOME/vim
-    $XDG_CONFIG_HOME/zsh/fn
-    $XDG_CONFIG_HOME/zsh/zle/^local.*
-    $XDG_CONFIG_HOME/zsh-abbr
-  )
-  zstyle ':my:z4h:ssh:*'                send-extra-files $ssh_global_extra_files
-  local -aU ssh_home_extra_files=(
-    $ssh_global_extra_files
-    $HOME/.ssh/conf.d/home
-  )
-  zstyle ':my:z4h:ssh:*.am.yeagers.co'  send-extra-files $ssh_home_extra_files
-}
-
 zstyle ':completion:*:ssh:argument-1:'       tag-order  hosts users
 zstyle ':completion:*:scp:argument-rest:'    tag-order  hosts files users
 zstyle ':completion:*:(ssh|scp|rdp):*:hosts' hosts
-
-# Tip: Replace %m with ${${${Z4H_SSH##*:}//\%/%%}:-%m}. This makes a difference
-# when using SSH teleportation: the title will show the hostname as you typed
-# it on the command line when connecting rather than the hostname reported by
-# the remote machine.
-zstyle ':z4h:term-title:ssh' preexec '􀤆 %n@'${${${Z4H_SSH##*:}//\%/%%}:-%m}': ${1//\%/%%}'
-zstyle ':z4h:term-title:ssh' precmd  '􀤆 %n@'${${${Z4H_SSH##*:}//\%/%%}:-%m}': %~'
 
 # Clone additional Git repositories from GitHub.
 #
@@ -170,6 +115,11 @@ path=(
   $path
   $HOMEBREW_PREFIX/opt/libpq/bin # After $path, to defer to any installed Postgres.
 )
+fpath=(
+  $fpath
+  $XDG_CONFIG_HOME/zsh/fn.local
+  $XDG_CONFIG_HOME/zsh/fn
+)
 ABBR_EXPANSION_CURSOR_MARKER='…'
 ABBR_LINE_CURSOR_MARKER=$ABBR_EXPANSION_CURSOR_MARKER
 ABBR_REGULAR_ABBREVIATION_GLOB_PREFIXES+=( '* -- ' )
@@ -182,9 +132,15 @@ ZSH_AUTOSUGGEST_STRATEGY=( abbreviations $ZSH_AUTOSUGGEST_STRATEGY )
 [[ $COLORTERM = *(24bit|truecolor)* ]] || zmodload zsh/nearcolor
 
 # Autoload functions.
-autoload -Uz -- $XDG_CONFIG_HOME/zsh/fn/-init-fn $XDG_CONFIG_HOME/zsh/zle/-init-zle age zmv
--init-fn
--init-zle
+() {
+  local -a fns
+  for my_fpath (${(M)fpath:#$XDG_CONFIG_HOME/zsh/fn*}) {
+    local items=( $my_fpath/[^-]*(.N) )
+    fns+=( ${items:t} )
+  }
+  autoload -Uz -- $fns
+  for fn ($fns) $fn
+}
 
 # Source scripts and load plugins.
 z4h source $XDG_CONFIG_HOME/env.d/[^_.]*(N)
@@ -193,19 +149,19 @@ z4h load olets/zsh-autosuggestions-abbreviations-strategy
 command -v mise &>/dev/null && eval "$(mise activate zsh)" &>/dev/null
 
 # Define key bindings.
-z4h bindkey   z4h-eof                     Ctrl+D            # help make transient prompt behave consistently from SSH
-z4h bindkey   undo                        Ctrl+/ Shift+Tab  # undo the last command line change
-z4h bindkey   redo                        Option+/          # redo the last undone command line change
+z4h bindkey   z4h-eof               Ctrl+D            # help make transient prompt behave consistently from SSH
+z4h bindkey   undo                  Ctrl+/ Shift+Tab  # undo the last command line change
+z4h bindkey   redo                  Option+/          # redo the last undone command line change
 
-z4h bindkey   z4h-cd-back                 Shift+Left        # cd into the previous directory
-z4h bindkey   z4h-cd-forward              Shift+Right       # cd into the next directory
-z4h bindkey   z4h-cd-up                   Shift+Up          # cd into the parent directory
-z4h bindkey   z4h-cd-down                 Shift+Down        # cd into a child directory
+z4h bindkey   z4h-cd-back           Shift+Left        # cd into the previous directory
+z4h bindkey   z4h-cd-forward        Shift+Right       # cd into the next directory
+z4h bindkey   z4h-cd-up             Shift+Up          # cd into the parent directory
+z4h bindkey   z4h-cd-down           Shift+Down        # cd into a child directory
 
 if [[ -z $Z4H_SSH ]] {
-  z4h bindkey local.toggle-home-git-repo  Ctrl+P            # cycle home git repository
+  z4h bindkey toggle-home-git-repo  Ctrl+P            # cycle home git repository
 }
-z4h bindkey   rationalize-dot             .
+z4h bindkey   rationalize-dot       .
 
 # Define functions and completions.
 command -v discord-video &>/dev/null && compdef _files discord-video

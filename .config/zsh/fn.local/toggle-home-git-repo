@@ -1,0 +1,59 @@
+#!/usr/bin/env zsh
+
+function toggle-home-git-repo.local {
+  # No emulate zsh here because it calls reset-prompt.
+
+  if (( ARGC == 0 )) {
+    case "${GIT_DIR-}" {
+      '')
+        export GIT_DIR=$XDG_DATA_HOME/home/public
+        export GIT_WORK_TREE=~
+      ;;
+      $XDG_DATA_HOME/home/public)
+        export GIT_DIR=$XDG_DATA_HOME/home/private
+        export GIT_WORK_TREE=~
+      ;;
+      *)
+        unset GIT_DIR
+        unset GIT_WORK_TREE
+      ;;
+    }
+  } elif (( ARGC == 1 )) {
+    case "$1" {
+      public)
+        export GIT_DIR=$XDG_DATA_HOME/home/public
+        export GIT_WORK_TREE=~
+      ;;
+      private)
+        export GIT_DIR=$XDG_DATA_HOME/home/private
+        export GIT_WORK_TREE=~
+      ;;
+      '')
+        unset GIT_DIR
+        unset GIT_WORK_TREE
+      ;;
+      *)
+        print -ru2 -- "toggle-home-git-repo: invalid argument: ${(qqq)1}"
+        return 1
+      ;;
+    }
+  } else {
+    print -ru2 -- "toggle-home-git-repo: too many arguments"
+    return 1
+  }
+
+  zle || return 0
+
+  local f
+  for f (precmd "${precmd_functions[@]}") {
+    (( ${+functions[$f]} )) && "$f" &>/dev/null
+  }
+
+  if (( ${+functions[p10k]} )) {
+    p10k display -r
+  } else {
+    zle .reset-prompt
+  }
+}
+
+zle -N -- toggle-home-git-repo.local
