@@ -4,11 +4,6 @@
 #
 # Documentation: https://github.com/romkatv/zsh4humans/blob/v5/README.md.
 
-fpath=(
-  $fpath
-  $XDG_CONFIG_HOME/zsh/fn.local
-  $XDG_CONFIG_HOME/zsh/fn
-)
 # If you are using a two-line prompt with an empty line before it, add this
 # for smoother rendering:
 POSTEDIT=$'\n\n\e[2A'
@@ -23,7 +18,7 @@ zstyle ':z4h:' auto-update-days '28'
 zstyle ':z4h:bindkey' keyboard  'mac'
 
 # Start tmux if appropriate.
-autoload -Uz -- -init-tmux && -init-tmux
+z4h source -c -- $ZDOTDIR/env/-init-tmux
 
 # Whether to move prompt to the bottom when zsh starts and on Ctrl+L.
 zstyle ':z4h:' prompt-at-bottom 'no'
@@ -84,19 +79,9 @@ ABBR_SET_EXPANSION_CURSOR=1
 ABBR_SET_LINE_CURSOR=1
 ZSH_AUTOSUGGEST_STRATEGY=( abbreviations $ZSH_AUTOSUGGEST_STRATEGY )
 
-# Autoload functions.
-() {
-  local -a fns
-  for my_fpath (${(M)fpath:#$XDG_CONFIG_HOME/zsh/fn*}) {
-    local items=( $my_fpath/[^-]*(.N) )
-    fns+=( ${items:t} )
-  }
-  autoload -Uz -- $fns
-  for fn ($fns) $fn
-}
-
 # Source scripts and load plugins.
-z4h source $XDG_CONFIG_HOME/env.d/[^_.]*(N)
+z4h source -- $XDG_CONFIG_HOME/env/[^-]*(N^D)
+z4h source -c -- $ZDOTDIR/(env|env.local)/[^-]*~*.zwc(N^D)
 z4h load olets/zsh-abbr
 z4h load olets/zsh-autosuggestions-abbreviations-strategy
 command -v mise &>/dev/null && eval "$(mise activate zsh)" &>/dev/null

@@ -34,7 +34,7 @@ extra_files=(
   $NPM_CONFIG_USERCONFIG
   $SCREENRC
   $TMUX_CONFIG
-  $XDG_CONFIG_HOME/env.d
+  $XDG_CONFIG_HOME/env
   $XDG_CONFIG_HOME/git/config
   $XDG_CONFIG_HOME/git/ignore
   $XDG_CONFIG_HOME/glow
@@ -44,8 +44,8 @@ extra_files=(
   $XDG_CONFIG_HOME/nano
   $XDG_CONFIG_HOME/python
   $XDG_CONFIG_HOME/vim
-  $XDG_CONFIG_HOME/zsh/fn
   $XDG_CONFIG_HOME/zsh-abbr
+  $ZDOTDIR/env
 )
 zstyle ':my:z4h:ssh:*'                  send-extra-files $extra_files
 home_extra_files=(

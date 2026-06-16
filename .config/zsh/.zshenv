@@ -9,8 +9,8 @@
 if [ -n "${ZSH_VERSION-}" ]; then
   # If you are certain that you must export some environment variables
   # in ~/.zshenv (see comments at the top!), do it here:
-  source ${XDG_CONFIG_HOME:-$HOME/.config}/env.d/_init
-  source ${XDG_CONFIG_HOME:-$HOME/.config}/env.d/_xdg
+  source ${XDG_CONFIG_HOME:-$HOME/.config}/env/-init
+  source ${XDG_CONFIG_HOME:-$HOME/.config}/env/-xdg
 
   # Do not change anything else in this file.
 
