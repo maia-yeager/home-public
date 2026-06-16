@@ -38,6 +38,50 @@ zstyle ':z4h:fzf-complete' fzf-bindings tab:repeat
 # Enable direnv to automatically source .envrc files.
 zstyle ':z4h:direnv' enable 'no'
 
+# Explicitly set the default SSH command, so Z4H doesn't override settings
+# from '.ssh/config'.
+# https://github.com/romkatv/zsh4humans/blob/cd6c4770c802c3a17b4c43e5587adabb9a370a75/fn/-z4h-cmd-ssh#L81-L84
+zstyle ':z4h:ssh:*'             ssh-command command ssh
+# Enable ('yes') or disable ('no') automatic teleportation of z4h over
+# Defer to custom implementation.
+zstyle ':z4h:ssh:*'             enable      'yes'
+# Determine using :my:z4h:ssh:<user>:<host>:<port> settings.
+zstyle ':my:z4h:ssh:maia*:*'    enable      'yes'
+zstyle ':my:z4h:ssh:*yeager:*'  enable      'yes'
+zstyle ':my:z4h:ssh:*'          enable      'no'
+# Copy these environment variables over to the remote host. Always sent
+# regardless of whether automatic teleportation is enabled for a host.
+zstyle ':my:z4h:ssh:*'          send-vars   COLORTERM
+
+# Send these files over to the remote host when connecting over SSH to the
+# enabled hosts.
+() {
+  local -aU extra_files home_extra_files
+  extra_files=(
+    $HOME/(.hushlogin|.profile|.zshenv)
+    $HOME/.ssh/(allowed_signers|config)
+    $NPM_CONFIG_USERCONFIG
+    $SCREENRC
+    $TMUX_CONFIG
+    $XDG_CONFIG_HOME/(env|glow|homebrew|htop|mise|nano|python|vim|zsh-abbr)
+    $XDG_CONFIG_HOME/git/(config|ignore)
+    $ZDOTDIR/env
+  )
+  zstyle ':my:z4h:ssh:*'                  send-extra-files $extra_files
+  home_extra_files=(
+    $HOME/.ssh/conf.d/home
+    $extra_files
+  )
+  zstyle ':my:z4h:ssh:*:*.am.yeagers.co'  send-extra-files $home_extra_files
+}
+
+# Tip: Replace %m with ${${${Z4H_SSH##*:}//\%/%%}:-%m}. This makes a difference
+# when using SSH teleportation: the title will show the hostname as you typed
+# it on the command line when connecting rather than the hostname reported by
+# the remote machine.
+zstyle ':z4h:term-title:ssh' preexec '􀤆 %n@'${${${Z4H_SSH##*:}//\%/%%}:-%m}': ${1//\%/%%}'
+zstyle ':z4h:term-title:ssh' precmd  '􀤆 %n@'${${${Z4H_SSH##*:}//\%/%%}:-%m}': %~'
+
 zstyle ':completion:*:ssh:argument-1:'       tag-order  hosts users
 zstyle ':completion:*:scp:argument-rest:'    tag-order  hosts files users
 zstyle ':completion:*:(ssh|scp|rdp):*:hosts' hosts
@@ -71,6 +115,10 @@ path=(
   $path
   $HOMEBREW_PREFIX/opt/libpq/bin # After $path, to defer to any installed Postgres.
 )
+fpath=(
+  $fpath
+  $ZDOTDIR/fn
+)
 ABBR_EXPANSION_CURSOR_MARKER='…'
 ABBR_LINE_CURSOR_MARKER=$ABBR_EXPANSION_CURSOR_MARKER
 ABBR_REGULAR_ABBREVIATION_GLOB_PREFIXES+=( '* -- ' )
@@ -78,6 +126,9 @@ ABBR_REGULAR_ABBREVIATION_SCALAR_PREFIXES+=( ' ' )
 ABBR_SET_EXPANSION_CURSOR=1
 ABBR_SET_LINE_CURSOR=1
 ZSH_AUTOSUGGEST_STRATEGY=( abbreviations $ZSH_AUTOSUGGEST_STRATEGY )
+
+# Autoload functions.
+autoload -Uz -- age z4h-ssh-configure zmv
 
 # Source scripts and load plugins.
 z4h source -- $XDG_CONFIG_HOME/env/[^-]*(N^D)
