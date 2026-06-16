@@ -4,6 +4,11 @@
 #
 # Documentation: https://github.com/romkatv/zsh4humans/blob/v5/README.md.
 
+fpath=(
+  $fpath
+  $XDG_CONFIG_HOME/zsh/fn.local
+  $XDG_CONFIG_HOME/zsh/fn
+)
 # If you are using a two-line prompt with an empty line before it, add this
 # for smoother rendering:
 POSTEDIT=$'\n\n\e[2A'
@@ -18,54 +23,7 @@ zstyle ':z4h:' auto-update-days '28'
 zstyle ':z4h:bindkey' keyboard  'mac'
 
 # Start tmux if appropriate.
-() {
-  local sock
-  if [[ -n $TMUX_TMPDIR && -d $TMUX_TMPDIR && -w $TMUX_TMPDIR ]] {
-    sock=$TMUX_TMPDIR
-  } elif [[ -n $XDG_RUNTIME_DIR && -d $XDG_RUNTIME_DIR && -w $XDG_RUNTIME_DIR ]] {
-    sock=$XDG_RUNTIME_DIR
-  } elif [[ -n $TMPDIR && -d $TMPDIR && -w $TMPDIR ]] {
-    sock=$TMPDIR
-  } elif [[ -d /tmp && -w /tmp ]] {
-    sock=/tmp
-  }
-  if ! command -v tmux &>/dev/null || [[
-    -z $sock
-    || -z $Z4H_SSH # SSH tmux within local tmux isn't a great experience.
-    || $TERM_PROGRAM == tmux
-    || $TERMINAL_EMULATOR = JetBrains*
-  ]] {
-    zstyle ':z4h:' start-tmux 'no'
-  } else {
-    sock=${sock%/}/z4h-tmux-$UID-$TERM
-    local tmux_args=(-uf $TMUX_CONFIG)
-    local -a tmux_cmds
-    # Enable iTerm tmux integration.
-    [[ $LC_TERMINAL == iTerm2 ]] && tmux_args+=(-CC)
-
-    # Below adapted from Z4H built-in tmux logic.
-    # Specify supported terminal colours and features.
-    if (( terminfo[colors] >= 256 )) {
-      tmux_cmds+=(set -g default-terminal tmux-256color ';')
-      if [[ $COLORTERM = *(24bit|truecolor)* ]]; then
-        tmux_cmds+=(set -ga terminal-features ',*:RGB:usstyle:overline' ';')
-        sock+='-tc'
-      fi
-    } else {
-      tmux_cmds+=(set -g default-terminal screen ';')
-    }
-    # Append a unique per-installation number to the socket path to work
-    # around a bug in tmux. See https://github.com/romkatv/zsh4humans/issues/71.
-    if [[ -e $Z4H/tmux/stamp ]] {
-      local stamp
-      IFS= read -r stamp < $Z4H/tmux/stamp || return
-      sock+=-${stamp%%.*}
-    }
-    tmux_args+=(-S $sock)
-
-    zstyle ':z4h:' start-tmux command tmux $tmux_args -- "${tmux_cmds[@]}" new -As main
-  }
-}
+autoload -Uz -- -init-tmux && -init-tmux
 
 # Whether to move prompt to the bottom when zsh starts and on Ctrl+L.
 zstyle ':z4h:' prompt-at-bottom 'no'
@@ -117,11 +75,6 @@ path=(
   $HOMEBREW_PREFIX/opt/rustup/bin # Before $path, in case rust is already installed.
   $path
   $HOMEBREW_PREFIX/opt/libpq/bin # After $path, to defer to any installed Postgres.
-)
-fpath=(
-  $fpath
-  $XDG_CONFIG_HOME/zsh/fn.local
-  $XDG_CONFIG_HOME/zsh/fn
 )
 ABBR_EXPANSION_CURSOR_MARKER='…'
 ABBR_LINE_CURSOR_MARKER=$ABBR_EXPANSION_CURSOR_MARKER
