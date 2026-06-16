@@ -1,0 +1,8 @@
+[
+    // open URL via: command + click
+    {
+        "button": "button1",
+        "modifiers": ["command"],
+        "command": "open_context_url",
+    },
+]
