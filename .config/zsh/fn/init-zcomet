@@ -1,9 +1,0 @@
-#!/usr/bin/env zsh
-
-local -aU repos snippets
-zstyle -a ':my:zcomet:' repos     repos
-zstyle -a ':my:zcomet:' snippets  snippets
-
-[[ -z $Z4H_PACKAGE_DIR ]] && z4h source agkozak/zcomet/zcomet.zsh
-if (( ${#repos} )) { zcomet load $repos }
-if (( ${#snippets} )) { zcomet snippet $snippets }
