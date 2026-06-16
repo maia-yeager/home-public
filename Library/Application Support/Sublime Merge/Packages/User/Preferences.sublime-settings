@@ -15,6 +15,11 @@
 		"Cloudflare",
 		"editorconfig",
 		"allowlist",
+		"submodule",
+		"zsh",
+		"zsh4humans",
+		"repo's",
+		"tmux",
 	],
 	"git_binary": "git",
 }
