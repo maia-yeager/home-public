@@ -128,7 +128,7 @@ ABBR_SET_LINE_CURSOR=1
 ZSH_AUTOSUGGEST_STRATEGY=( abbreviations $ZSH_AUTOSUGGEST_STRATEGY )
 
 # Autoload functions.
-autoload -Uz -- age z4h-ssh-configure zmv
+autoload -Uz -- age colors z4h-ssh-configure zmv
 
 # Source scripts and load plugins.
 z4h source -- $XDG_CONFIG_HOME/env/[^-]*(N^D)
@@ -154,12 +154,6 @@ z4h bindkey   rationalize-dot       .
 
 # Define functions and completions.
 command -v discord-video &>/dev/null && compdef _files discord-video
-# List terminal colour codes.
-function colors {
-  for i ({0..255}) {
-    print -Pn "%K{$i}  %k%F{$i} ${(l:3::0:)i}%f   " ${${(M)$((i%6)):#3}:+$'\n'}
-  }
-}
 
 # Define named directories: ~w <=> Windows home directory on WSL.
 [[ -n $z4h_win_home ]] && hash -d w=$z4h_win_home
