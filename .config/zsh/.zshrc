@@ -154,15 +154,6 @@ z4h bindkey   rationalize-dot       .
 
 # Define functions and completions.
 command -v discord-video &>/dev/null && compdef _files discord-video
-# List terminal colour codes.
-function colors {
-  for i ({0..255}) {
-    print -Pn "%K{$i}  %k%F{$i} ${(l:3::0:)i}%f   " ${${(M)$((i%6)):#3}:+$'\n'}
-  }
-}
-# Make directory and switch to it.
-function md { [[ $# == 1 ]] && mkdir -p -- ${1} && cd -- ${1} }
-compdef _directories md
 
 # Define named directories: ~w <=> Windows home directory on WSL.
 [[ -n $z4h_win_home ]] && hash -d w=$z4h_win_home
