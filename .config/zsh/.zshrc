@@ -65,7 +65,7 @@ zstyle ':my:z4h:ssh:*'          send-vars   COLORTERM
     $TMUX_CONFIG
     $XDG_CONFIG_HOME/(env|glow|homebrew|htop|mise|nano|python|vim|zsh-abbr)
     $XDG_CONFIG_HOME/git/(config|ignore)
-    $ZDOTDIR/env
+    $ZDOTDIR/(env|fn)
   )
   zstyle ':my:z4h:ssh:*'                  send-extra-files $extra_files
   home_extra_files=(
