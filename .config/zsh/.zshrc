@@ -45,7 +45,7 @@ zstyle ':z4h:ssh:*'             ssh-command command ssh
 # Enable ('yes') or disable ('no') automatic teleportation of z4h over
 # Defer to custom implementation.
 zstyle ':z4h:ssh:*'             enable      'yes'
-# Determine using :my:z4h:ssh:<user>:<host>:<port> settings.
+# Determine using :my:z4h:ssh:<user>:<host> settings.
 zstyle ':my:z4h:ssh:maia*:*'    enable      'yes'
 zstyle ':my:z4h:ssh:*yeager:*'  enable      'yes'
 zstyle ':my:z4h:ssh:*'          enable      'no'
@@ -147,10 +147,10 @@ z4h bindkey   z4h-cd-forward        Shift+Right       # cd into the next directo
 z4h bindkey   z4h-cd-up             Shift+Up          # cd into the parent directory
 z4h bindkey   z4h-cd-down           Shift+Down        # cd into a child directory
 
+z4h bindkey   rationalize-dot       .
 if [[ -z $Z4H_SSH ]] {
   z4h bindkey toggle-home-git-repo  Ctrl+P            # cycle home git repository
 }
-z4h bindkey   rationalize-dot       .
 
 # Define functions and completions.
 command -v discord-video &>/dev/null && compdef _files discord-video
