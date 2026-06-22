@@ -47,4 +47,4 @@ alias tmux="tmux -f $XDG_CONFIG_HOME/tmux/tmux.conf"
 export GVIMINIT='let $MYGVIMRC="$XDG_CONFIG_HOME/vim/gvimrc" | source $MYGVIMRC'
 export VIMINIT='let $MYVIMRC="$XDG_CONFIG_HOME/vim/vimrc" | source $MYVIMRC'
 # wget
-command -v wget >/dev/null 2>&1 && alias wget="wget --hsts-file=\"$XDG_DATA_HOME/wget-hsts\""
+export WGETRC="$XDG_CONFIG_HOME/wget/wgetrc"
