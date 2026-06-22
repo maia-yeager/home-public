@@ -26,27 +26,43 @@ emulate -L zsh
 # Additional, undocumented parameters:
 #
 # - user_host               the supplied user / host combination
+# - z4h_ssh_prelude         shell commands to run before file transfer
+# - z4h_ssh_setup           shell commands to run after file transfer but before
+#                           starting z4h
+# - z4h_ssh_teardown        shell commands to run when tearing down a z4h
+#                           session
 
-# These will be executed with the default shell (e.g. bash), so adapt commands
-# accordingly.
 z4h_ssh_prelude+=(
   # Ensure zsh files are placed in $XDG_CONFIG_HOME, not the home root.
-  '
-  export ZDOTDIR="${XDG_CONFIG_HOME:-$HOME/.config}/zsh"
-  mkdir -p "$ZDOTDIR"
-  '
+  "
+  echo -n '$fg[white]Setting ZDOTDIR...$fg[default] '
+  export ZDOTDIR=\"\${XDG_CONFIG_HOME:-\$HOME/.config}/zsh\" &&
+    mkdir -p \"\$ZDOTDIR\" &&
+    echo '${fg[green]}done$fg[default].'
+  "
+)
+z4h_ssh_setup+=(
+  # Source env init script.
+  "
+  echo -n '$fg[white]Sourcing init script...$fg[default] '
+  . \${XDG_CONFIG_HOME:-\$HOME/.config}/env/-init &&
+    echo '${fg[green]}done$fg[default].'
+  "
   # Link the current SSH session's SSH_AUTH_SOCK to a well-known location, to
   # work around tmux not picking up the ENV var change automatically.
-  '
-  my_z4h_ssh_auth_sock="$HOME/.ssh/agent.sock"
-  if test -e "$SSH_AUTH_SOCK"; then
-    ln -sf "$SSH_AUTH_SOCK" "$my_z4h_ssh_auth_sock" &&
-      export SSH_AUTH_SOCK="$my_z4h_ssh_auth_sock"
+  "
+  echo -n '$fg[white]Linking and re-exporting SSH_AUTH_SOCK...$fg[default] '
+  my_z4h_ssh_auth_sock=\"\$XDG_RUNTIME_DIR/ssh-agent.sock\"
+  if test -e \"\$SSH_AUTH_SOCK\"; then
+    ln -sf \"\$SSH_AUTH_SOCK\" \"\$my_z4h_ssh_auth_sock\" &&
+      export SSH_AUTH_SOCK=\"\$my_z4h_ssh_auth_sock\" &&
+      echo '${fg[green]}done$fg[default].'
   else
-    rm -f "$my_z4h_ssh_auth_sock"
+    rm -f \"\$my_z4h_ssh_auth_sock\"
+    echo '${fg[yellow]}SSH agent not forwarded$fg[default].'
   fi
   unset my_z4h_ssh_auth_sock
-  '
+  "
 )
 
 # Extend possible SSH teleportation to config based on user@host:port zstyles.
