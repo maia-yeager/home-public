@@ -1,6 +1,6 @@
 #!/usr/bin/env zsh
 
-function toggle-home-git-repo.local {
+function toggle-home-git-repo {
   # No emulate zsh here because it calls reset-prompt.
 
   if (( ARGC == 0 )) {
@@ -56,4 +56,4 @@ function toggle-home-git-repo.local {
   }
 }
 
-zle -N -- toggle-home-git-repo.local
+zle -N -- toggle-home-git-repo
