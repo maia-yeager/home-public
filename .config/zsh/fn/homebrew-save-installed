@@ -1,0 +1,4 @@
+#!/usr/bin/env zsh
+
+brew list --formulae --installed-on-request >$XDG_CONFIG_HOME/homebrew/formulae
+brew list --cask >$XDG_CONFIG_HOME/homebrew/casks

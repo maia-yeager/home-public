@@ -128,8 +128,8 @@ ABBR_SET_LINE_CURSOR=1
 ZSH_AUTOSUGGEST_STRATEGY=( abbreviations $ZSH_AUTOSUGGEST_STRATEGY )
 
 # Autoload functions.
-autoload -Uz -- age checkmail colors harden nslookup relative \
-                z4h-ssh-configure zmv
+autoload -Uz -- age checkmail colors harden homebrew-save-installed nslookup \
+                relative z4h-ssh-configure zmv
 
 # Source scripts and load plugins.
 z4h source -- $XDG_CONFIG_HOME/env/[^-]*(N^D)
