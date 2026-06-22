@@ -69,9 +69,9 @@ z4h_ssh_setup+=(
 local user host
 if [[ -n $user_host ]] {
   local ssh_config=$("$z4h_ssh_command[@]" $user_host -G)
-  user=$(awk '$1 == tolower("User") {print $2}' <<< $ssh_config)
+  user=$(awk 'tolower($1) == "user" {print $2}' <<< $ssh_config)
   # Get the finalized hostname, falling back to original host.
-  host=${$(awk '$1 == tolower("Hostname") {print $2}' <<< $ssh_config):-$z4h_host}
+  host=${$(awk 'tolower($1) == "hostname" {print $2}' <<< $ssh_config):-$z4h_host}
 }
 local -r user host
 local -r namespace=":my:z4h:ssh:$user:$ssh_host"
