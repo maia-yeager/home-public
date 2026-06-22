@@ -19,7 +19,7 @@ if ! command -v tmux &>/dev/null || [[
   zstyle ':z4h:' start-tmux 'no'
 } else {
   sock=${sock%/}/z4h-tmux-$UID-$TERM
-  local tmux_args=(-uf $TMUX_CONFIG)
+  local tmux_args=(-uf $XDG_CONFIG_HOME/tmux/tmux.conf)
   local -a tmux_cmds
   # Enable iTerm tmux integration.
   [[ $LC_TERMINAL == iTerm2 ]] && tmux_args+=(-CC)

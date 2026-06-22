@@ -1,17 +1,5 @@
 #!/usr/bin/env sh
 
-# Explicitly set the XDG basedir spec, sinc some tools ignore the spec if
-# not set.
-[ -z "$XDG_RUNTIME_DIR" ] &&
-  export XDG_RUNTIME_DIR=$(
-    getconf DARWIN_USER_TEMP_DIR 2>/dev/null || echo -n /run/user/$UID
-  )
-export XDG_CACHE_HOME="${XDG_DATA_HOME:-$HOME/.cache}"
-export XDG_CONFIG_HOME="${XDG_CONFIG_HOME:-$HOME/.config}"
-export XDG_DATA_HOME="${XDG_DATA_HOME:-$HOME/.local/share}"
-export XDG_STATE_HOME="${XDG_STATE_HOME:-$HOME/.local/state}"
-mkdir -p "$XDG_RUNTIME_DIR" "$XDG_CACHE_HOME" "$XDG_CONFIG_HOME" "$XDG_DATA_HOME" "$XDG_STATE_HOME"
-
 # Coerce non-conformant apps to use XDG-like file structures where feasible.
 # abbr
 export ABBR_TMPDIR="$XDG_RUNTIME_DIR/zsh-abbr"
@@ -49,14 +37,12 @@ export RUSTUP_HOME="$XDG_DATA_HOME/rustup"
 # screen
 export SCREENRC="$XDG_CONFIG_HOME/screen/screenrc"
 # shell history
-export HISTFILE="$XDG_STATE_HOME/$(shell_name)_history"
+export HISTFILE="$XDG_STATE_HOME/${SHELL_NAME}_history"
 [ -e "$HISTFILE" ] || touch "$HISTFILE"
 # SQLite
 export SQLITE_HISTORY="$XDG_STATE_HOME/sqlite_history"
 # tmux, for versions lower than 3.1
-# While this SHOULD be an alias ($TMUX_CONFIG isn't a var used by tmux itself),
-# using a variable here and aliasing later makes bootstrapping easier.
-export TMUX_CONFIG="$XDG_CONFIG_HOME/tmux/tmux.conf"
+alias tmux="tmux -f $XDG_CONFIG_HOME/tmux/tmux.conf"
 # Vim
 export GVIMINIT='let $MYGVIMRC="$XDG_CONFIG_HOME/vim/gvimrc" | source $MYGVIMRC'
 export VIMINIT='let $MYVIMRC="$XDG_CONFIG_HOME/vim/vimrc" | source $MYVIMRC'

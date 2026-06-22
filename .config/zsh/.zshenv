@@ -7,16 +7,15 @@
 # environment variables in ~/.zshenv, do it where indicated by comments below.
 
 if [ -n "${ZSH_VERSION-}" ]; then
-  # If you are certain that you must export some environment variables
-  # in ~/.zshenv (see comments at the top!), do it here:
   source ${XDG_CONFIG_HOME:-$HOME/.config}/env/-init
-  source ${XDG_CONFIG_HOME:-$HOME/.config}/env/-xdg
-
-  # Do not change anything else in this file.
 
   : ${ZDOTDIR:=~}
   setopt no_global_rcs
-  [[ -o no_interactive && -z "${Z4H_BOOTSTRAPPING-}" ]] && return
+  if [[ -o no_interactive && -z "${Z4H_BOOTSTRAPPING-}" ]]; then
+    source ${XDG_CONFIG_HOME:-$HOME/.config}/env/-homebrew
+    for i in $XDG_CONFIG_HOME/env/[^.-]*; do source $i; done
+    return
+  fi
   setopt no_rcs
   unset Z4H_BOOTSTRAPPING
 fi

@@ -29,6 +29,7 @@ shell_name() {
   # Output the executable name only.
   printf '%s\n' "$(basename "$trueExe")"
 }
+export SHELL_NAME=$(shell_name)
 
 # Determine OS type.
 case "$(uname)" in
@@ -37,3 +38,14 @@ case "$(uname)" in
   FreeBSD) export IS_FREEBSD=1;;
   *)       echo "⚠️ Unsupported OS: $(uname)";;
 esac
+
+# Explicitly set the XDG basedir spec, sinc some tools ignore it if not set.
+[ -z "$XDG_RUNTIME_DIR" ] &&
+  export XDG_RUNTIME_DIR=$(
+    getconf DARWIN_USER_TEMP_DIR 2>/dev/null || echo -n /run/user/$UID
+  )
+export XDG_CACHE_HOME="${XDG_DATA_HOME:-$HOME/.cache}"
+export XDG_CONFIG_HOME="${XDG_CONFIG_HOME:-$HOME/.config}"
+export XDG_DATA_HOME="${XDG_DATA_HOME:-$HOME/.local/share}"
+export XDG_STATE_HOME="${XDG_STATE_HOME:-$HOME/.local/state}"
+mkdir -p "$XDG_RUNTIME_DIR" "$XDG_CACHE_HOME" "$XDG_CONFIG_HOME" "$XDG_DATA_HOME" "$XDG_STATE_HOME"
