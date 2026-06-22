@@ -23,7 +23,7 @@ shell_name() {
   # on MacOS, sh is not a symlink, but an executable that
   # re-execs /private/var/select/sh, so resolve it
   if [ "$(basename $trueExe)" = "sh" -a -L "/private/var/select/sh" ]; then
-    trueExe="/private/var/select/sh";
+    trueExe="/private/var/select/sh"
     while nextTarget=$(readlink "$trueExe"); do trueExe=$nextTarget; done
   fi
   # Output the executable name only.
@@ -33,10 +33,10 @@ export SHELL_NAME=$(shell_name)
 
 # Determine OS type.
 case "$(uname)" in
-  Darwin)  export IS_MACOS=1;;
-  Linux)   export IS_LINUX=1;;
-  FreeBSD) export IS_FREEBSD=1;;
-  *)       echo "⚠️ Unsupported OS: $(uname)";;
+  Darwin) export IS_MACOS=1 ;;
+  Linux) export IS_LINUX=1 ;;
+  FreeBSD) export IS_FREEBSD=1 ;;
+  *) echo "⚠️ Unsupported OS: $(uname)" ;;
 esac
 
 # Explicitly set the XDG basedir spec, sinc some tools ignore it if not set.
