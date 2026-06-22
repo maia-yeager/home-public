@@ -3,10 +3,6 @@
 # Coerce non-conformant apps to use XDG-like file structures where feasible.
 # abbr
 export ABBR_TMPDIR="$XDG_RUNTIME_DIR/zsh-abbr"
-# Android Studio
-export ANDROID_USER_HOME="$XDG_DATA_HOME/android"
-export ANDROID_AVD_HOME="$ANDROID_USER_HOME/avd"
-command -v adb >/dev/null 2>&1 && alias adb="HOME=\"$ANDROID_USER_HOME\" adb"
 # Copilot
 export COPILOT_HOME="$XDG_DATA_HOME/copilot"
 # gnupg
