@@ -3499,7 +3499,7 @@
 			<key>Left Command Key</key>
 			<integer>0</integer>
 			<key>Left Option Key Changeable</key>
-			<true/>
+			<false/>
 			<key>Link Color</key>
 			<dict>
 				<key>Alpha Component</key>
@@ -3582,7 +3582,7 @@
 			<key>Open Password Manager Automatically</key>
 			<false/>
 			<key>Option Key Sends</key>
-			<integer>0</integer>
+			<integer>2</integer>
 			<key>Place Prompt at First Column</key>
 			<true/>
 			<key>Prompt Before Closing 2</key>
@@ -3590,7 +3590,7 @@
 			<key>Rewritable</key>
 			<true/>
 			<key>Right Option Key Sends</key>
-			<integer>0</integer>
+			<integer>2</integer>
 			<key>Rows</key>
 			<integer>40</integer>
 			<key>Screen</key>
@@ -4976,7 +4976,7 @@
 			<key>Left Command Key</key>
 			<integer>0</integer>
 			<key>Left Option Key Changeable</key>
-			<true/>
+			<false/>
 			<key>Link Color</key>
 			<dict>
 				<key>Alpha Component</key>
@@ -5059,13 +5059,13 @@
 			<key>Open Password Manager Automatically</key>
 			<false/>
 			<key>Option Key Sends</key>
-			<integer>0</integer>
+			<integer>2</integer>
 			<key>Place Prompt at First Column</key>
 			<true/>
 			<key>Prompt Before Closing 2</key>
 			<integer>2</integer>
 			<key>Right Option Key Sends</key>
-			<integer>0</integer>
+			<integer>2</integer>
 			<key>Rows</key>
 			<integer>40</integer>
 			<key>Screen</key>
@@ -6440,7 +6440,7 @@
 			<key>Left Command Key</key>
 			<integer>0</integer>
 			<key>Left Option Key Changeable</key>
-			<true/>
+			<false/>
 			<key>Link Color</key>
 			<dict>
 				<key>Alpha Component</key>
@@ -6523,7 +6523,7 @@
 			<key>Open Password Manager Automatically</key>
 			<false/>
 			<key>Option Key Sends</key>
-			<integer>0</integer>
+			<integer>2</integer>
 			<key>Place Prompt at First Column</key>
 			<true/>
 			<key>Prompt Before Closing 2</key>
@@ -6531,7 +6531,7 @@
 			<key>Rewritable</key>
 			<true/>
 			<key>Right Option Key Sends</key>
-			<integer>0</integer>
+			<integer>2</integer>
 			<key>Rows</key>
 			<integer>40</integer>
 			<key>Screen</key>
