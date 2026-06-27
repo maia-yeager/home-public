@@ -3,21 +3,10 @@
 # Global configurations
 export DO_NOT_TRACK=1
 export PAGER='less'
-# Set editor in order of preference based on what's available.
-if command -v nano >/dev/null 2>&1; then
-  export VISUAL='nano'
-elif command -v pico >/dev/null 2>&1; then
-  export VISUAL='pico'
-elif command -v vim >/dev/null 2>&1; then
-  export VISUAL='vim'
-elif command -v vi >/dev/null 2>&1; then
-  export VISUAL='vi'
-fi
+export VISUAL='micro'
 # Compatibility for tools that don't support $VISUAL.
-if [ -n "$VISUAL" ]; then
-  export EDITOR="$VISUAL"
-  export SUDO_EDITOR="$VISUAL"
-fi
+export EDITOR="$VISUAL"
+export SUDO_EDITOR="$VISUAL"
 
 # App-specific configurations
 # GPG
