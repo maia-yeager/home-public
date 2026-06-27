@@ -34,47 +34,24 @@ emulate -L zsh
 
 z4h_ssh_prelude+=(
   # Ensure zsh files are placed in $XDG_CONFIG_HOME, not the home root.
-  "
-  echo -n '$fg[white]Setting ZDOTDIR...$fg[default] '
-  export ZDOTDIR=\"\${XDG_CONFIG_HOME:-\$HOME/.config}/zsh\" &&
-    mkdir -p \"\$ZDOTDIR\" &&
-    echo '${fg[green]}done$fg[default].'
-  "
+  'export ZDOTDIR="${XDG_CONFIG_HOME:-$HOME/.config}/zsh"; mkdir -p "$ZDOTDIR"'
 )
 z4h_ssh_setup+=(
   # Source env init script.
-  "
-  echo -n '$fg[white]Sourcing init script...$fg[default] '
-  . \${XDG_CONFIG_HOME:-\$HOME/.config}/env/-init &&
-    echo '${fg[green]}done$fg[default].'
-  "
-  # Link the current SSH session's SSH_AUTH_SOCK to a well-known location, to
-  # work around tmux not picking up the ENV var change automatically.
-  "
-  echo -n '$fg[white]Linking and re-exporting SSH_AUTH_SOCK...$fg[default] '
-  my_z4h_ssh_auth_sock=\"\$XDG_RUNTIME_DIR/ssh-agent.sock\"
-  if test -e \"\$SSH_AUTH_SOCK\"; then
-    ln -sf \"\$SSH_AUTH_SOCK\" \"\$my_z4h_ssh_auth_sock\" &&
-      export SSH_AUTH_SOCK=\"\$my_z4h_ssh_auth_sock\" &&
-      echo '${fg[green]}done$fg[default].'
-  else
-    rm -f \"\$my_z4h_ssh_auth_sock\"
-    echo '${fg[yellow]}SSH agent not forwarded$fg[default].'
-  fi
-  unset my_z4h_ssh_auth_sock
-  "
+  '. ${XDG_CONFIG_HOME:-$HOME/.config}/env/-init'
 )
 
 # Extend possible SSH teleportation to config based on user@host:port zstyles.
-local user host
+local user host forwarding_agent
 if [[ -n $user_host ]] {
   local ssh_config=$("$z4h_ssh_command[@]" $user_host -G)
   user=$(awk 'tolower($1) == "user" {print $2}' <<< $ssh_config)
   # Get the finalized hostname, falling back to original host.
   host=${$(awk 'tolower($1) == "hostname" {print $2}' <<< $ssh_config):-$z4h_host}
+  forwarding_agent=$(awk 'tolower($1) == "forwardagent" {print $2}' <<< $ssh_config)
 }
-local -r user host
-local -r namespace=":my:z4h:ssh:$user:$ssh_host"
+local -r user host forwarding_agent
+local -r namespace=":my:z4h:ssh:$user:$host"
 
 # Send indicated ENV vars. Use a configurable prefix when sending to work around
 # potential sshd security configurations.
@@ -90,7 +67,25 @@ for var ($env_vars) {
 
 # Enable or disable SSH teleportation based on custom config.
 zstyle -t $namespace enable || z4h_ssh_enable=0
-(( z4h_ssh_enable )) || return 0
+(( $z4h_ssh_enable )) || return 0
+
+if [[ $forwarding_agent == yes ]] {
+  z4h_ssh_setup+=(
+    # Link the current SSH session's SSH_AUTH_SOCK to a well-known location, to
+    # work around tmux not picking up the ENV var change automatically.
+    "
+    echo '$fg[yellow]z4h-ssh-configure$fg[default]: linking and re-exporting SSH_AUTH_SOCK'
+    my_z4h_ssh_auth_sock=\"\$XDG_RUNTIME_DIR/ssh-agent.sock\"
+    if test -e \"\$SSH_AUTH_SOCK\"; then
+      ln -sf \"\$SSH_AUTH_SOCK\" \"\$my_z4h_ssh_auth_sock\" &&
+        export SSH_AUTH_SOCK=\"\$my_z4h_ssh_auth_sock\"
+    else
+      rm -f \"\$my_z4h_ssh_auth_sock\"
+    fi
+    unset my_z4h_ssh_auth_sock
+    "
+  )
+}
 
 # Load extra files from custom namespace.
 local -a extra_files
