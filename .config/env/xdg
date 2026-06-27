@@ -17,8 +17,6 @@ export LESSHISTFILE="$XDG_STATE_HOME/lesshst"
 # z4h / ncurses
 export TERMINFO="$XDG_DATA_HOME/terminfo"
 export TERMINFO_DIRS="$XDG_DATA_HOME/terminfo:/usr/share/terminfo"
-[ -d "$HOME/.terminfo" ] &&
-  mv -f "$HOME/.terminfo" "$TERMINFO" # z4h will default to this if it exists
 # Node.js
 export NODE_REPL_HISTORY="$XDG_STATE_HOME/node_repl_history"
 export NPM_CONFIG_CACHE="$XDG_CACHE_HOME/npm"
