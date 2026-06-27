@@ -65,6 +65,7 @@ eza-comp = "github:eza-community/eza"
 eza-docs = "github:eza-community/eza"
 jq-docs = "github:jqlang/jq"
 micro = "github:micro-editor/micro"
+yq = "github:mikefarah/yq"
 
 [tools.usage]
 version = "latest"
@@ -156,4 +157,9 @@ ln -fs "$MISE_TOOL_INSTALL_PATH"/*/doc/*.1 "$MISE_MANPATH"/man1/
 
 [tools.yq]
 version = "latest"
-# TODO: comp, docs
+rename_exe = "yq"
+filter_bins = "yq"
+postinstall = """
+MISE_AUTO_INSTALL=0 mise exec -- yq completion zsh >"$MISE_FPATH"/_yq
+ln -fs "$MISE_TOOL_INSTALL_PATH"/*.1 "$MISE_MANPATH"/man1/
+"""
