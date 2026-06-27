@@ -1,8 +1,16 @@
 # https://mise.jdx.dev/configuration/settings.html
 
 [settings]
+# Pushes tools' bin-paths to the front of PATH instead of allowing modifications
+# of PATH after activation to take precedence.
+activate_aggressive = true
+# Cache the computed environment (env vars and PATH) to disk. This dramatically
+# speeds up nested mise invocations.
+env_cache = true
 # Path to a file containing environment variables to automatically load.
 env_file = '.env'
+# Shell-style variable expansion in mise.toml [env] values.
+env_shell_expand = true # will become the default in a future release
 # Read version files used by other version managers, such as .nvmrc.
 idiomatic_version_file_enable_tools = [
   "bun",
