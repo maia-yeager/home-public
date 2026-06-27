@@ -17,6 +17,7 @@ trusted_config_paths = [
 ]
 # load env vars from a dotenv file, see `MISE_ENV_FILE`
 env_file = '.env'
+not_found_auto_install = false
 
 [settings.npm]
 package_manager = "bun"
