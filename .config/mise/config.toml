@@ -19,8 +19,18 @@ trusted_config_paths = [
 env_file = '.env'
 not_found_auto_install = false
 
+[settings.go]
+# Override GOBIN if previously set.
+set_gobin = true
+
 [settings.npm]
 package_manager = "bun"
+
+[settings.rust]
+# Path to the cargo home directory.
+cargo_home = "$XDG_DATA_HOME/cargo"
+# Path to the rustup home directory.
+rustup_home = "$XDG_DATA_HOME/rustup"
 
 [settings.status]
 show_env = true
