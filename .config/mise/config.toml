@@ -1,5 +1,9 @@
+# https://mise.jdx.dev/configuration/settings.html
+
 [settings]
-# read version files used by other version managers, such as .nvmrc
+# Path to a file containing environment variables to automatically load.
+env_file = '.env'
+# Read version files used by other version managers, such as .nvmrc.
 idiomatic_version_file_enable_tools = [
   "bun",
   "deno",
@@ -12,12 +16,12 @@ idiomatic_version_file_enable_tools = [
   "terraform",
   "yarn",
 ]
+# Disable the "command not found" handler to autoinstall missing tool versions.
+not_found_auto_install = false
+# Config paths that mise will automatically mark as trusted.
 trusted_config_paths = [
   '~/dev',
 ]
-# load env vars from a dotenv file, see `MISE_ENV_FILE`
-env_file = '.env'
-not_found_auto_install = false
 
 [settings.go]
 # Override GOBIN if previously set.
@@ -33,7 +37,9 @@ cargo_home = "$XDG_DATA_HOME/cargo"
 rustup_home = "$XDG_DATA_HOME/rustup"
 
 [settings.status]
+# Show configured env vars when entering a directory with a mise.toml file.
 show_env = true
+# Show configured tools when entering a directory with a mise.toml file.
 show_tools = true
 
 [tool_alias]
