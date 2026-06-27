@@ -39,6 +39,10 @@ set_gobin = true
 # Package manager to use for installing npm packages.
 package_manager = "aube" # https://github.com/jdx/aube
 
+[settings.python]
+# Controls how mise handles uv project venvs when a uv.lock file is present.
+uv_venv_auto = "create|source" # create the venv if missing and source it
+
 [settings.rust]
 # Path to the cargo home directory.
 cargo_home = "$XDG_DATA_HOME/cargo"
