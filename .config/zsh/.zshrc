@@ -147,7 +147,7 @@ autoload -Uz -- age checkmail colors harden homebrew-save-installed nslookup \
                 relative z4h-ssh-configure zmv
 
 # Source scripts and load plugins.
-z4h source -c -- $ZDOTDIR/(env|env.local)/[^-]*~*.zwc(N^D)
+z4h source -c -- $ZDOTDIR/env(|.local)/[^-]*~*.zwc(N^D)
 z4h source -c -- $CARGO_HOME/env
 z4h source -c -- $XDG_DATA_HOME/mise/zsh/activate &>/dev/null # suppress tool change output
 z4h load olets/zsh-abbr
