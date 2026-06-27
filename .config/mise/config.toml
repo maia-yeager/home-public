@@ -73,7 +73,7 @@ postinstall = "ln -fs $MISE_TOOL_INSTALL_PATH/*/*.1 $MISE_MANPATH/man1/"
 [tools.aube]
 version = "latest"
 # TODO: docs
-postinstall = "MISE_AUTO_INSTALL=false mise exec -- aube completion zsh > $MISE_FPATH/_aube"
+postinstall = "MISE_AUTO_INSTALL=0 mise exec -- aube completion zsh > $MISE_FPATH/_aube"
 
 [tools.bat]
 version = "latest"
@@ -102,14 +102,14 @@ postinstall = "ln -fs $MISE_TOOL_INSTALL_PATH/*/* $MISE_MANPATH/man1/"
 [tools.fd]
 version = "latest"
 postinstall = """
-MISE_AUTO_INSTALL=false mise exec -- fd --gen-completions zsh >$MISE_FPATH/_fd
+MISE_AUTO_INSTALL=0 mise exec -- fd --gen-completions zsh >$MISE_FPATH/_fd
 ln -fs $MISE_TOOL_INSTALL_PATH/*/*.1 $MISE_MANPATH/man1/
 """
 
 [tools.fx]
 version = "latest"
 # TODO: docs
-postinstall = "MISE_AUTO_INSTALL=false mise exec -- fx --comp zsh > $MISE_FPATH/_fx"
+postinstall = "MISE_AUTO_INSTALL=0 mise exec -- fx --comp zsh > $MISE_FPATH/_fx"
 
 [tools.hwatch]
 version = "latest"
