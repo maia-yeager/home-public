@@ -31,6 +31,11 @@ trusted_config_paths = [
   '~/dev',
 ]
 
+[settings.dotnet]
+# Sets the DOTNET_CLI_TELEMETRY_OPTOUT environment variable to 1, disabling .NET
+# CLI telemetry.
+cli_telemetry_optout = true
+
 [settings.go]
 # Override GOBIN if previously set.
 set_gobin = true
