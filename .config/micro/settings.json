@@ -1,0 +1,19 @@
+{
+    "diffgutter": true,
+    "helpsplit": "hsplit",
+    "hlsearch": true,
+    "hltaberrors": true,
+    "hltrailingws": true,
+    "lockbindings": true,
+    "mkparents": true,
+    "mouse": false,
+    "parsecursor": true,
+    "rmtrailingws": true,
+    "savecursor": true,
+    "saveundo": true,
+    "scrollbar": true,
+    "softwrap": true,
+    "tabsize": 2,
+    "tabstospaces": true,
+    "wordwrap": true
+}

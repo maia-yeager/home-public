@@ -39,6 +39,7 @@ eza-comp = { version = "latest", asset_pattern = "completions-*", strip_componen
 eza-docs = { version = "latest", asset_pattern = "man-*", strip_components = "1", bin_path = "man-{{ version }}", filter_bins = "", postinstall = "ln -fs $MISE_TOOL_INSTALL_PATH/*/* $MISE_MANPATH/man1/" }
 fx = { version = "latest", postinstall = "fx --comp zsh > $MISE_FPATH/_fx" }
 hwatch = { version = "latest", postinstall = "ln -fs $MISE_TOOL_INSTALL_PATH/completion/zsh/_hwatch $MISE_FPATH/; ln -fs $MISE_TOOL_INSTALL_PATH/man/*.1 $MISE_MANPATH/man1/" }
+micro = { version = "latest", postinstall = "mkdir -p $XDG_STATE_HOME/micro/backups; ln -fs $MISE_TOOL_INSTALL_PATH/*.1 $MISE_MANPATH/man1/" }
 jq = "latest"
 yq = "latest"
 ripgrep = { version = "latest", postinstall = "ln -fs $MISE_TOOL_INSTALL_PATH/*/complete/_rg $MISE_FPATH/; ln -fs $MISE_TOOL_INSTALL_PATH/*/doc/*.1 $MISE_MANPATH/man1/" }
