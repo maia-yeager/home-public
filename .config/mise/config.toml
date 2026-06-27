@@ -68,18 +68,22 @@ micro = "github:micro-editor/micro"
 [tools.usage]
 version = "latest"
 # TODO: comp
-postinstall = "ln -fs $MISE_TOOL_INSTALL_PATH/*/*.1 $MISE_MANPATH/man1/"
+postinstall = """
+ln -fs "$MISE_TOOL_INSTALL_PATH"/*/*.1 "$MISE_MANPATH"/man1/
+"""
 
 [tools.aube]
 version = "latest"
 # TODO: docs
-postinstall = "MISE_AUTO_INSTALL=0 mise exec -- aube completion zsh > $MISE_FPATH/_aube"
+postinstall = """
+MISE_AUTO_INSTALL=0 mise exec -- aube completion zsh >"$MISE_FPATH"/_aube
+"""
 
 [tools.bat]
 version = "latest"
 postinstall = """
-ln -fs $MISE_TOOL_INSTALL_PATH/*/autocomplete/bat.zsh $MISE_FPATH/_bat
-ln -fs $MISE_TOOL_INSTALL_PATH/*/*.1 $MISE_MANPATH/man1/
+ln -fs "$MISE_TOOL_INSTALL_PATH"/*/autocomplete/bat.zsh "$MISE_FPATH"/_bat
+ln -fs "$MISE_TOOL_INSTALL_PATH"/*/*.1 "$MISE_MANPATH"/man1/
 """
 
 [tools.eza]
@@ -90,39 +94,45 @@ asset_pattern = "completions-*"
 strip_components = "1"
 bin_path = "completions-{{ version }}"
 filter_bins = ""
-postinstall = "ln -fs $MISE_TOOL_INSTALL_PATH/*/_eza $MISE_FPATH/"
+postinstall = """
+ln -fs "$MISE_TOOL_INSTALL_PATH"/*/_eza "$MISE_FPATH"/
+"""
 [tools.eza-docs]
 version = "latest"
 asset_pattern = "man-*"
 strip_components = "1"
 bin_path = "man-{{ version }}"
 filter_bins = ""
-postinstall = "ln -fs $MISE_TOOL_INSTALL_PATH/*/* $MISE_MANPATH/man1/"
+postinstall = """
+ln -fs "$MISE_TOOL_INSTALL_PATH"/*/* "$MISE_MANPATH"/man1/
+"""
 
 [tools.fd]
 version = "latest"
 postinstall = """
-MISE_AUTO_INSTALL=0 mise exec -- fd --gen-completions zsh >$MISE_FPATH/_fd
-ln -fs $MISE_TOOL_INSTALL_PATH/*/*.1 $MISE_MANPATH/man1/
+MISE_AUTO_INSTALL=0 mise exec -- fd --gen-completions zsh >"$MISE_FPATH"/_fd
+ln -fs "$MISE_TOOL_INSTALL_PATH"/*/*.1 "$MISE_MANPATH"/man1/
 """
 
 [tools.fx]
 version = "latest"
 # TODO: docs
-postinstall = "MISE_AUTO_INSTALL=0 mise exec -- fx --comp zsh > $MISE_FPATH/_fx"
+postinstall = """
+MISE_AUTO_INSTALL=0 mise exec -- fx --comp zsh >"$MISE_FPATH"/_fx
+"""
 
 [tools.hwatch]
 version = "latest"
 postinstall = """
-ln -fs $MISE_TOOL_INSTALL_PATH/completion/zsh/_hwatch $MISE_FPATH/
-ln -fs $MISE_TOOL_INSTALL_PATH/man/*.1 $MISE_MANPATH/man1/
+ln -fs "$MISE_TOOL_INSTALL_PATH"/completion/zsh/_hwatch "$MISE_FPATH"/
+ln -fs "$MISE_TOOL_INSTALL_PATH"/man/*.1 "$MISE_MANPATH"/man1/
 """
 
 [tools.micro]
 version = "latest"
 postinstall = """
-mkdir -p $XDG_STATE_HOME/micro/backups
-ln -fs $MISE_TOOL_INSTALL_PATH/*.1 $MISE_MANPATH/man1/
+mkdir -p "$XDG_STATE_HOME"/micro/backups
+ln -fs "$MISE_TOOL_INSTALL_PATH"/*.1 "$MISE_MANPATH"/man1/
 """
 
 [tools.jq]
@@ -132,8 +142,8 @@ version = "latest"
 [tools.ripgrep]
 version = "latest"
 postinstall = """
-ln -fs $MISE_TOOL_INSTALL_PATH/*/complete/_rg $MISE_FPATH/
-ln -fs $MISE_TOOL_INSTALL_PATH/*/doc/*.1 $MISE_MANPATH/man1/
+ln -fs "$MISE_TOOL_INSTALL_PATH"/*/complete/_rg "$MISE_FPATH"/
+ln -fs "$MISE_TOOL_INSTALL_PATH"/*/doc/*.1 "$MISE_MANPATH"/man1/
 """
 
 [tools.yq]
