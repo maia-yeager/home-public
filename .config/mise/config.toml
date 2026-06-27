@@ -65,17 +65,72 @@ eza-comp = "github:eza-community/eza"
 eza-docs = "github:eza-community/eza"
 micro = "github:micro-editor/micro"
 
-[tools]
-usage = { version = "latest", postinstall = "ln -fs $MISE_TOOL_INSTALL_PATH/*/*.1 $MISE_MANPATH/man1/" }
-bat = { version = "latest", postinstall = "ln -fs $MISE_TOOL_INSTALL_PATH/*/autocomplete/bat.zsh $MISE_FPATH/_bat; ln -fs $MISE_TOOL_INSTALL_PATH/*/*.1 $MISE_MANPATH/man1/" }
-fd = { version = "latest", postinstall = "MISE_AUTO_INSTALL=false mise exec -- fd --gen-completions zsh >$MISE_FPATH/_fd; ln -fs $MISE_TOOL_INSTALL_PATH/*/*.1 $MISE_MANPATH/man1/" }
-eza = "latest"
-eza-comp = { version = "latest", asset_pattern = "completions-*", strip_components = "1", bin_path = "completions-{{ version }}", filter_bins = "", postinstall = "ln -fs $MISE_TOOL_INSTALL_PATH/*/_eza $MISE_FPATH/" }
-eza-docs = { version = "latest", asset_pattern = "man-*", strip_components = "1", bin_path = "man-{{ version }}", filter_bins = "", postinstall = "ln -fs $MISE_TOOL_INSTALL_PATH/*/* $MISE_MANPATH/man1/" }
-fx = { version = "latest", postinstall = "MISE_AUTO_INSTALL=false mise exec -- fx --comp zsh > $MISE_FPATH/_fx" }
-hwatch = { version = "latest", postinstall = "ln -fs $MISE_TOOL_INSTALL_PATH/completion/zsh/_hwatch $MISE_FPATH/; ln -fs $MISE_TOOL_INSTALL_PATH/man/*.1 $MISE_MANPATH/man1/" }
-micro = { version = "latest", postinstall = "mkdir -p $XDG_STATE_HOME/micro/backups; ln -fs $MISE_TOOL_INSTALL_PATH/*.1 $MISE_MANPATH/man1/" }
-jq = "latest"
-yq = "latest"
-ripgrep = { version = "latest", postinstall = "ln -fs $MISE_TOOL_INSTALL_PATH/*/complete/_rg $MISE_FPATH/; ln -fs $MISE_TOOL_INSTALL_PATH/*/doc/*.1 $MISE_MANPATH/man1/" }
-aube = { version = "latest", postinstall = "MISE_AUTO_INSTALL=false mise exec -- aube completion zsh > $MISE_FPATH/_aube" }
+[tools.usage]
+version = "latest"
+postinstall = "ln -fs $MISE_TOOL_INSTALL_PATH/*/*.1 $MISE_MANPATH/man1/"
+
+[tools.aube]
+version = "latest"
+postinstall = "MISE_AUTO_INSTALL=false mise exec -- aube completion zsh > $MISE_FPATH/_aube"
+
+[tools.bat]
+version = "latest"
+postinstall = """
+ln -fs $MISE_TOOL_INSTALL_PATH/*/autocomplete/bat.zsh $MISE_FPATH/_bat
+ln -fs $MISE_TOOL_INSTALL_PATH/*/*.1 $MISE_MANPATH/man1/
+"""
+
+[tools.eza]
+version = "latest"
+[tools.eza-comp]
+version = "latest"
+asset_pattern = "completions-*"
+strip_components = "1"
+bin_path = "completions-{{ version }}"
+filter_bins = ""
+postinstall = "ln -fs $MISE_TOOL_INSTALL_PATH/*/_eza $MISE_FPATH/"
+[tools.eza-docs]
+version = "latest"
+asset_pattern = "man-*"
+strip_components = "1"
+bin_path = "man-{{ version }}"
+filter_bins = ""
+postinstall = "ln -fs $MISE_TOOL_INSTALL_PATH/*/* $MISE_MANPATH/man1/"
+
+[tools.fd]
+version = "latest"
+postinstall = """
+MISE_AUTO_INSTALL=false mise exec -- fd --gen-completions zsh >$MISE_FPATH/_fd
+ln -fs $MISE_TOOL_INSTALL_PATH/*/*.1 $MISE_MANPATH/man1/
+"""
+
+[tools.fx]
+version = "latest"
+postinstall = "MISE_AUTO_INSTALL=false mise exec -- fx --comp zsh > $MISE_FPATH/_fx"
+
+[tools.hwatch]
+version = "latest"
+postinstall = """
+ln -fs $MISE_TOOL_INSTALL_PATH/completion/zsh/_hwatch $MISE_FPATH/
+ln -fs $MISE_TOOL_INSTALL_PATH/man/*.1 $MISE_MANPATH/man1/
+"""
+
+[tools.micro]
+version = "latest"
+postinstall = """
+mkdir -p $XDG_STATE_HOME/micro/backups
+ln -fs $MISE_TOOL_INSTALL_PATH/*.1 $MISE_MANPATH/man1/
+"""
+
+[tools.jq]
+version = "latest"
+
+[tools.ripgrep]
+version = "latest"
+postinstall = """
+ln -fs $MISE_TOOL_INSTALL_PATH/*/complete/_rg $MISE_FPATH/
+ln -fs $MISE_TOOL_INSTALL_PATH/*/doc/*.1 $MISE_MANPATH/man1/
+"""
+
+[tools.yq]
+version = "latest"
