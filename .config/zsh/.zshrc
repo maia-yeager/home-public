@@ -71,8 +71,7 @@ zstyle ':my:z4h:ssh:*'          send-vars   COLORTERM
     $HOME/.ssh/(allowed_signers|config)
     $NPM_CONFIG_USERCONFIG
     $SCREENRC
-    $TMUX_CONFIG
-    $XDG_CONFIG_HOME/(env|glow|homebrew|htop|mise|nano|python|vim|wget|zsh-abbr)
+    $XDG_CONFIG_HOME/(env|glow|homebrew|htop|mise|nano|python|ripgrep|tmux|vim|wget|zsh-abbr)
     $XDG_CONFIG_HOME/git/(config|ignore)
     $ZDOTDIR/(env|fn)
   )
