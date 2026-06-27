@@ -5,7 +5,7 @@ case "$(uname)" in
   Darwin) export IS_MACOS=1 ;;
   Linux) export IS_LINUX=1 ;;
   FreeBSD) export IS_FREEBSD=1 ;;
-  *) echo "⚠️ Unsupported OS: $(uname)" ;;
+  *) >&2 printf "\e[33m-init\e[39m: unsupported OS '\e[31m$(uname)e[39m'\n" ;;
 esac
 
 # Set TMPDIR if not already.
