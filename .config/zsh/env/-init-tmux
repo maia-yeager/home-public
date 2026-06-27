@@ -7,8 +7,6 @@ if [[ -n $TMUX_TMPDIR && -d $TMUX_TMPDIR && -w $TMUX_TMPDIR ]] {
   sock=$XDG_RUNTIME_DIR
 } elif [[ -n $TMPDIR && -d $TMPDIR && -w $TMPDIR ]] {
   sock=$TMPDIR
-} elif [[ -d /tmp && -w /tmp ]] {
-  sock=/tmp
 }
 if ! command -v tmux &>/dev/null || [[
   -z $sock

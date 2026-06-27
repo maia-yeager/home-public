@@ -8,6 +8,17 @@ case "$(uname)" in
   *) echo "⚠️ Unsupported OS: $(uname)" ;;
 esac
 
+# Set TMPDIR if not already.
+if [ -z "$TMPDIR" ] || [ ! -d "$TMPDIR" ] || [ ! -w "$TMPDIR" ]; then
+  if [ -n "$IS_MACOS" ]; then
+    export TMPDIR=$(getconf DARWIN_USER_TEMP_DIR)
+  elif [ -d "/tmp" ] && [ -w "/tmp" ]; then
+    export TMPDIR="/tmp"
+  else
+    >&2 printf '\e[33m-init\e[39m: could not set \e[31m$TMPDIR\e[39m\n'
+  fi
+fi
+
 # Explicitly set the XDG basedir spec, sinc some tools ignore it if not set.
 [ -z "$XDG_RUNTIME_DIR" ] &&
   export XDG_RUNTIME_DIR=$(
