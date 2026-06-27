@@ -76,7 +76,7 @@ ln -fs "$MISE_TOOL_INSTALL_PATH"/*/*.1 "$MISE_MANPATH"/man1/
 
 [tools.aube]
 version = "latest"
-# TODO: docs
+# no docs
 postinstall = """
 MISE_AUTO_INSTALL=0 mise exec -- aube completion zsh >"$MISE_FPATH"/_aube
 """
@@ -118,7 +118,7 @@ ln -fs "$MISE_TOOL_INSTALL_PATH"/*/*.1 "$MISE_MANPATH"/man1/
 
 [tools.fx]
 version = "latest"
-# TODO: docs
+# no docs
 postinstall = """
 MISE_AUTO_INSTALL=0 mise exec -- fx --comp zsh >"$MISE_FPATH"/_fx
 """
