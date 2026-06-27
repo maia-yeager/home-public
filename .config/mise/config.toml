@@ -63,6 +63,7 @@ show_tools = true
 [tool_alias]
 eza-comp = "github:eza-community/eza"
 eza-docs = "github:eza-community/eza"
+jq-docs = "github:jqlang/jq"
 micro = "github:micro-editor/micro"
 
 [tools.usage]
@@ -137,7 +138,14 @@ ln -fs "$MISE_TOOL_INSTALL_PATH"/*.1 "$MISE_MANPATH"/man1/
 
 [tools.jq]
 version = "latest"
-# TODO: comp, docs
+# no comp, https://github.com/jqlang/jq/issues/1417
+[tools.jq-docs]
+version = "latest"
+asset_pattern = "jq-*.tar.gz"
+filter_bins = ""
+postinstall = """
+ln -fs "$MISE_TOOL_INSTALL_PATH"/*.1 "$MISE_MANPATH"/man1/
+"""
 
 [tools.ripgrep]
 version = "latest"
