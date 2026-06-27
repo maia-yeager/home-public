@@ -67,10 +67,12 @@ micro = "github:micro-editor/micro"
 
 [tools.usage]
 version = "latest"
+# TODO: comp
 postinstall = "ln -fs $MISE_TOOL_INSTALL_PATH/*/*.1 $MISE_MANPATH/man1/"
 
 [tools.aube]
 version = "latest"
+# TODO: docs
 postinstall = "MISE_AUTO_INSTALL=false mise exec -- aube completion zsh > $MISE_FPATH/_aube"
 
 [tools.bat]
@@ -106,6 +108,7 @@ ln -fs $MISE_TOOL_INSTALL_PATH/*/*.1 $MISE_MANPATH/man1/
 
 [tools.fx]
 version = "latest"
+# TODO: docs
 postinstall = "MISE_AUTO_INSTALL=false mise exec -- fx --comp zsh > $MISE_FPATH/_fx"
 
 [tools.hwatch]
@@ -124,6 +127,7 @@ ln -fs $MISE_TOOL_INSTALL_PATH/*.1 $MISE_MANPATH/man1/
 
 [tools.jq]
 version = "latest"
+# TODO: comp, docs
 
 [tools.ripgrep]
 version = "latest"
@@ -134,3 +138,4 @@ ln -fs $MISE_TOOL_INSTALL_PATH/*/doc/*.1 $MISE_MANPATH/man1/
 
 [tools.yq]
 version = "latest"
+# TODO: comp, docs
