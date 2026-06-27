@@ -7,6 +7,15 @@
 # If you are using a two-line prompt with an empty line before it, add this
 # for smoother rendering:
 POSTEDIT=$'\n\n\e[2A'
+path=(
+  $HOME/bin
+  $HOME/.local/bin
+  $path
+)
+fpath=(
+  $ZDOTDIR/fn
+  $fpath
+)
 
 # Periodic auto-update on Zsh startup: 'ask' or 'no'.
 # You can manually run `z4h update` to update everything.
@@ -87,9 +96,12 @@ zstyle ':completion:*:scp:argument-rest:'    tag-order  hosts files users
 zstyle ':completion:*:(ssh|scp|rdp):*:hosts' hosts
 
 # Clone additional Git repositories from GitHub.
-#
-# This doesn't do anything apart from cloning the repository and keeping it
-# up-to-date. Cloned files can be used after `z4h init`.
+autoload -Uz -- colors get z4h-postinstall-dummy
+colors
+
+z4h install maia-yeager/zsh4humans-install-dummy || return
+zstyle ':z4h:maia-yeager/zsh4humans-install-dummy' postinstall 'z4h-postinstall-dummy'
+
 z4h install olets/zsh-job-queue || return
 z4h install olets/zsh-abbr || return
 zstyle ':z4h:olets/zsh-abbr' postinstall 'ln -fFs $Z4H/olets/zsh-job-queue $Z4H_PACKAGE_DIR/'
@@ -101,23 +113,26 @@ z4h install olets/zsh-autosuggestions-abbreviations-strategy || return
 # perform network I/O must be done above. Everything else is best done below.
 z4h init || return
 
-# Load modules.
+# Hoisted init.
 [[ $COLORTERM = *(24bit|truecolor)* ]] || zmodload zsh/nearcolor
+z4h source -- $XDG_CONFIG_HOME/env/[^-]*(N^D)
 
 # Environment variables targeting ZSH.
 path=(
-  $HOME/bin
-  $HOME/.local/bin
   $HOME/Library/'Application Support'/JetBrains/Toolbox/scripts
   $HOMEBREW_PREFIX/opt/gawk/libexec/gnubin # Not linked by default.
   $HOMEBREW_PREFIX/opt/ffmpeg-full/bin # Not linked by default.
-  $HOMEBREW_PREFIX/opt/rustup/bin # Before $path, in case rust is already installed.
+  $CARGO_HOME/bin # Before $path, in case rust is already installed.
   $path
   $HOMEBREW_PREFIX/opt/libpq/bin # After $path, to defer to any installed Postgres.
 )
 fpath=(
+  $MISE_FPATH
   $fpath
-  $ZDOTDIR/fn
+)
+manpath=(
+  $MISE_MANPATH
+  $manpath
 )
 ABBR_EXPANSION_CURSOR_MARKER='…'
 ABBR_LINE_CURSOR_MARKER=$ABBR_EXPANSION_CURSOR_MARKER
@@ -132,11 +147,11 @@ autoload -Uz -- age checkmail colors harden homebrew-save-installed nslookup \
                 relative z4h-ssh-configure zmv
 
 # Source scripts and load plugins.
-z4h source -- $XDG_CONFIG_HOME/env/[^-]*(N^D)
 z4h source -c -- $ZDOTDIR/(env|env.local)/[^-]*~*.zwc(N^D)
+z4h source -c -- $CARGO_HOME/env
+z4h source -c -- $XDG_DATA_HOME/mise/zsh/activate &>/dev/null # suppress tool change output
 z4h load olets/zsh-abbr
 z4h load olets/zsh-autosuggestions-abbreviations-strategy
-command -v mise &>/dev/null && eval "$(mise activate zsh)" &>/dev/null
 
 # Define key bindings.
 z4h bindkey   z4h-eof               Ctrl+D            # help make transient prompt behave consistently from SSH
@@ -162,30 +177,25 @@ command -v discord-video &>/dev/null && compdef _files discord-video
 # Define aliases.
 alias clear="z4h-clear-screen-soft-top"
 alias diff="${aliases[diff]:-diff} --color=auto"
-if command -v eza &>/dev/null; then
-  alias eza="${aliases[eza]:-eza} --icons"
-  function la { eza -1aaglo $@ }
-  function ll { eza -1glo $@ }
-  function ls { eza $@ }
-  compdef _eza la ll ls
-else
-  function la { ls -al $@ }
-  function ll { ls -l $@ }
-  compdef _ls la ll
-fi
-if command -v htop &>/dev/null; then
+alias eza="${aliases[eza]:-eza} --icons"
+function la { eza -1aaglo $@ }
+function ll { eza -1glo $@ }
+function ls { eza $@ }
+compdef _eza la ll ls
+if (( $+commands[htop] )) {
   function top { htop $@ }
   compdef _htop top
-fi
-command -v rlwrap &>/dev/null && for com (dash nc) {
-  command -v $com &>/dev/null &&
-    alias $com="${aliases[rlwrap]:-rlwrap} -Atdumb $com"
 }
-if command -v tree &>/dev/null; then
+if (( $+commands[rlwrap] )) {
+  for com (dash nc) if (( $+commands[$com] )) {
+    alias $com="${aliases[rlwrap]:-rlwrap} -Atdumb $com"
+  }
+}
+if (( $+commands[tree] )) {
   alias tree="${aliases[tree]:-tree} -I .DS_Store"
   function lt { tree -a --gitignore --metafirst --noreport $@ }
   compdef _tree lt
-fi
+}
 
 # Set shell options: http://zsh.sourceforge.net/Doc/Release/Options.html.
 setopt glob_dots     # no special treatment for file names with a leading dot

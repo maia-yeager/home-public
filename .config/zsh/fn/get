@@ -1,0 +1,16 @@
+#!/usr/bin/env zsh
+
+if [[ -z $1 ]] {
+  >&2 printf "$fg[yellow]get$fg[default]: missing \e[$color[underline]mURL\e[$color[none]m positional argument"
+  return 1
+}
+url=$1
+
+if command -v curl >/dev/null 2>&1; then
+  curl -fsSL -- $url
+elif command -v wget >/dev/null 2>&1; then
+  wget -O-   -- $url
+else
+  >&2 printf "$fg[yellow]get$fg[default]: please install $fg[green]curl$fg[default] or $fg[green]wget$fg[default]\n"
+  return 1
+fi

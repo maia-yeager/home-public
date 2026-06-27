@@ -26,6 +26,9 @@ export GPG_TTY="$TTY"
 export LESS='-iMR~ --tabs=4 --window=-4'
 # man
 export MANPAGER='less +Gg' # Show scroll progress in man pages.
+# mise
+export MISE_FPATH=$XDG_DATA_HOME/mise/zsh/fn
+export MISE_MANPATH=$XDG_DATA_HOME/mise/man
 # rsync
 export RSYNC_PARTIAL_DIR='.rsync-transfer'
 # tar
