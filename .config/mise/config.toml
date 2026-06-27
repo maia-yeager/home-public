@@ -36,7 +36,8 @@ trusted_config_paths = [
 set_gobin = true
 
 [settings.npm]
-package_manager = "bun"
+# Package manager to use for installing npm packages.
+package_manager = "aube" # https://github.com/jdx/aube
 
 [settings.rust]
 # Path to the cargo home directory.
@@ -68,3 +69,4 @@ micro = { version = "latest", postinstall = "mkdir -p $XDG_STATE_HOME/micro/back
 jq = "latest"
 yq = "latest"
 ripgrep = { version = "latest", postinstall = "ln -fs $MISE_TOOL_INSTALL_PATH/*/complete/_rg $MISE_FPATH/; ln -fs $MISE_TOOL_INSTALL_PATH/*/doc/*.1 $MISE_MANPATH/man1/" }
+aube = { version = "latest", postinstall = "MISE_AUTO_INSTALL=false mise exec -- aube completion zsh > $MISE_FPATH/_aube" }
