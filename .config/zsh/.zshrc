@@ -67,8 +67,8 @@ zstyle ':my:z4h:ssh:*'          send-vars   COLORTERM
 () {
   local -aU extra_files home_extra_files
   extra_files=(
-    $HOME/(.hushlogin|.profile|.zshenv)
-    $HOME/.ssh/(allowed_signers|config)
+    $HOME/(.hushlogin|.profile)
+    $HOME/.ssh/(allowed_signers|config)(N)
     $NPM_CONFIG_USERCONFIG
     $SCREENRC
     $XDG_CONFIG_HOME/(env|glow|homebrew|htop|mise|nano|python|ripgrep|tmux|vim|wget|zsh-abbr)
@@ -144,7 +144,7 @@ ZSH_AUTOSUGGEST_STRATEGY=( abbreviations $ZSH_AUTOSUGGEST_STRATEGY )
 
 # Autoload functions.
 autoload -Uz -- age checkmail colors harden homebrew-save-installed nslookup \
-                relative z4h-ssh-configure zmv
+                portable-env-vars relative z4h-ssh-configure zmv
 
 # Source scripts and load plugins.
 z4h source -c -- $ZDOTDIR/env(|.local)/[^-]*~*.zwc(N^D)

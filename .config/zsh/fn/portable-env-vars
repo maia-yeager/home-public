@@ -1,0 +1,9 @@
+#!/usr/bin/env zsh
+
+# Ignore env vars:
+# - that begin with '_'
+# - whose values contain the $XDG_RUNTIME_DIR
+# - whose values contain the $XDG_STATE_HOME
+# - that are otherwise blocklisted
+env | awk -v r=$XDG_RUNTIME_DIR -v s=$XDG_STATE_HOME -F= \
+  '!match($1, /^_/) && !match($0, r) && !match($0, s) && !match($1, /(USER)/) {print $1}'

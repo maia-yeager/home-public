@@ -20,12 +20,23 @@ if [ -z "$TMPDIR" ] || [ ! -d "$TMPDIR" ] || [ ! -w "$TMPDIR" ]; then
 fi
 
 # Explicitly set the XDG basedir spec, sinc some tools ignore it if not set.
-[ -z "$XDG_RUNTIME_DIR" ] &&
-  export XDG_RUNTIME_DIR=$(
-    getconf DARWIN_USER_TEMP_DIR 2>/dev/null || echo -n /run/user/$UID
-  )
+if [ -z "$XDG_RUNTIME_DIR" ]; then
+  if [ -d "/run/user/$UID" ] && [ -w "/run/user/$UID" ]; then
+    export XDG_RUNTIME_DIR="/run/user/$UID"
+  elif [ -n "$IS_MACOS" ]; then
+    export XDG_RUNTIME_DIR="$TMPDIR"
+  elif mkdir -p "$TMPDIR/$USER" 2>/dev/null; then
+    export XDG_RUNTIME_DIR="$TMPDIR/$USER"
+  else
+    >&2 printf '\e[33m-init\e[39m: could not set \e[31m$XDG_RUNTIME_DIR\e[39m\n'
+  fi
+fi
 export XDG_CACHE_HOME="${XDG_DATA_HOME:-$HOME/.cache}"
 export XDG_CONFIG_HOME="${XDG_CONFIG_HOME:-$HOME/.config}"
 export XDG_DATA_HOME="${XDG_DATA_HOME:-$HOME/.local/share}"
-export XDG_STATE_HOME="${XDG_STATE_HOME:-$HOME/.local/state}"
-mkdir -p "$XDG_RUNTIME_DIR" "$XDG_CACHE_HOME" "$XDG_CONFIG_HOME" "$XDG_DATA_HOME" "$XDG_STATE_HOME"
+if [ -n "$SUDO_COMMAND" ]; then
+  export XDG_STATE_HOME="${XDG_STATE_HOME:-$XDG_RUNTIME_DIR/xdg-state}"
+else
+  export XDG_STATE_HOME="${XDG_STATE_HOME:-$HOME/.local/state}"
+fi
+mkdir -p "$XDG_CACHE_HOME" "$XDG_CONFIG_HOME" "$XDG_DATA_HOME" "$XDG_STATE_HOME"
