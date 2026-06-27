@@ -17,6 +17,7 @@ export LESS='-iMR~ --tabs=4 --window=-4'
 export MANPAGER='less +Gg' # Show scroll progress in man pages.
 # mise
 export MISE_FPATH="$XDG_DATA_HOME/mise/zsh/fn"
+export MISE_GLOBAL_CONFIG_FILE="$XDG_CONFIG_HOME/mise/config.toml"
 export MISE_MANPATH="$XDG_DATA_HOME/mise/man"
 # rsync
 export RSYNC_PARTIAL_DIR='.rsync-transfer'
