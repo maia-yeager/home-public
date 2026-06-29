@@ -5,11 +5,13 @@
 	],
 	"installed_packages":
 	[
+		"Dockerfile Syntax Highlighting",
 		"EditorConfig",
 		"Indent XML",
 		"INI",
 		"LSP",
 		"LSP-bash",
+		"LSP-dockerfile",
 		"LSP-json",
 		"LSP-yaml",
 		"OpenUri",
