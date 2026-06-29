@@ -1,5 +1,10 @@
 #!/usr/bin/env zsh
 
+local base_dir=$XDG_DATA_HOME/mise
+local zsh_dir=$base_dir/zsh
+local completions_dir=$zsh_dir/fn
+mkdir -p $completions_dir $base_dir/man/man1
+
 # Install mise.
 if (( ! $+commands[mise] )) {
   echo "$fg[yellow]z4h-postinstall-dummy$fg[default]: installing $fg_bold[default]mise$fg_no_bold[default]"
@@ -11,10 +16,6 @@ if (( ! $+commands[mise] )) {
   mise upgrade -q
 }
 mise install -q
-base_dir=$XDG_DATA_HOME/mise
-zsh_dir=$base_dir/zsh
-completions_dir=$zsh_dir/fn
-mkdir -p $completions_dir $base_dir/man/man1
 # Completions.
 mise completion zsh >$completions_dir/_mise
 # Activation script.
