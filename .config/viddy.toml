@@ -1,0 +1,14 @@
+[general]
+disable_mouse = true
+shell_options = "-l"
+skip_empty_diffs = true
+
+[keymap]
+timemachine_go_to_past = "Shift-Down"
+timemachine_go_to_future = "Shift-Up"
+scroll_left = "Left"
+scroll_right = "Right"
+scroll_up = "Up"
+scroll_down = "Down"
+scroll_bottom_of_page = "Shift-g"
+scroll_top_of_page = "g g"
