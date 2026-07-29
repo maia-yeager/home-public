@@ -14,6 +14,7 @@
 		"LSP-bash",
 		"LSP-dockerfile",
 		"LSP-json",
+		"LSP-terraform",
 		"LSP-yaml",
 		"OpenUri",
 		"Package Control",
@@ -21,6 +22,7 @@
 		"Remember Minimap Setting",
 		"rsub",
 		"SFTP",
+		"Terraform",
 		"Theme - Monokai Pro",
 	],
 }
