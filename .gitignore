@@ -19,6 +19,8 @@
 /Public/
 /VMs/
 /.CFUserTextEncoding
+# seems to be hard-coded in z4h upgrade script?
+/.terminfo/
 # floating items
 *.lock
 *.sock
