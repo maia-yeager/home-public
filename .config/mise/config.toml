@@ -61,6 +61,12 @@ show_env = true
 # Show configured tools when entering a directory with a mise.toml file.
 show_tools = true
 
+[settings.task]
+# Change output style when executing tasks. This controls the output of
+# mise run.
+output = "interleave"
+quiet = true # suppress task output
+
 [tool_alias]
 eza-comp = "github:eza-community/eza"
 eza-docs = "github:eza-community/eza"
