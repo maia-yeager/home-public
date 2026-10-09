@@ -6,9 +6,7 @@ git-ignore
 git-lfs
 htop
 libpq
-lua
 lua@5.4
-luarocks
 ncdu
 optipng
 rlwrap

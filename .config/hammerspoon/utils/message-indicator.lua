@@ -1,6 +1,7 @@
 local class = require("pl.class")
 
 ---@class MessageIndicatorAppInfo
+---@field identifier string
 ---@field bundleName string
 ---@field name string
 ---@field icon hs.image
@@ -67,30 +68,46 @@ function obj:stop()
 end
 
 ---Add an app bundle ID to the list of allowed apps.
----@param appId string
-function obj:addApp(appId, badgeCountCmd)
-  local res = self:getAppInfo(appId)
-  res.badgeCmd = badgeCountCmd
-  self.apps[appId] = res
+---@param appIdOrName string
+function obj:addApp(appIdOrName, badgeCountCmd)
+  local res = self:getAppInfo(appIdOrName)
+  if res == nil then
+    local notification = hs.notify.new({
+      withdrawAfter = 0,
+      informativeText = "Could not find app " .. hs.inspect(appIdOrName),
+    }) --[[@as hs.notify]]
+    notification:send()
 
+    return self
+  end
+
+  res.badgeCmd = badgeCountCmd
+  self.apps[res.identifier] = res
   return self
 end
 
 ---@protected
----@param appId string
----@return MessageIndicatorAppInfo
-function obj:getAppInfo(appId)
-  local info = hs.application.infoForBundleID(appId)
+---@param appIdOrPath string
+---@return MessageIndicatorAppInfo|nil
+function obj:getAppInfo(appIdOrPath)
+  local info = hs.application.infoForBundleID(appIdOrPath)
+    or hs.application.infoForBundlePath(appIdOrPath)
   if info == nil then
-    error("could not find app info for " .. hs.inspect(appId))
+    return nil
   end
 
+  local appId = info.CFBundleIdentifier
   local icon = hs.image.imageFromAppBundle(appId) --[[@as hs.image]]
   if icon == nil then
-    error("could not find icon for " .. hs.inspect(appId))
+    warn("could not find icon for " .. hs.inspect(appId))
+    icon = hs.image.imageFromName(hs.image.systemImageNames.Caution) --[[@as hs.image]]
+    if icon == nil then
+      error("could not find fallback icon")
+    end
   end
 
   return {
+    identifier = appId,
     name = info.CFBundleDisplayName,
     bundleName = info.CFBundleName,
     icon = icon:setSize({ w = 16, h = 16 }),

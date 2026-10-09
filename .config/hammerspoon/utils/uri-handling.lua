@@ -101,7 +101,8 @@ function obj:setDefaultHandler(handler)
   return self
 end
 
----Add URI handler.
+---Add URI handler. Should return truthy if the event is consumed, or falsy if
+---it should be passed to the next handler.
 ---@param fn URIHandler
 ---@return URIHandling
 function obj:addHandler(fn)

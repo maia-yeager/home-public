@@ -3,3 +3,6 @@
 
 # LuaRocks
 /lua_modules
+/luarocks
+/lua
+/.luarocks

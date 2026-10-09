@@ -1,0 +1,8 @@
+[tasks.install]
+run = "luarocks make --only-deps"
+
+[tasks.lock]
+run = "luarocks make --only-deps --pin"
+
+[tools]
+lua = "5.4"
