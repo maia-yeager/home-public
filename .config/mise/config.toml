@@ -30,6 +30,7 @@ not_found_auto_install = false
 trusted_config_paths = [
   '~/dev',
 ]
+auto_update = true
 
 [settings.dotnet]
 # Sets the DOTNET_CLI_TELEMETRY_OPTOUT environment variable to 1, disabling .NET
