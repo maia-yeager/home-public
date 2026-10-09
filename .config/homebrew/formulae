@@ -4,6 +4,7 @@ gawk
 git
 git-ignore
 git-lfs
+gnu-sed
 htop
 libpq
 lua@5.4

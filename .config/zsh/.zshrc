@@ -121,6 +121,7 @@ z4h source -- $XDG_CONFIG_HOME/env/[^-]*(N^D)
 path=(
   $HOME/Library/'Application Support'/JetBrains/Toolbox/scripts
   $HOMEBREW_PREFIX/opt/gawk/libexec/gnubin # Not linked by default.
+  $HOMEBREW_PREFIX/opt/gnu-sed/libexec/gnubin # Not linked by default.
   $HOMEBREW_PREFIX/opt/ffmpeg-full/bin # Not linked by default.
   $CARGO_HOME/bin # Before $path, in case rust is already installed.
   $path
