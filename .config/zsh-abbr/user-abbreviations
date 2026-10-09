@@ -15,7 +15,6 @@ abbr "archive"="rsync -aAhUXf \"R \$RSYNC_PARTIAL_DIR/\" --timeout=60 --delete-a
 abbr "brew i"="brew install … && homebrew-save-installed"
 abbr "brew rm"="brew rm … && homebrew-save-installed"
 abbr "c"="git commit -m \"…\""
-abbr "cat"="cat -v"
 abbr "diff"="diff -u"
 abbr "dv"="discord-video"
 abbr "expr"="noglob expr"
