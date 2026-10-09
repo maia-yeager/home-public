@@ -11,6 +11,8 @@ export SUDO_EDITOR="$VISUAL"
 # App-specific configurations
 # GPG
 export GPG_TTY="$TTY"
+# Java
+export _JAVA_OPTIONS="-Djavafx.cachedir=\"$XDG_CACHE_HOME\"/openjfx"
 # less
 export LESS='-iMR~ --tabs=4 --window=-4'
 # man
