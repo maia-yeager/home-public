@@ -12,6 +12,10 @@ postinstall = """
 ln -fs "$MISE_TOOL_INSTALL_PATH"/*/*.1 "$MISE_MANPATH"/man1/
 """
 
+[tools.1password-cli]
+version = "latest"
+# TODO: comp, docs
+
 [tools.aube]
 version = "latest"
 # no docs
@@ -68,6 +72,14 @@ postinstall = """
 MISE_AUTO_INSTALL=0 mise exec -- fx --comp zsh >"$MISE_FPATH"/_fx
 """
 
+[tools.git-lfs]
+version = "latest"
+postinstall = """
+ln -fs "$MISE_TOOL_INSTALL_PATH"/*/man/man1/*.1 "$MISE_MANPATH"/man1/
+ln -fs "$MISE_TOOL_INSTALL_PATH"/*/man/man5/*.5 "$MISE_MANPATH"/man5/
+ln -fs "$MISE_TOOL_INSTALL_PATH"/*/man/man7/*.7 "$MISE_MANPATH"/man7/
+"""
+
 [tools.killport]
 version = "latest"
 postinstall = """
@@ -99,6 +111,10 @@ postinstall = """
 ln -fs "$MISE_TOOL_INSTALL_PATH"/*/complete/_rg "$MISE_FPATH"/
 ln -fs "$MISE_TOOL_INSTALL_PATH"/*/doc/*.1 "$MISE_MANPATH"/man1/
 """
+
+[tools.shfmt]
+version = "latest"
+# TODO: comp, docs
 
 [tools.viddy]
 version = "latest"

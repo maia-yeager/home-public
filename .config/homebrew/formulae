@@ -1,9 +1,7 @@
-container
 ffmpeg-full
 gawk
 git
 git-ignore
-git-lfs
 gnu-sed
 htop
 libpq
@@ -12,7 +10,6 @@ ncdu
 optipng
 rlwrap
 rsync
-shfmt
 tree
 wget
 yt-dlp

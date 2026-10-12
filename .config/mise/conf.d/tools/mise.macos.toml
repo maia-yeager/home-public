@@ -1,0 +1,6 @@
+[tools.container]
+version = "latest"
+# TODO: comp, docs
+postinstall = """
+MISE_AUTO_INSTALL=0 mise exec -- container system kernel set --recommended
+"""
