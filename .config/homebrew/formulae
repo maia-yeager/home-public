@@ -1,6 +1,7 @@
 gawk
 git
 git-ignore
+git-lfs
 gnu-sed
 htop
 libpq

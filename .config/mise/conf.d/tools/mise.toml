@@ -72,14 +72,6 @@ postinstall = """
 MISE_AUTO_INSTALL=0 mise exec -- fx --comp zsh >"$MISE_FPATH"/_fx
 """
 
-[tools.git-lfs]
-version = "latest"
-postinstall = """
-ln -fs "$MISE_TOOL_INSTALL_PATH"/*/man/man1/*.1 "$MISE_MANPATH"/man1/
-ln -fs "$MISE_TOOL_INSTALL_PATH"/*/man/man5/*.5 "$MISE_MANPATH"/man5/
-ln -fs "$MISE_TOOL_INSTALL_PATH"/*/man/man7/*.7 "$MISE_MANPATH"/man7/
-"""
-
 [tools.killport]
 version = "latest"
 postinstall = """
