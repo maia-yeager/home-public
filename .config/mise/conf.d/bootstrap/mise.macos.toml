@@ -1,0 +1,833 @@
+[bootstrap.hooks]
+post-defaults = "killall Dock Finder SystemUIServer || true"
+
+########
+### Apps
+########
+[bootstrap.packages]
+"brew-cask:1password" = "latest"
+"brew-cask:adguard" = "latest"
+"brew-cask:appcleaner" = "latest"
+"brew-cask:bettercmdtab" = "latest"
+"brew-cask:bettertouchtool" = "latest"
+"brew-cask:calibre" = "latest"
+"brew-cask:cyberduck" = "latest"
+"brew-cask:daisydisk" = "latest"
+"brew-cask:firefox" = "latest"
+"brew-cask:hammerspoon" = "latest"
+"brew-cask:handbrake-app" = "latest"
+"brew-cask:iina" = "latest"
+"brew-cask:iterm2" = "latest"
+"brew-cask:jetbrains-toolbox" = "latest"
+"brew-cask:keka" = "latest"
+"brew-cask:kekaexternalhelper" = "latest"
+"brew-cask:kitty" = "latest"
+"brew-cask:losslesscut" = "latest"
+"brew-cask:moonlight" = "latest"
+"brew-cask:openemu" = "latest"
+"brew-cask:plex" = "latest"
+"brew-cask:resilio-sync" = "latest"
+"brew-cask:sf-symbols" = "latest"
+"brew-cask:shottr" = "latest"
+"brew-cask:signal" = "latest"
+"brew-cask:simple-comic" = "latest"
+"brew-cask:simple-web-server" = "latest"
+"brew-cask:steam" = "latest"
+"brew-cask:sublime-merge" = "latest"
+"brew-cask:sublime-text" = "latest"
+"brew-cask:thaw" = "latest"
+"brew-cask:topnotch" = "latest"
+"brew-cask:ungoogled-chromium" = "latest"
+"brew-cask:visual-studio-code" = "latest"
+"brew-cask:wireshark-app" = "latest"
+# formulae
+"brew:gawk" = "latest"
+"brew:git" = "latest"
+"brew:git-ignore" = "latest"
+"brew:gnu-sed" = "latest"
+"brew:htop" = "latest"
+"brew:libpq" = "latest"
+"brew:ncdu" = "latest"
+"brew:optipng" = "latest"
+"brew:rlwrap" = "latest"
+"brew:rsync" = "latest"
+"brew:tree" = "latest"
+"brew:wget" = "latest"
+"brew:zsh-lovers" = "latest"
+
+##################
+### Configurations
+##################
+[bootstrap.macos.defaults."Apple Global Domain"]
+AppleAccentColor = 6
+AppleAntiAliasingThreshold = 4
+AppleAquaColorVariant = 1
+AppleEnableSwipeNavigateWithScrolls = false
+AppleHighlightColor = "1.000000 0.749020 0.823529 Pink"
+AppleICUForce24HourTime = true
+AppleIconAppearanceTheme = "RegularAutomatic"
+AppleInterfaceStyle = "Dark"
+AppleKeyboardUIMode = 2
+AppleLanguages = ["en-US"]
+AppleLanguagesDidMigrate = "13.6.6"
+AppleLanguagesSchemaVersion = 5400
+AppleLocale = "en_US"
+AppleMeasurementUnits = "Centimeters"
+AppleMetricUnits = true
+AppleMiniaturizeOnDoubleClick = false
+AppleReduceDesktopTinting = false
+AppleScrollerPagingBehavior = true
+AppleShowAllExtensions = true
+AppleShowScrollBars = "WhenScrolling"
+AppleSpacesSwitchOnActivate = true
+AppleTemperatureUnit = "Fahrenheit"
+InitialKeyRepeat = 30.0
+KB_DoubleQuoteOption = "“abc”"
+KB_SingleQuoteOption = "‘abc’"
+KeyRepeat = 2.0
+NSAutomaticCapitalizationEnabled = false
+NSAutomaticDashSubstitutionEnabled = true
+NSAutomaticInlinePredictionEnabled = false
+NSAutomaticPeriodSubstitutionEnabled = false
+NSAutomaticQuoteSubstitutionEnabled = true
+NSAutomaticSpellingCorrectionEnabled = false
+NSGlassDiffusionSetting = true
+NSNavPanelExpandedStateForSaveMode = true
+NSNavPanelFileLastListModeForOpenModeKey = 1
+NSNavPanelFileListModeForOpenMode2 = 1
+NSPersonNameDefaultShortNameEnabled = 1
+NSPersonNameDefaultShortNameFormat = 1
+NSSmartReplyEnabled = false
+NSStatusItemSelectionPadding = 5
+NSStatusItemSpacing = 8
+NSTableViewDefaultSizeMode = 2
+NSUserQuotesArray = ["“", "”", "‘", "’"]
+NavPanelFileListModeForOpenMode = 1
+WebAutomaticSpellingCorrectionEnabled = false
+"com.apple.gms.availability.osEligibilityReasons" = [1]
+"com.apple.keyboard.fnState" = false
+"com.apple.mouse.linear" = true
+"com.apple.mouse.scaling" = 0.6875
+"com.apple.sound.beep.flash" = 0
+"com.apple.sound.beep.volume" = 0.5035994052886963
+"com.apple.springing.delay" = 0.5
+"com.apple.springing.enabled" = true
+"com.apple.trackpad.forceClick" = true
+"com.apple.trackpad.scaling" = 0.875
+shouldShowRSVPDataDetectors = false
+[bootstrap.macos.defaults."Apple Global Domain".KB_SpellingLanguage]
+KB_SpellingLanguageIsAutomatic = true
+
+[bootstrap.macos.defaults."Apple Global Domain".NSPreferredWebServices.NSWebServicesProviderWebSearch]
+NSDefaultDisplayName = "Google"
+NSProviderIdentifier = "com.google.www"
+
+[bootstrap.macos.defaults."cc.ffitch.shottr"]
+KeyboardShortcuts_anyWindow = "{\"carbonKeyCode\":21,\"carbonModifiers\":768}"
+KeyboardShortcuts_area = false
+KeyboardShortcuts_fullscreen = "{\"carbonKeyCode\":20,\"carbonModifiers\":768}"
+KeyboardShortcuts_ocr = "{\"carbonModifiers\":768,\"carbonKeyCode\":19}"
+KeyboardShortcuts_repeatArea = false
+afterGrabCopy = false
+afterGrabSave = false
+afterGrabShow = true
+allowTelemetry = false
+altZoomDirection = false
+alwaysOnTop = false
+areaCaptureMode = "editor"
+bdrConfig = "{\"blur\":0,\"colors\":\"#FFFFFF\",\"filepath\":\"\",\"gradEnd\":\"-0.33,-0.15\",\"gradStart\":\"0.5,1.1\",\"gradType\":\"radial\",\"innerRadius\":0,\"inset\":-1,\"isOn\":1,\"minWidth\":0,\"mode\":\"flat\",\"name\":\"custom-color\",\"noise\":0,\"outerRadius\":0,\"padding\":200,\"ratio\":0,\"seed\":14946311,\"shadowIntensity\":0,\"stops\":\"\"}"
+captureCursor = "auto"
+copyOnEsc = true
+defaultFolder = "~/Downloads"
+downscaleOnSave = false
+notificationType = "custom"
+ocrRemoveBreaks = true
+preferLargeWindow = true
+primaryOCRLang = "en-US"
+saveFormat = "Auto"
+scrollingManualEnabled = false
+scrollingReverseAutoscroll = false
+scrollingSpeed = 2
+showIntro = 0
+showMenubarIcon = 1
+windowShadow = "transparent"
+
+[bootstrap.macos.defaults."ch.sudo.cyberduck"]
+SUEnableAutomaticChecks = false
+SUSendProfileInfo = false
+"bookmark.icon.size" = "32"
+"bookmark.import.com.crossftp" = "true"
+"bookmark.import.com.eltima.cloudmounter" = "true"
+"bookmark.import.com.expandrive.ExpanDrive" = "true"
+"bookmark.import.com.expandrive.ExpanDrive3" = "true"
+"bookmark.import.com.expandrive.ExpanDrive34" = "true"
+"bookmark.import.com.expandrive.ExpanDrive35" = "true"
+"bookmark.import.com.expandrive.ExpanDrive36" = "true"
+"bookmark.import.com.extendmac.Flow" = "true"
+"bookmark.import.com.fetchsoftworks.Fetch" = "true"
+"bookmark.import.com.nolobe.interarchy" = "true"
+"bookmark.import.com.panic.Transmit" = "true"
+"bookmark.import.com.panic.Transmit5" = "true"
+"bookmark.import.de.filezilla" = "true"
+"bookmark.import.org.mozdev.fireftp" = "true"
+"bookmark.menu.icon.size" = "32"
+"browser.column.filename.width" = "100.0"
+"browser.column.modified.width" = "100.0"
+"browser.column.size.width" = "50.0"
+"browser.doubleclick.edit" = "true"
+"browser.move.confirm" = "false"
+"browser.serialize" = "false"
+"browser.showHidden" = "true"
+"browser.view" = "1"
+"connection.retry" = "0"
+"connection.timeout.seconds" = "10"
+"cryptomator.vault.keychain" = "true"
+"editor.alwaysUseDefault" = "true"
+"editor.bundleIdentifier" = "com.sublimetext.4"
+"preferences.toolbar.selected" = "3"
+"queue.prompt.download.action.default" = "similar"
+"queue.removeItemWhenComplete" = "true"
+"queue.upload.file.temporary" = "true"
+"queue.upload.timestamp.change" = "true"
+"queue.window.open.default" = "false"
+"queue.window.open.transfer.start" = "true"
+"queue.window.open.transfer.stop" = "true"
+"update.check.auto" = "true"
+
+[bootstrap.macos.defaults."com.IdeaPunch.ColorSlurp"]
+KeyboardShortcuts_copyLastCopiedColorGlobalShortcut = false
+KeyboardShortcuts_showColorSlurpGlobalShortcut = false
+KeyboardShortcuts_showMagnifierGlobal = "{\"carbonKeyCode\":18,\"carbonModifiers\":768}"
+KeyboardShortcuts_showMagnifierGlobalShortcut = "{\"carbonModifiers\":768,\"carbonKeyCode\":18}"
+didShowPickerTabLearnPopup = true
+
+[bootstrap.macos.defaults."com.ToWatchList.SimpleComic"]
+canIgnoreCase = true
+canWrapAround = true
+pageOrder = true
+scaleOptions = 1
+searchKind = 0
+twoPageSpread = false
+
+[bootstrap.macos.defaults."com.adguard.mac.adguard"]
+ActivateFiltersAutomaticEnabled = true
+ExtraEnabled = true
+FilterHttps = true
+FilteringEnabled = true
+IgnoreEvSslCertificates = false
+InformAboutAssistant = false
+SafebrowsingEnabled = true
+SendTelemetry = false
+StartAtLogin = true
+UsefulAdsEnabled = false
+
+[bootstrap.macos.defaults."com.aone.keka"]
+AlwaysAskCompressionPassword = false
+AppearanceDifferentiateTasksCountInDock = false
+AppearanceShowDockIcon = 0
+ApplyQuarantineAfterExtraction = true
+DefaultActionToPerform = 0
+DefaultFormat = "7Z"
+DeleteAfterCompression = false
+DeleteAfterExtraction = false
+ExcludeMacForks = true
+ExtractionExcludeMacForks = true
+ExtractionFolderRenameExtension = true
+FallbackCustomPath = "~/Downloads"
+FallbackOption = 1
+FinderAfterCompression = true
+FinderAfterExtraction = false
+KeepExtension = 2
+ResizableWindows = false
+SetModificationDateAfterExtraction = false
+SolidArchive = true
+TarballSupport = true
+UseLongTarballExtension = false
+UseParentName = true
+VerifyCompression = true
+ZipUsingAES = false
+
+[bootstrap.macos.defaults."com.apple.AdLib"]
+allowApplePersonalizedAdvertising = false
+
+[bootstrap.macos.defaults."com.apple.AppleMultitouchMouse"]
+MouseButtonDivision = 55
+MouseButtonMode = "OneButton"
+MouseHorizontalScroll = true
+MouseMomentumScroll = true
+MouseOneFingerDoubleTapGesture = 0
+MouseTwoFingerDoubleTapGesture = 3
+MouseTwoFingerHorizSwipeGesture = 2
+MouseVerticalScroll = true
+UserPreferences = true
+
+[bootstrap.macos.defaults."com.apple.AppleMultitouchTrackpad"]
+ActuateDetents = 1
+Clicking = true
+DragLock = 0
+Dragging = 0
+FirstClickThreshold = 1
+ForceSuppressed = false
+SecondClickThreshold = 1
+TrackpadCornerSecondaryClick = 0
+TrackpadFiveFingerPinchGesture = 2
+TrackpadFourFingerHorizSwipeGesture = 2
+TrackpadFourFingerPinchGesture = 2
+TrackpadFourFingerVertSwipeGesture = 2
+TrackpadHandResting = true
+TrackpadHorizScroll = 1
+TrackpadMomentumScroll = true
+TrackpadPinch = 1
+TrackpadRightClick = true
+TrackpadRotate = false
+TrackpadScroll = true
+TrackpadThreeFingerDrag = false
+TrackpadThreeFingerHorizSwipeGesture = 0
+TrackpadThreeFingerTapGesture = 0
+TrackpadThreeFingerVertSwipeGesture = 0
+TrackpadTwoFingerDoubleTapGesture = 0
+TrackpadTwoFingerFromRightEdgeSwipeGesture = 3
+USBMouseStopsTrackpad = 0
+UserPreferences = true
+
+[bootstrap.macos.defaults."com.apple.FontBook"]
+showComputerFonts = true
+showGrekScript = true
+showHebrScript = false
+showLatnScript = true
+showPreferredLanguages = true
+showProviderManagedFonts = true
+showSystemFonts = true
+showUserFonts = true
+showWaterfallInSpecimenView = false
+
+[bootstrap.macos.defaults."com.apple.Image_Capture"]
+IK_CreateSingleDocument = true
+IK_DetectSeparateItemsScanMode = 0
+IK_ScanResolution = 300
+IK_ScannerDocumentType = 3
+IK_Scanner_PostProcessApplication = "/System/Applications/Preview.app"
+IK_Scanner_preferPostPostProcessApp = true
+IK_UseCustomScanSize = 1
+IK_documentName = "Scan"
+IK_scannerDisplayMode = 1
+
+[bootstrap.macos.defaults."com.apple.Music"]
+TransitionsEnabled = false
+audioPassthroughSetting = 1
+checkForAvailableDownloads = true
+dontAskForPlaylistItemRemoval = true
+dontAskForPlaylistRemoval = true
+losslessEnabled = true
+optimizeSongVolume = false
+preferredDownloadAudioQuality = 15
+preferredStreamPlaybackAudioQuality = 15
+showStatusBar = true
+userWantsPlaybackNotifications = false
+
+[bootstrap.macos.defaults."com.apple.Notes"]
+ShouldCorrectSpellingAutomatically = false
+emphasisDefaultValueKey = 4
+
+[bootstrap.macos.defaults."com.apple.Safari"]
+AllowJavaScriptFromAppleEvents = true
+AlwaysRestoreSessionAtLaunch = true
+AutoFillCreditCardData = true
+AutoFillFromAddressBook = true
+AutoFillMiscellaneousForms = true
+AutoFillPasswords = true
+AutoOpenSafeDownloads = false
+CloudTabsOnStartPageConsent = true
+Command1Through9SwitchesTabs = false
+EnableEnhancedPrivacyInRegularBrowsing = true
+EnableNarrowTabs = true
+ExcludePrivateWindowWhenRestoringSessionAtLaunch = true
+ExtensionsEnabled = true
+FindOnPageMatchesWordStartsOnly = false
+HideStartPageFrecentsEmptyItemView = true
+HistoryAgeInDaysLimit = 365
+HomePage = ""
+IncludeDevelopMenu = true
+OpenPrivateWindowWhenNotRestoringSessionAtLaunch = false
+PMHidePasswordsSettingsInSafari = true
+PreloadTopHit = false
+PrintHeadersAndFooters = false
+PrivateBrowsingRequiresAuthentication = false
+PrivateSearchEngineUsesNormalSearchEngineToggle = false
+PrivateSearchProviderShortName = "DuckDuckGo"
+SearchProviderShortName = "Google"
+ShowFrequentlyVisitedSites = false
+ShowHighlightsInFavorites = false
+ShowOverlayStatusBar = true
+ShowPrivacyReportInFavorites = false
+ShowReadingListInFavorites = false
+TabCreationPolicy = 2
+WebAutomaticSpellingCorrectionEnabled = false
+WebKitDefaultTextEncodingName = "utf-8"
+WebKitDeveloperExtrasEnabledPreferenceKey = true
+"WebKitPreferences.allowsPictureInPictureMediaPlayback" = true
+"WebKitPreferences.applePayEnabled" = true
+"WebKitPreferences.defaultTextEncodingName" = "utf-8"
+"WebKitPreferences.developerExtrasEnabled" = true
+"WebKitPreferences.privateClickMeasurementEnabled" = false
+
+[bootstrap.macos.defaults."com.apple.ScreenSharingSharedDefaults"]
+AllowOnlyContacts = false
+BlockAllInviters = false
+
+[bootstrap.macos.defaults."com.apple.SocialLayer"]
+SharedWithYouEnabled = true
+
+[bootstrap.macos.defaults."com.apple.TimeMachine"]
+DoNotOfferNewDisksForBackup = true
+
+[bootstrap.macos.defaults."com.apple.assistant.support"]
+"Allow Explicit Content" = true
+"Assistant Enabled" = true
+"Dictation Auto Punctuation Enabled" = true
+"Dictation Enabled" = true
+"Search Queries Data Sharing Status" = 2
+"Siri Data Sharing Opt-In Status" = 2
+
+[bootstrap.macos.defaults."com.apple.desktopservices"]
+DSDontWriteNetworkStores = true
+DSDontWriteUSBStores = true
+UseBareEnumeration = false
+
+[bootstrap.macos.defaults."com.apple.dock"]
+autohide = true
+expose-group-apps = true
+minimize-to-application = true
+mru-spaces = false
+showAppExposeGestureEnabled = true
+showLaunchpadGestureEnabled = false
+showMissionControlGestureEnabled = true
+size-immutable = true
+tilesize = 58.0
+[[bootstrap.macos.defaults."com.apple.dock".persistent-apps]]
+
+[bootstrap.macos.defaults."com.apple.dock".persistent-apps.tile-data.file-data]
+_CFURLString = "file:///System/Applications/Music.app/"
+_CFURLStringType = 15
+[[bootstrap.macos.defaults."com.apple.dock".persistent-apps]]
+
+[bootstrap.macos.defaults."com.apple.dock".persistent-apps.tile-data.file-data]
+_CFURLString = "file:///Applications/Yomu.app/"
+_CFURLStringType = 15
+[[bootstrap.macos.defaults."com.apple.dock".persistent-apps]]
+tile-type = "small-spacer-tile"
+
+[bootstrap.macos.defaults."com.apple.dock".persistent-apps.tile-data]
+file-label = ""
+[[bootstrap.macos.defaults."com.apple.dock".persistent-apps]]
+
+[bootstrap.macos.defaults."com.apple.dock".persistent-apps.tile-data.file-data]
+_CFURLString = "file:///System/Applications/Messages.app/"
+_CFURLStringType = 15
+[[bootstrap.macos.defaults."com.apple.dock".persistent-apps]]
+
+[bootstrap.macos.defaults."com.apple.dock".persistent-apps.tile-data.file-data]
+_CFURLString = "file:///Applications/Signal.app/"
+_CFURLStringType = 15
+[[bootstrap.macos.defaults."com.apple.dock".persistent-apps]]
+
+[bootstrap.macos.defaults."com.apple.dock".persistent-apps.tile-data.file-data]
+_CFURLString = "file:///System/Applications/Mail.app/"
+_CFURLStringType = 15
+[[bootstrap.macos.defaults."com.apple.dock".persistent-apps]]
+
+[bootstrap.macos.defaults."com.apple.dock".persistent-apps.tile-data.file-data]
+_CFURLString = "file:///System/Volumes/Preboot/Cryptexes/App/System/Applications/Safari.app/"
+_CFURLStringType = 15
+[[bootstrap.macos.defaults."com.apple.dock".persistent-apps]]
+tile-type = "small-spacer-tile"
+
+[bootstrap.macos.defaults."com.apple.dock".persistent-apps.tile-data]
+file-label = ""
+[[bootstrap.macos.defaults."com.apple.dock".persistent-apps]]
+
+[bootstrap.macos.defaults."com.apple.dock".persistent-apps.tile-data.file-data]
+_CFURLString = "file:///System/Applications/Journal.app/"
+_CFURLStringType = 15
+[[bootstrap.macos.defaults."com.apple.dock".persistent-apps]]
+
+[bootstrap.macos.defaults."com.apple.dock".persistent-apps.tile-data.file-data]
+_CFURLString = "file:///System/Applications/Notes.app/"
+_CFURLStringType = 15
+[[bootstrap.macos.defaults."com.apple.dock".persistent-apps]]
+
+[bootstrap.macos.defaults."com.apple.dock".persistent-apps.tile-data.file-data]
+_CFURLString = "file:///System/Applications/Calendar.app/"
+_CFURLStringType = 15
+[[bootstrap.macos.defaults."com.apple.dock".persistent-apps]]
+
+[bootstrap.macos.defaults."com.apple.dock".persistent-apps.tile-data.file-data]
+_CFURLString = "file:///System/Applications/Photos.app/"
+_CFURLStringType = 15
+[[bootstrap.macos.defaults."com.apple.dock".persistent-apps]]
+
+[bootstrap.macos.defaults."com.apple.dock".persistent-apps.tile-data.file-data]
+_CFURLString = "file:///System/Applications/Home.app/"
+_CFURLStringType = 15
+[[bootstrap.macos.defaults."com.apple.dock".persistent-apps]]
+
+[bootstrap.macos.defaults."com.apple.dock".persistent-apps.tile-data.file-data]
+_CFURLString = "file:///System/Applications/System%20Settings.app/"
+_CFURLStringType = 15
+[[bootstrap.macos.defaults."com.apple.dock".persistent-apps]]
+
+[bootstrap.macos.defaults."com.apple.dock".persistent-apps.tile-data.file-data]
+_CFURLString = "file:///System/Applications/iPhone%20Mirroring.app/"
+_CFURLStringType = 15
+
+[bootstrap.macos.defaults."com.apple.driver.AppleBluetoothMultitouch.mouse"]
+MouseButtonDivision = 55
+MouseButtonMode = "OneButton"
+MouseHorizontalScroll = true
+MouseMomentumScroll = true
+MouseOneFingerDoubleTapGesture = 0
+MouseTwoFingerDoubleTapGesture = 3
+MouseTwoFingerHorizSwipeGesture = 2
+MouseVerticalScroll = true
+UserPreferences = true
+
+[bootstrap.macos.defaults."com.apple.driver.AppleBluetoothMultitouch.trackpad"]
+Clicking = true
+DragLock = false  # from above int to bool
+Dragging = false  # from above int to bool
+TrackpadCornerSecondaryClick = 0
+TrackpadFiveFingerPinchGesture = 2
+TrackpadFourFingerHorizSwipeGesture = 2
+TrackpadFourFingerPinchGesture = 2
+TrackpadFourFingerVertSwipeGesture = 2
+TrackpadHandResting = true
+TrackpadHorizScroll = 1
+TrackpadMomentumScroll = true
+TrackpadPinch = 1
+TrackpadRightClick = true
+TrackpadRotate = false
+TrackpadScroll = true
+TrackpadThreeFingerDrag = false
+TrackpadThreeFingerHorizSwipeGesture = 0
+TrackpadThreeFingerTapGesture = 0
+TrackpadThreeFingerVertSwipeGesture = 0
+TrackpadTwoFingerDoubleTapGesture = 0
+TrackpadTwoFingerFromRightEdgeSwipeGesture = 3
+USBMouseStopsTrackpad = 0
+UserPreferences = true
+
+[bootstrap.macos.defaults."com.apple.finder"]
+FXEnableExtensionChangeWarning = false
+FXICloudDriveDesktop = true
+FXICloudDriveDocuments = true
+FXICloudDriveEnabled = true
+FXPreferredGroupBy = "Date Modified"
+FXRemoveOldTrashItems = true
+PreviewPaneInfoExpanded = true
+RecentsArrangeGroupViewBy = "Date Last Opened"
+ShowExternalHardDrivesOnDesktop = true
+ShowHardDrivesOnDesktop = false
+ShowRemovableMediaOnDesktop = true
+ShowSidebar = true
+WarnOnEmptyTrash = false
+
+[bootstrap.macos.defaults."com.apple.iBooksX"]
+AllowAutoDownloadsForPurchasesFromOtherDevices = false
+BCSyncCloudKit = true
+BCSyncICloudDrive = true
+BCSyncSettingsDisabled = false
+BKBookshelfSidebarSuppressDeleteCollectionAlert = true
+BKIncludeBookStoreResultsInSearch = false
+
+[bootstrap.macos.defaults."com.apple.iChat.inputLine".inputLineSettingsKey]
+automaticDashSubstitutionEnabled = false
+automaticDataDetectionEnabled = false
+automaticEmojiSubstitutionEnabled = false
+automaticLinkDetectionEnabled = false
+automaticQuoteSubstitutionEnabled = true
+automaticSpellingCorrectionEnabled = false
+automaticTextReplacementEnabled = true
+continuousSpellCheckingEnabled = true
+grammarCheckingEnabled = false
+smartInsertDeleteEnabled = true
+
+[bootstrap.macos.defaults."com.apple.keyboard.preferences"]
+IsMixmojiSuggestionsEnabled = false
+
+[bootstrap.macos.defaults."com.apple.keychainaccess"]
+"User Has Acknowledged Passwords App Dialog" = true
+
+[bootstrap.macos.defaults."com.apple.mail"]
+AlwaysIncludeOriginalMessage = true
+CategoriesEnabledByDefault = false
+ConversationViewSortDescending = true
+EnableContactPhotos = 0
+NSSavePanelLastSaveDirectory = "~/Downloads"
+ShowBccHeader = false
+ShowCcHeader = true
+ShowReplyToHeader = 0
+SpellCheckingBehavior = "InlineSpellCheckingEnabled"
+WebContinuousSpellCheckingEnabled = true
+
+[bootstrap.macos.defaults."com.apple.mail-shared"]
+AddressDisplayMode = 3
+AlertForNonmatchingDomains = false
+ExpandPrivateAliases = true
+
+[bootstrap.macos.defaults."com.apple.menuextra.clock"]
+ShowAMPM = true
+ShowDate = 0
+ShowDayOfWeek = true
+
+[bootstrap.macos.defaults."com.apple.messages.commsafety"]
+CheckSensitivePhotosAnalytics = false
+
+[bootstrap.macos.defaults."com.apple.messages.text"]
+Autocapitalization = 1
+Autocorrection = 1
+EmojiReplacement = 1
+
+[bootstrap.macos.defaults."com.apple.ncprefs"]
+content_visibility = 2
+summarize_previews = false
+
+[bootstrap.macos.defaults."com.apple.screencapture"]
+captureDelay = 5.0
+location-last = "~/Downloads"
+show-thumbnail = false
+style = "display"
+target = "clipboard"
+video = false
+
+[bootstrap.macos.defaults."com.apple.siri.generativeassistantsettings"]
+isEnabled = false
+
+[bootstrap.macos.defaults."com.if.Amphetamine"]
+"Allow Closed-Display Sleep" = 0
+"Allow Display Sleep" = 0
+"Allow Display Sleep When Screen Is Locked" = 1
+"Allow Screen Saver" = 0
+"Always Ask to End For Low Battery" = 1
+"Auto Remove Notifications" = 1
+"Default Duration" = 19
+DefaultHotkeyAction = 0
+"Enable Mouse Movement" = 0
+"Enable Notification Sound" = 1
+"Enable Session Auto End Notifications" = 1
+"Enable Session Auto Start Notifications" = 1
+"Enable Session Extend Sound" = 1
+"Enable Session Notifications" = 0
+"Enable Session State Sound" = 1
+"Enable Statistics" = 1
+"Enable Triggers" = 0
+"End Session On Low Battery" = 1
+"End Sessions On Forced Sleep" = 1
+"Hide Dock Icon" = 1
+"Icon Style" = 0
+"Ignore Battery on AC" = 1
+"Lock Screen After Inactivity" = 0
+"Lock Screen For CDM" = 0
+"Low Battery Percent" = 5
+"Lower Icon Opacity" = 0
+"Manage Status Item Image Padding" = 0
+"Notification Sound End" = 0
+"Notification Sound Start" = 0
+"Restart DD Session on AC Reconnect" = 1
+"Session End Time Calcuation" = 0
+"Show Session Details In Menu" = 1
+"Show Session Time In Status Bar" = 0
+"Show Welcome Window" = 0
+"Start Session At Launch" = 0
+"Start Session On Wake" = 0
+"Status Item Click" = 2
+
+[bootstrap.macos.defaults."com.moonlight-stream.Moonlight"]
+abstouchmode = true
+audiocfg = 0
+autoadjustbitrate = true
+backgroundgamepad = true
+capturesyskeys = 2
+confwarnings = true
+connwarnings = true
+detectnetblocking = true
+framepacing = true
+gameopts = true
+gamepadmouse = false
+hdr = true
+hostaudio = false
+keepawake = false
+mdns = true
+mouseacceleration = false
+multicontroller = true
+muteonfocusloss = false
+quitAppAfter = false
+reversescroll = false
+richpresence = false
+showperfoverlay = false
+swapfacebuttons = false
+swapmousebuttons = false
+uidisplaymode = 0
+unlockbitrate = false
+vsync = true
+windowmode = 1
+yuv444 = true
+
+[bootstrap.macos.defaults."com.stonerl.Thaw"]
+AutoRehide = true
+ConfirmSpacingRelaunch = true
+EnableAlwaysHiddenSection = false
+EnableSecondaryContextMenu = true
+EnableSecondaryContextMenuQuit = true
+HideApplicationMenus = true
+IceBarLocation = 0
+IceBarLocationOnHotkey = false
+IconRefreshInterval = 0.5
+ItemSpacingOffset = 0.0
+RehideInterval = 15.0
+RehideStrategy = 0
+SUAutomaticallyUpdate = true
+SUEnableAutomaticChecks = true
+SectionDividerStyle = 0
+ShowAllSectionsOnUserDrag = true
+ShowIceIcon = true
+ShowMenuBarTooltips = false
+ShowOnClick = true
+ShowOnDoubleClick = false
+ShowOnHover = false
+ShowOnScroll = false
+UseDoubleClickToShowAlwaysHiddenSection = true
+UseIceBar = true
+UseIceBarOnlyOnNotchedDisplay = false
+UseOptionClickToShowAlwaysHiddenSection = true
+hasSeenOnboarding = true
+hasSeenUpdateConsent = true
+
+[bootstrap.macos.defaults."net.cecinestpasparis.yomu".library]
+cover = "plain"
+layout = "grid"
+selector = "folder_root"
+sort = "reading"
+
+[bootstrap.macos.defaults."net.cecinestpasparis.yomu".reader_defaults]
+reader_chrome = "custom"
+reader_chrome_value = 120
+reader_column = "single"
+reader_dark = "night"
+reader_design = "classic"
+reader_layout = "scroll"
+reader_line = "custom"
+reader_line_value = 1.5
+reader_margin = "custom"
+reader_margin_value = 120
+reader_mode = "day"
+reader_resize = "maxed"
+reader_retina = "enabled"
+reader_size = "custom"
+reader_size_value = 20
+reader_spacing = "indent"
+reader_theme = "original"
+
+[bootstrap.macos.defaults."net.cecinestpasparis.yomu".settings]
+app_analytics = false
+app_diagnostics = true
+asset_style = "standard"
+auto_tag = "separate"
+color_scheme = "pink"
+controls_hide = true
+
+[bootstrap.macos.defaults."net.freemacsoft.AppCleaner"]
+SUAutomaticallyUpdate = true
+SUEnableAutomaticChecks = true
+SUSendProfileInfo = false
+
+[bootstrap.macos.defaults."org.hammerspoon.Hammerspoon"]
+HSAppleScriptEnabledKey = true
+HSUploadCrashData = false
+MJConfigFile = "~/.config/hammerspoon/init.lua"
+MJKeepConsoleOnTopKey = true
+MJShowDockIconKey = false
+MJShowMenuIconKey = true
+MJSkipDockMenuIconProblemAlertKey = true
+SUAutomaticallyUpdate = true
+SUEnableAutomaticChecks = true
+SUSendProfileInfo = false
+
+[bootstrap.macos.defaults."org.wireshark.Wireshark"]
+SUEnableAutomaticChecks = true
+SUFeedURL = "https://www.wireshark.org/update/0/Wireshark/4.2.5/macOS/arm64/en-US/stable.xml"
+SUHasLaunchedBefore = true
+SUScheduledCheckInterval = 86400.0
+SUUpdateGroupIdentifier = 2733212389
+
+[bootstrap.macos.defaults."pl.maketheweb.TopNotch"]
+cornerRadius = 2
+firstLaunch = false
+hideMenubarIcon = false
+hideOnBuiltInOnly = true
+isEnabled = true
+roundCorners = true
+
+[bootstrap.macos.defaults."pro.bettercmdtab.BetterCmdTab"]
+"BetterCmdTab.showSettingsDetails" = true
+BetterShortcuts_panelClose = "{\"carbonModifiers\":256,\"carbonKeyCode\":13}"
+"BetterShortcuts_panelClose@switchApps" = "{\"carbonModifiers\":256,\"carbonKeyCode\":13}"
+"BetterShortcuts_panelClose@switchWindows" = "{\"carbonKeyCode\":13,\"carbonModifiers\":256}"
+BetterShortcuts_panelFullscreen = "{\"carbonModifiers\":256,\"carbonKeyCode\":3}"
+"BetterShortcuts_panelFullscreen@switchApps" = "{\"carbonModifiers\":256,\"carbonKeyCode\":3}"
+"BetterShortcuts_panelFullscreen@switchWindows" = "{\"carbonKeyCode\":3,\"carbonModifiers\":256}"
+BetterShortcuts_panelHide = "{\"carbonModifiers\":256,\"carbonKeyCode\":4}"
+"BetterShortcuts_panelHide@switchApps" = "{\"carbonModifiers\":256,\"carbonKeyCode\":4}"
+"BetterShortcuts_panelHide@switchWindows" = "{\"carbonKeyCode\":4,\"carbonModifiers\":256}"
+BetterShortcuts_panelMinimize = "{\"carbonKeyCode\":46,\"carbonModifiers\":256}"
+"BetterShortcuts_panelMinimize@switchApps" = "{\"carbonKeyCode\":46,\"carbonModifiers\":256}"
+"BetterShortcuts_panelMinimize@switchWindows" = "{\"carbonKeyCode\":46,\"carbonModifiers\":256}"
+BetterShortcuts_panelQuit = "{\"carbonKeyCode\":12,\"carbonModifiers\":256}"
+"BetterShortcuts_panelQuit@switchApps" = "{\"carbonKeyCode\":12,\"carbonModifiers\":256}"
+"BetterShortcuts_panelQuit@switchWindows" = "{\"carbonKeyCode\":12,\"carbonModifiers\":256}"
+"BetterShortcuts_panelSearch@switchApps" = "{\"carbonKeyCode\":44,\"carbonModifiers\":256}"
+"BetterShortcuts_panelTabDrill@switchApps" = "{\"carbonKeyCode\":42,\"carbonModifiers\":256}"
+BetterShortcuts_switchApps = "{\"carbonModifiers\":256,\"carbonKeyCode\":48}"
+BetterShortcuts_switchWindows = "{\"carbonKeyCode\":50,\"carbonModifiers\":256}"
+BetterShortcuts_windowCenter = false
+BetterShortcuts_windowMaximize = false
+BetterShortcuts_windowRestorePrevious = false
+BetterShortcuts_windowTileBottomLeft = false
+BetterShortcuts_windowTileBottomRight = false
+BetterShortcuts_windowTileLeft = false
+BetterShortcuts_windowTileRight = false
+BetterShortcuts_windowTileTopLeft = false
+BetterShortcuts_windowTileTopRight = false
+"GitHubUpdater.checkInterval" = "manual"
+"Switcher.applicationsOnly" = false
+"Switcher.currentSpaceOnly" = false
+"Switcher.disabledSymbolicHotKeys" = [1, 2, 6]
+"Switcher.displayMode" = "mouseCursor"
+"Switcher.fuzzySearchEnabled" = true
+"Switcher.hapticOnCommit" = false
+"Switcher.hideFromScreenSharing" = true
+"Switcher.hoverActionsEnabled" = true
+"Switcher.hoverShowForceQuit" = true
+"Switcher.hoverShowHide" = false
+"Switcher.hoverShowMaximize" = false
+"Switcher.layoutMode" = "iconDock"
+"Switcher.letterHintsEnabled" = true
+"Switcher.mouseHoverSelectionEnabled" = false
+"Switcher.nextScopedShortcutID" = 0
+"Switcher.panelScalePercent" = 100
+"Switcher.panelScaleRebased" = true
+"Switcher.revealDelayMs" = 150
+"Switcher.scopedShortcutList" = []
+"Switcher.scrollToSwitch" = false
+"Switcher.searchIncludesLaunchableApps" = false
+"Switcher.showApplicationNames" = true
+"Switcher.showHiddenApps" = true
+"Switcher.showMinimizedWindows" = true
+"Switcher.showUnreadBadges" = true
+"Switcher.showWindowlessApps" = true
+"Switcher.sortOrder" = "mruWindows"
+"Switcher.spaceScope" = "allSpaces"
+"Switcher.stayOpenOnRelease" = false
+[[bootstrap.macos.defaults."pro.bettercmdtab.BetterCmdTab"."Switcher.appExceptions"]]
+bundleID = "com.apple.finder"
+hide = "whenNoWindows"
+ignore = "always"

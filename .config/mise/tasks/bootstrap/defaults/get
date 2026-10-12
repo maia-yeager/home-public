@@ -1,0 +1,25 @@
+#!/usr/bin/env zsh
+#USAGE arg "<domain>"
+
+local python_script='
+from io import BytesIO
+import plistlib, sys, json, datetime
+
+# account for invalid ISO dates, e.g. com.apple.iBooksX
+def date_from_string(s):
+  try:
+    return plistlib._date_from_string(s)
+  except ValueError:
+    return datetime.datetime.min
+class PlistParser(plistlib._PlistParser):
+  def end_date(self):
+    self.add_object(date_from_string(self.get_data()))
+
+plist = BytesIO(sys.stdin.read().encode("utf-8"))
+parse = PlistParser(dict).parse
+print(json.dumps(parse(plist), default=lambda o: "<not serializable>"))
+'
+
+defaults export $usage_domain - |
+  python3 -c ${python_script} |
+  jq -S 'del(.. | select(. == "<not serializable>"))'

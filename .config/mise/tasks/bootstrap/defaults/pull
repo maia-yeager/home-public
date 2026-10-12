@@ -1,0 +1,31 @@
+#!/usr/bin/env zsh
+#MISE dir="{{cwd}}"
+#USAGE arg "[domain]"
+
+local tempfile=${TMPDIR}/bootstrap-defaults-pull.json
+local domains=($(yq -rojson '.bootstrap.macos.defaults | keys[]' \
+  ${XDG_CONFIG_HOME}/mise/conf.d/bootstrap/mise.macos.toml))
+
+() {
+  if [[ -n $usage_domain ]] {
+    mise run bootstrap:defaults:get $usage_domain |
+      jq --arg domain ${usage_domain} '{ $domain: . }'
+  } else {
+    # this is slow, but there isn't a good way to export all defaults in a
+    # machine-readable format using the 'defaults' util.
+    for domain ($domains) {
+      mise run bootstrap:defaults:get $domain |
+        jq --arg domain ${domain} '{ $domain: . }'
+    }
+  }
+} | jq -s 'reduce .[] as $obj ({}; . * $obj)' > ${tempfile}
+
+local yq_script='
+load("${tempfile}" | envsubst) as $new_data
+| with(
+  .bootstrap.macos.defaults;
+  . = . *? $new_data | sort_keys(..)
+)
+'
+tempfile=${tempfile} yq -i ${yq_script} \
+  ${XDG_CONFIG_HOME}/mise/conf.d/bootstrap/mise.macos.toml

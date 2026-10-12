@@ -1,0 +1,32 @@
+#!/usr/bin/env zsh
+#MISE dir="{{cwd}}"
+#USAGE arg "<domain>"
+
+local domain_json=$(mise run bootstrap:defaults:get ${usage_domain})
+if [[ $domain_json == '{}' ]] {
+  echo "No importable keys found for domain '${usage_domain}'."
+  exit 0
+}
+
+local yq_script='
+("${domain}" | envsubst) as $domain
+| ("${domain_json}" | envsubst | from_json) as $domain_json
+| with(
+  .bootstrap.macos.defaults;
+  with(
+    .[$domain];
+    . = . *n ($domain_json | with_entries(
+        select(
+          .key | (
+            test("^(NSWindow|(CK|SK)[A-Z])")
+            or . == "AppleTextDirection"
+          ) | not
+        )
+      )
+    )
+  )
+  | sort_keys(..)
+)
+'
+domain=${usage_domain} domain_json=${domain_json} \
+  yq -i ${yq_script} ${XDG_CONFIG_HOME}/mise/conf.d/bootstrap/mise.macos.toml

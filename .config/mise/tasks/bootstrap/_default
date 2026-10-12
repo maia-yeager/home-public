@@ -1,0 +1,15 @@
+#!/usr/bin/env zsh
+#MISE dir="{{cwd}}"
+
+# Mise man pages and auto-complete
+mkdir -p \
+  $XDG_DATA_HOME/mise/man/man1 \
+  $XDG_DATA_HOME/mise/man/man2 \
+  $XDG_DATA_HOME/mise/man/man3 \
+  $XDG_DATA_HOME/mise/man/man4 \
+  $XDG_DATA_HOME/mise/man/man5 \
+  $XDG_DATA_HOME/mise/man/man6 \
+  $XDG_DATA_HOME/mise/man/man7 \
+  $XDG_DATA_HOME/mise/man/man8 \
+  $XDG_DATA_HOME/mise/man/man9 \
+  $XDG_DATA_HOME/mise/zsh/fn

@@ -1,0 +1,6 @@
+[bootstrap.brew]
+adopt = true
+
+[bootstrap.packages]
+"brew-cask:font-jetbrains-mono-nerd-font" = "latest"
+"brew-cask:font-meslo-for-powerlevel10k" = "latest"
