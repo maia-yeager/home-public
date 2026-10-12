@@ -1,16 +1,13 @@
-ffmpeg-full
 gawk
 git
 git-ignore
 gnu-sed
 htop
 libpq
-lua@5.4
 ncdu
 optipng
 rlwrap
 rsync
 tree
 wget
-yt-dlp
 zsh-lovers
