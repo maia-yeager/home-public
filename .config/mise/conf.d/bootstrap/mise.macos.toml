@@ -116,6 +116,7 @@ WebAutomaticSpellingCorrectionEnabled = false
 "com.apple.trackpad.forceClick" = true
 "com.apple.trackpad.scaling" = 0.875
 shouldShowRSVPDataDetectors = false
+
 [bootstrap.macos.defaults."Apple Global Domain".KB_SpellingLanguage]
 KB_SpellingLanguageIsAutomatic = true
 
