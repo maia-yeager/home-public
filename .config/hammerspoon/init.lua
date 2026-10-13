@@ -6,7 +6,7 @@ hs.notify.withdrawAll()
 
 -- Get luarocks location and add it to the search path.
 local luarocksBin = hs
-  .execute("which luarocks", true) --[[@as string]]
+  .execute("command -v luarocks 2>/dev/null", true) --[[@as string]]
   :gsub("\n", "")
 if #luarocksBin > 0 then
   local function getLuaRocksPaths(strArgs)
