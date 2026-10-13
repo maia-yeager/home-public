@@ -4,6 +4,8 @@
 
 hs.notify.withdrawAll()
 
+require("hs.ipc") -- For VS Code extension.
+
 -- Get luarocks location and add it to the search path.
 local luarocksBin = hs
   .execute("command -v luarocks 2>/dev/null", true) --[[@as string]]
@@ -22,9 +24,6 @@ if #luarocksBin > 0 then
 else
   hs.notify.show("", "", "luarocks not found")
 end
-
--- Remote control of Hammerspoon.
-require("hs.ipc") -- For VS Code extension.
 
 -- SpoonInstall.
 hs.loadSpoon("SpoonInstall")
