@@ -122,10 +122,7 @@ path=(
   $HOME/Library/'Application Support'/JetBrains/Toolbox/scripts
   $HOMEBREW_PREFIX/opt/gawk/libexec/gnubin # Not linked by default.
   $HOMEBREW_PREFIX/opt/gnu-sed/libexec/gnubin # Not linked by default.
-  $HOMEBREW_PREFIX/opt/ffmpeg-full/bin # Not linked by default.
-  $CARGO_HOME/bin # Before $path, in case rust is already installed.
   $path
-  $HOMEBREW_PREFIX/opt/libpq/bin # After $path, to defer to any installed Postgres.
 )
 fpath=(
   $MISE_FPATH
@@ -141,6 +138,7 @@ ABBR_REGULAR_ABBREVIATION_GLOB_PREFIXES+=( '* -- ' '* | ' )
 ABBR_REGULAR_ABBREVIATION_SCALAR_PREFIXES+=( ' ' )
 ABBR_SET_EXPANSION_CURSOR=1
 ABBR_SET_LINE_CURSOR=1
+MISE_FPATH=$XDG_DATA_HOME/mise/zsh/fn
 ZSH_AUTOSUGGEST_STRATEGY=( abbreviations $ZSH_AUTOSUGGEST_STRATEGY )
 
 # Autoload functions.

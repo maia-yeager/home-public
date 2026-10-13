@@ -40,3 +40,21 @@ else
   export XDG_STATE_HOME="${XDG_STATE_HOME:-$HOME/.local/state}"
 fi
 mkdir -p "$XDG_CACHE_HOME" "$XDG_CONFIG_HOME" "$XDG_DATA_HOME" "$XDG_STATE_HOME"
+
+# Add to $PATH if missing.
+add-to-path() {
+  case $1 in
+    append) cmd='PATH="$2:$PATH"' ;;
+    prepend) cmd='PATH="$PATH:$2"' ;;
+    *)
+      >&2 printf "\e[33m-init\e[39m: invalid path location: \e[31m$1\e[39m\n"
+      return 1
+    ;;
+  esac
+  case :$PATH: in
+    *:$2:*) ;;
+    *) eval "$cmd" ;;
+  esac
+}
+add-to-path prepend "$HOME/bin"
+add-to-path prepend "$HOME/.local/bin"
