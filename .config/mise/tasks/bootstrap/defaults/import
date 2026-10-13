@@ -1,32 +1,35 @@
 #!/usr/bin/env zsh
-#MISE dir="{{cwd}}"
-#USAGE arg "<domain>"
+#USAGE arg "<domains>..."
+#USAGE complete "domains" run="/bin/zsh -c 'echo ${(F)${(as:, :)$(defaults domains)}}'"
 
-local domain_json=$(mise run bootstrap:defaults:get ${usage_domain})
-if [[ $domain_json == '{}' ]] {
-  echo "No importable keys found for domain '${usage_domain}'."
-  exit 0
-}
+# case-sensitive
+local key_ignore_regexes=(
+  '[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}'
+  '^(CK|SK)[A-Z]'
+  '^AppleTextDirection$'
+  '^NS(FullScreen|NavPanelExpanded|OS|Treat|Window)'
+  '^SU(HasLaunchedBefore|ScheduledCheckInterval|UpdateRelaunchingMarker)$'
+)
+local config_path=${XDG_CONFIG_HOME}/mise/conf.d/bootstrap/mise.macos.toml
 
-local yq_script='
-("${domain}" | envsubst) as $domain
-| ("${domain_json}" | envsubst | from_json) as $domain_json
+local -a domains
+eval "domains=($usage_domains)"
+local json_data=$(mise run get:defaults ${domains})
+local ignore_regex=\(${${(j:|:)key_ignore_regexes}}\)
+
+json_data=${json_data} ignore_regex=${ignore_regex} yq -i '
+("${ignore_regex}" | envsubst) as $ignore_regex
+| ("${json_data}" | envsubst | from_json) as $new_data
 | with(
   .bootstrap.macos.defaults;
-  with(
-    .[$domain];
-    . = . *n ($domain_json | with_entries(
-        select(
-          .key | (
-            test("^(NSWindow|(CK|SK)[A-Z])")
-            or . == "AppleTextDirection"
-          ) | not
-        )
+  . ref $config_data
+  | $new_data | with_entries(
+    $config_data[.key] = $config_data[.key] *n (
+      .value | with_entries(
+        select(.key | test($ignore_regex) | not)
       )
     )
   )
-  | sort_keys(..)
+  | $config_data | sort_keys(..)
 )
-'
-domain=${usage_domain} domain_json=${domain_json} \
-  yq -i ${yq_script} ${XDG_CONFIG_HOME}/mise/conf.d/bootstrap/mise.macos.toml
+' ${config_path}

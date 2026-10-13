@@ -1,0 +1,21 @@
+#!/usr/bin/env zsh
+#USAGE arg "<domains>..."
+#USAGE complete "domains" run="/bin/zsh -c 'echo ${(F)${(as:, :)$(defaults domains)}}'"
+
+local tempfile_path=${TMPDIR}/bootstrap-defaults-get.json
+local -a domains
+eval "domains=($usage_domains)"
+
+() {
+  # this is slow, but there isn't a good way to export all defaults in a
+  # machine-readable format using the 'defaults' util, so we have to query each
+  # domain individually.
+  for domain ($domains) {
+    defaults export ${domain} - |
+      mise run pipe:plist-to-json |
+      jq -c --arg domain ${domain} '{ $domain: . }'
+  }
+}  | jq -csS '
+  reduce .[] as $obj ({}; . * $obj)
+  | del(.. | select(. == "<not serializable>"))
+'

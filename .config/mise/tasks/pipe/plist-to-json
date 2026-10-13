@@ -1,7 +1,5 @@
-#!/usr/bin/env zsh
-#USAGE arg "<domain>"
+#!/usr/bin/env python3
 
-local python_script='
 from io import BytesIO
 import plistlib, sys, json, datetime
 
@@ -15,11 +13,11 @@ class PlistParser(plistlib._PlistParser):
   def end_date(self):
     self.add_object(date_from_string(self.get_data()))
 
-plist = BytesIO(sys.stdin.read().encode("utf-8"))
-parse = PlistParser(dict).parse
-print(json.dumps(parse(plist), default=lambda o: "<not serializable>"))
-'
-
-defaults export $usage_domain - |
-  python3 -c ${python_script} |
-  jq -S 'del(.. | select(. == "<not serializable>"))'
+print(
+  json.dumps(
+    PlistParser(dict).parse(
+      BytesIO(sys.stdin.read().encode("utf-8"))
+    ),
+    default=lambda o: "<not serializable>"
+  )
+)

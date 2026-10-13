@@ -1,31 +1,26 @@
 #!/usr/bin/env zsh
-#MISE dir="{{cwd}}"
-#USAGE arg "[domain]"
+#USAGE arg "[domains]..."
+#USAGE complete "domains" run="/bin/zsh -c 'echo ${(F)${(as:, :)$(defaults domains)}}'"
 
-local tempfile=${TMPDIR}/bootstrap-defaults-pull.json
-local domains=($(yq -rojson '.bootstrap.macos.defaults | keys[]' \
-  ${XDG_CONFIG_HOME}/mise/conf.d/bootstrap/mise.macos.toml))
+local config_path=${XDG_CONFIG_HOME}/mise/conf.d/bootstrap/mise.macos.toml
 
-() {
-  if [[ -n $usage_domain ]] {
-    mise run bootstrap:defaults:get $usage_domain |
-      jq --arg domain ${usage_domain} '{ $domain: . }'
-  } else {
-    # this is slow, but there isn't a good way to export all defaults in a
-    # machine-readable format using the 'defaults' util.
-    for domain ($domains) {
-      mise run bootstrap:defaults:get $domain |
-        jq --arg domain ${domain} '{ $domain: . }'
-    }
-  }
-} | jq -s 'reduce .[] as $obj ({}; . * $obj)' > ${tempfile}
+local -a domains
+if [[ -n $usage_domains ]] {
+  eval "domains=($usage_domains)"
+} else {
+  domains=($(yq -rojson '.bootstrap.macos.defaults | keys[]' ${config_path}))
+}
+if (( $#domains < 1 )) {
+  >&2 echo "No domains provided or currently configured.
+Consider using 'import' instead."
+  exit 1
+}
 
-local yq_script='
-load("${tempfile}" | envsubst) as $new_data
+local json_data=$(mise run get:defaults ${domains})
+json_data=${json_data} yq -i '
+("${json_data}" | envsubst | from_json) as $new_data
 | with(
   .bootstrap.macos.defaults;
   . = . *? $new_data | sort_keys(..)
 )
-'
-tempfile=${tempfile} yq -i ${yq_script} \
-  ${XDG_CONFIG_HOME}/mise/conf.d/bootstrap/mise.macos.toml
+' ${config_path}
