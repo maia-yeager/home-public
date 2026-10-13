@@ -2,13 +2,14 @@
 #USAGE arg "<domains>..."
 #USAGE complete "domains" run="/bin/zsh -c 'echo ${(F)${(as:, :)$(defaults domains)}}'"
 
-# case-sensitive
+# case-sensitive, uses golang's regex engine (no lookaheads/behinds)
 local key_ignore_regexes=(
   '[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}'
   '^(CK|SK)[A-Z]'
   '^AppleTextDirection$'
-  '^NS(FullScreen|NavPanelExpanded|OS|Treat|Window)'
-  '^SU(HasLaunchedBefore|ScheduledCheckInterval|UpdateRelaunchingMarker)$'
+  'Version'
+  '^NS(FullScreen|NavPanelExpanded|OS|SplitView|Toolbar|Treat|Window)'
+  '^SU(FeedAlternateAppName|HasLaunched|ScheduledCheck|Update)'
 )
 local config_path=${XDG_CONFIG_HOME}/mise/conf.d/bootstrap/mise.macos.toml
 
