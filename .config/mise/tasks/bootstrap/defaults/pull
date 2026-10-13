@@ -21,6 +21,14 @@ json_data=${json_data} yq -i '
 ("${json_data}" | envsubst | from_json) as $new_data
 | with(
   .bootstrap.macos.defaults;
-  . = . *? $new_data | sort_keys(..)
+  . ref $config_data
+  | with_entries(
+    $config_data[.key] = $config_data[.key] *? (
+      $new_data[.key] ref $value
+      | $config_data[.key] | head_comment as $filter
+      | $value | eval($filter)
+    )
+  )
+  | sort_keys(..)
 )
 ' ${config_path}

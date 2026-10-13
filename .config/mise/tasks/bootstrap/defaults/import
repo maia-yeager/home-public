@@ -25,9 +25,11 @@ json_data=${json_data} ignore_regex=${ignore_regex} yq -i '
   . ref $config_data
   | $new_data | with_entries(
     $config_data[.key] = $config_data[.key] *n (
-      .value | with_entries(
-        select(.key | test($ignore_regex) | not)
-      )
+      .value ref $value
+      | $config_data[.key] | head_comment as $filter
+      | $value
+      | with_entries(select(.key | test($ignore_regex) | not))
+      | eval($filter)
     )
   )
   | $config_data | sort_keys(..)
