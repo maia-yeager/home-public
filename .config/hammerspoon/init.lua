@@ -2,8 +2,15 @@
 -- Pre-flight
 -------------------------------------------------------------------------------
 
-hs.notify.withdrawAll()
+hs.preferencesDarkMode(true)
+hs.console.darkMode(true)
+if hs.console.darkMode() then
+  hs.console.outputBackgroundColor({ white = 0 })
+  hs.console.consoleCommandColor({ white = 1 })
+  hs.console.alpha(1)
+end
 
+hs.notify.withdrawAll()
 require("hs.ipc") -- For VS Code extension.
 
 -- Get luarocks location and add it to the search path.
