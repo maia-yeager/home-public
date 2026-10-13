@@ -708,6 +708,1162 @@ Tab-ToolsUI-DockedState = true
 "com.canva.affinity.tools.sub.horizontal" = false
 "com.canva.affinity.tools.sub.visible" = false
 
+# with_entries(select(.key | test("^(A[Ii]|NoSync)") | not))
+# | with(.["New Bookmarks"][]; del(select(has("Dynamic Profile Filename"))))
+[bootstrap.macos.defaults."com.googlecode.iterm2"]
+AllowClipboardAccess = true
+AlternateMouseScroll = true
+AlwaysOpenWindowAtStartup = true
+AnonymousTmuxWindowsOpenInCurrentWindow = true
+AppleAntiAliasingThreshold = 1
+ApplePressAndHoldEnabled = false
+AppleScrollAnimationEnabled = 0
+AppleSmoothFixedFontsSizeThreshold = 1
+AppleWindowTabbingMode = "manual"
+AutoHideTmuxClientSession = true
+BootstrapDaemon = false
+ClosingTmuxWindowKillsTmuxWindows = true
+ClosingTmuxWindowKillsTmuxWindows_selection = 1
+ConservativeURLGuessing = true
+ConvertItalicsToReverseVideoForTmux = false
+CopySelection = false
+"Default Bookmark Guid" = "15D0BAAB-542E-41D4-9D5F-F241BF8580DB"
+DefaultTabBarHeight = 28.0
+DimBackgroundWindows = false
+DimOnlyText = true
+DoubleClickPerformsSmartSelection = false
+DynamicProfilesNotificationLatency = 0.10000000149011612
+EnterCopyModeAutomatically = false
+FilenameCharacterSet = "$@"
+FocusFollowsMouse = false
+FocusReportingEnabled = true
+HTMLTabTitles = true
+HapticFeedbackForEsc = false
+HideScrollbar = true
+HideTab = false
+HotkeyMigratedFromSingleToMulti = true
+IRMemory = 4
+LoadPrefsFromCustomFolder = false
+NSAutoFillHeuristicControllerEnabled = false
+NSAutomaticCapitalizationEnabled = false
+NSAutomaticDashSubstitutionEnabled = false
+NSAutomaticPeriodSubstitutionEnabled = false
+NSAutomaticQuoteSubstitutionEnabled = false
+NSAutomaticSpellingCorrectionEnabled = false
+NSNavLastUserSetHideExtensionButtonState = true
+NSOverlayScrollersFallBackForAccessoryViews = false
+NSQuotedKeystrokeBinding = ""
+NSRepeatCountBinding = ""
+NSScrollAnimationEnabled = false
+NSScrollViewShouldScrollUnderTitlebar = false
+NeverBlockSystemShutdown = true
+OnePasswordAccount = "NSUDR3GYLNCQ5CMGJAEGWAFXJI"
+OnlyWhenMoreTabs = false
+OpenBookmark = false
+OpenTmuxWindowsIn = 2
+PrefsCustomFolder = ""
+PreventEscapeSequenceFromClearingHistory = false
+PromptOnQuit = false
+SUAutomaticallyUpdate = true
+SUEnableAutomaticChecks = false
+SUFeedURL = "https://iterm2.com/appcasts/final_modern.xml?shard=97"
+SUSendProfileInfo = false
+SeparateStatusBarsPerPane = false
+ShowAutomaticProfileSwitchingBanner = false
+ShowFullScreenTabBar = true
+ShowPaneTitles = true
+SmartPlacement = false
+SoundForEsc = false
+SplitPaneDimmingAmount = 0.6
+StatusBarPosition = 1
+StretchTabsToFillBar = true
+SuppressRestartAnnouncement = true
+SwapFindNextPrevious = false
+SwitchPaneModifier = 5
+SynchronizeQueryWithFindPasteboard = false
+TabStyleWithAutomaticOption = 5
+TabViewType = 0
+TerminalMargin = 6
+TerminalVMargin = 2
+TmuxIncludeClientNameInWindowTitle = false
+TmuxSyncClipboard = true
+TmuxTitlePrefix = "\U00101140 "
+TmuxUnpauseAutomatically = true
+TmuxUsesDedicatedProfile = false
+TmuxWindowsShouldCloseAfterDetach = true
+ToolbeltTools = ["Profiles", "Command History", "Named Marks"]
+UseTmuxStatusBar = false
+VisualIndicatorForEsc = false
+WebUserAgent = ""
+WindowPlacement = 0
+WordCharacters = "+\\~_"
+findMode_iTerm = 0
+kCPKSelectionViewPreferredModeKey = 6
+kCPKSelectionViewShowHSBTextFieldsKey = true
+metalMaximizeThroughput = true
+[[bootstrap.macos.defaults."com.googlecode.iterm2"."New Bookmarks"]]
+"ASCII Anti Aliased" = true
+"ASCII Ligatures" = false
+"Allow Alternate Mouse Scroll" = false
+"Allow Paste Bracketing" = true
+"Allow Title Reporting" = true
+"Allow Title Setting" = true
+"Allow modifyOtherKeys" = false
+"Ambiguous Double Width" = false
+"Animate Movement" = false
+"Automatically Enable Alternate Mouse Scroll" = true
+"BM Growl" = true
+"Blink Allowed" = false
+"Blinking Cursor" = false
+Blur = false
+"Bound Hosts" = []
+"Brighten Bold Text (Dark)" = false
+"Character Encoding" = 4
+"Close Sessions On End" = 1
+Columns = 180
+Command = ""
+"Cursor Smooth Slide" = true
+"Cursor Type" = 1
+"Custom Command" = "No"
+"Custom Directory" = "Recycle"
+"Default Bookmark" = "No"
+"Default Pane Locked" = false
+Description = "Default"
+"Disable Window Resizing" = true
+"Drag to Scroll in Alternate Screen Mode Disabled" = true
+"Draw Powerline Glyphs" = true
+"Flashing Bell" = false
+Guid = "15D0BAAB-542E-41D4-9D5F-F241BF8580DB"
+"Height Percentage" = -1
+"Horizontal Spacing" = 1.0
+Icon = 0
+"Idle Code" = 0
+"Jobs to Ignore" = ["screen", "tmux", "zsh", "bash", "sh", "man", "bat", "less"]
+"Left Command Key" = 0
+"Left Option Key Changeable" = false
+"Mouse Reporting" = true
+"Mouse Reporting allow clicks and drags" = true
+"Mouse Reporting allow mouse wheel" = true
+Name = "Default"
+"Non Ascii Font" = "Monaco 12"
+"Non-ASCII Anti Aliased" = true
+"Normal Font" = "MesloLGS-NF-Regular 13"
+"Open Password Manager Automatically" = false
+"Option Key Sends" = 2
+"Place Prompt at First Column" = false
+"Prompt Before Closing 2" = 2
+"Restrict Mouse Reporting to Alternate Screen Mode" = true
+"Right Option Key Sends" = 2
+Rows = 50
+Screen = -2
+"Scrollback Lines" = 0
+"Send Code When Idle" = false
+"Session Close Undo Timeout" = 10
+Shortcut = ""
+"Show Mark Indicators" = false
+"Show Offscreen Command line" = false
+"Show Status Bar" = true
+"Show Timestamps" = 2
+"Silence Bell" = true
+"Smart Cursor Color (Dark)" = false
+"Sync Title" = false
+Tags = []
+"Terminal Type" = "xterm-256color"
+"Title Components" = 0
+"Tmux Newline" = false
+Transparency = 0
+"Treat Option as Alt" = true
+Triggers = []
+"Unicode Normalization" = 0
+"Unlimited Scrollback" = true
+"Use Bold Font" = true
+"Use Bright Bold" = true
+"Use Bright Bold (Dark)" = false
+"Use Cursor Guide (Dark)" = false
+"Use Italic Font" = true
+"Use Non-ASCII Font" = false
+"Use Selected Text Color (Dark)" = true
+"Use Separate Colors for Light and Dark Mode" = true
+"Use Tab Color (Dark)" = false
+"Use Theme Mark Colors" = true
+"Use libtickit protocol" = false
+"Vertical Spacing" = 1.0
+"Visual Bell" = true
+"Width Percentage" = -1
+"Window Type" = 17
+"Working Directory" = "/Users/maia"
+
+[bootstrap.macos.defaults."com.googlecode.iterm2"."New Bookmarks"."Ansi 0 Color"]
+"Alpha Component" = 1
+"Blue Component" = 0.11764705926179886
+"Color Space" = "sRGB"
+"Green Component" = 0.09803921729326245
+"Red Component" = 0.0784313753247261
+
+[bootstrap.macos.defaults."com.googlecode.iterm2"."New Bookmarks"."Ansi 0 Color (Dark)"]
+"Alpha Component" = 1.0
+"Blue Component" = 0.10196078568696976
+"Color Space" = "sRGB"
+"Green Component" = 0.10196078568696976
+"Red Component" = 0.10196078568696976
+
+[bootstrap.macos.defaults."com.googlecode.iterm2"."New Bookmarks"."Ansi 0 Color (Light)"]
+"Alpha Component" = 1.0
+"Blue Component" = 0.10196078568696976
+"Color Space" = "sRGB"
+"Green Component" = 0.10196078568696976
+"Red Component" = 0.10196078568696976
+
+[bootstrap.macos.defaults."com.googlecode.iterm2"."New Bookmarks"."Ansi 1 Color"]
+"Alpha Component" = 1
+"Blue Component" = 0.16300037503242493
+"Color Space" = "sRGB"
+"Green Component" = 0.23660069704055786
+"Red Component" = 0.7074432373046875
+
+[bootstrap.macos.defaults."com.googlecode.iterm2"."New Bookmarks"."Ansi 1 Color (Dark)"]
+"Alpha Component" = 1.0
+"Blue Component" = 0.18180052936077118
+"Color Space" = "sRGB"
+"Green Component" = 0.21627995371818542
+"Red Component" = 0.7992954254150391
+
+[bootstrap.macos.defaults."com.googlecode.iterm2"."New Bookmarks"."Ansi 1 Color (Light)"]
+"Alpha Component" = 1.0
+"Blue Component" = 0.18180052936077118
+"Color Space" = "sRGB"
+"Green Component" = 0.21627995371818542
+"Red Component" = 0.7992954254150391
+
+[bootstrap.macos.defaults."com.googlecode.iterm2"."New Bookmarks"."Ansi 10 Color"]
+"Alpha Component" = 1
+"Blue Component" = 0.5654193758964539
+"Color Space" = "sRGB"
+"Green Component" = 0.9042816162109375
+"Red Component" = 0.3450070321559906
+
+[bootstrap.macos.defaults."com.googlecode.iterm2"."New Bookmarks"."Ansi 10 Color (Dark)"]
+"Alpha Component" = 1.0
+"Blue Component" = 0.29411765933036804
+"Color Space" = "sRGB"
+"Green Component" = 0.843137264251709
+"Red Component" = 0.19607843458652496
+
+[bootstrap.macos.defaults."com.googlecode.iterm2"."New Bookmarks"."Ansi 10 Color (Light)"]
+"Alpha Component" = 1.0
+"Blue Component" = 0.29411765933036804
+"Color Space" = "sRGB"
+"Green Component" = 0.843137264251709
+"Red Component" = 0.19607843458652496
+
+[bootstrap.macos.defaults."com.googlecode.iterm2"."New Bookmarks"."Ansi 11 Color"]
+"Alpha Component" = 1
+"Blue Component" = 0
+"Color Space" = "sRGB"
+"Green Component" = 0.8833775520324707
+"Red Component" = 0.9259033203125
+
+[bootstrap.macos.defaults."com.googlecode.iterm2"."New Bookmarks"."Ansi 11 Color (Dark)"]
+"Alpha Component" = 1.0
+"Blue Component" = 0.03921568766236305
+"Color Space" = "sRGB"
+"Green Component" = 0.8392156958580017
+"Red Component" = 1.0
+
+[bootstrap.macos.defaults."com.googlecode.iterm2"."New Bookmarks"."Ansi 11 Color (Light)"]
+"Alpha Component" = 1.0
+"Blue Component" = 0.03921568766236305
+"Color Space" = "sRGB"
+"Green Component" = 0.8392156958580017
+"Red Component" = 1.0
+
+[bootstrap.macos.defaults."com.googlecode.iterm2"."New Bookmarks"."Ansi 12 Color"]
+"Alpha Component" = 1
+"Blue Component" = 0.9485321044921875
+"Color Space" = "sRGB"
+"Green Component" = 0.6704471707344055
+"Red Component" = 0.6534907817840576
+
+[bootstrap.macos.defaults."com.googlecode.iterm2"."New Bookmarks"."Ansi 12 Color (Dark)"]
+"Alpha Component" = 1.0
+"Blue Component" = 1.0
+"Color Space" = "sRGB"
+"Green Component" = 0.5176470875740051
+"Red Component" = 0.03921568766236305
+
+[bootstrap.macos.defaults."com.googlecode.iterm2"."New Bookmarks"."Ansi 12 Color (Light)"]
+"Alpha Component" = 1.0
+"Blue Component" = 1.0
+"Color Space" = "sRGB"
+"Green Component" = 0.5176470875740051
+"Red Component" = 0.03921568766236305
+
+[bootstrap.macos.defaults."com.googlecode.iterm2"."New Bookmarks"."Ansi 13 Color"]
+"Alpha Component" = 1
+"Blue Component" = 0.8821563720703125
+"Color Space" = "sRGB"
+"Green Component" = 0.4927266538143158
+"Red Component" = 0.8821563720703125
+
+[bootstrap.macos.defaults."com.googlecode.iterm2"."New Bookmarks"."Ansi 13 Color (Dark)"]
+"Alpha Component" = 1.0
+"Blue Component" = 0.9490196108818054
+"Color Space" = "sRGB"
+"Green Component" = 0.3529411852359772
+"Red Component" = 0.7490196228027344
+
+[bootstrap.macos.defaults."com.googlecode.iterm2"."New Bookmarks"."Ansi 13 Color (Light)"]
+"Alpha Component" = 1.0
+"Blue Component" = 0.9490196108818054
+"Color Space" = "sRGB"
+"Green Component" = 0.3529411852359772
+"Red Component" = 0.7490196228027344
+
+[bootstrap.macos.defaults."com.googlecode.iterm2"."New Bookmarks"."Ansi 14 Color"]
+"Alpha Component" = 1
+"Blue Component" = 1
+"Color Space" = "sRGB"
+"Green Component" = 0.9926329255104065
+"Red Component" = 0.3759753108024597
+
+[bootstrap.macos.defaults."com.googlecode.iterm2"."New Bookmarks"."Ansi 14 Color (Dark)"]
+"Alpha Component" = 1.0
+"Blue Component" = 1.0
+"Color Space" = "sRGB"
+"Green Component" = 0.8382837176322937
+"Red Component" = 0.46202266216278076
+
+[bootstrap.macos.defaults."com.googlecode.iterm2"."New Bookmarks"."Ansi 14 Color (Light)"]
+"Alpha Component" = 1.0
+"Blue Component" = 1.0
+"Color Space" = "sRGB"
+"Green Component" = 0.8382837176322937
+"Red Component" = 0.46202266216278076
+
+[bootstrap.macos.defaults."com.googlecode.iterm2"."New Bookmarks"."Ansi 15 Color"]
+"Alpha Component" = 1
+"Blue Component" = 1
+"Color Space" = "sRGB"
+"Green Component" = 1
+"Red Component" = 0.9999960064888
+
+[bootstrap.macos.defaults."com.googlecode.iterm2"."New Bookmarks"."Ansi 15 Color (Dark)"]
+"Alpha Component" = 1.0
+"Blue Component" = 1.0
+"Color Space" = "sRGB"
+"Green Component" = 1.0
+"Red Component" = 1.0
+
+[bootstrap.macos.defaults."com.googlecode.iterm2"."New Bookmarks"."Ansi 15 Color (Light)"]
+"Alpha Component" = 1.0
+"Blue Component" = 1.0
+"Color Space" = "sRGB"
+"Green Component" = 1.0
+"Red Component" = 1.0
+
+[bootstrap.macos.defaults."com.googlecode.iterm2"."New Bookmarks"."Ansi 2 Color"]
+"Alpha Component" = 1
+"Blue Component" = 0
+"Color Space" = "sRGB"
+"Green Component" = 0.7607843279838562
+"Red Component" = 0
+
+[bootstrap.macos.defaults."com.googlecode.iterm2"."New Bookmarks"."Ansi 2 Color (Dark)"]
+"Alpha Component" = 1.0
+"Blue Component" = 0.22377005219459534
+"Color Space" = "sRGB"
+"Green Component" = 0.6414741277694702
+"Red Component" = 0.14918002486228943
+
+[bootstrap.macos.defaults."com.googlecode.iterm2"."New Bookmarks"."Ansi 2 Color (Light)"]
+"Alpha Component" = 1.0
+"Blue Component" = 0.22377005219459534
+"Color Space" = "sRGB"
+"Green Component" = 0.6414741277694702
+"Red Component" = 0.14918002486228943
+
+[bootstrap.macos.defaults."com.googlecode.iterm2"."New Bookmarks"."Ansi 3 Color"]
+"Alpha Component" = 1
+"Blue Component" = 0
+"Color Space" = "sRGB"
+"Green Component" = 0.7695948481559753
+"Red Component" = 0.7805864810943604
+
+[bootstrap.macos.defaults."com.googlecode.iterm2"."New Bookmarks"."Ansi 3 Color (Dark)"]
+"Alpha Component" = 1.0
+"Blue Component" = 0.03149105980992317
+"Color Space" = "sRGB"
+"Green Component" = 0.6739086508750916
+"Red Component" = 0.8030219674110413
+
+[bootstrap.macos.defaults."com.googlecode.iterm2"."New Bookmarks"."Ansi 3 Color (Light)"]
+"Alpha Component" = 1.0
+"Blue Component" = 0.03149105980992317
+"Color Space" = "sRGB"
+"Green Component" = 0.6739086508750916
+"Red Component" = 0.8030219674110413
+
+[bootstrap.macos.defaults."com.googlecode.iterm2"."New Bookmarks"."Ansi 4 Color"]
+"Alpha Component" = 1
+"Blue Component" = 0.7821617722511292
+"Color Space" = "sRGB"
+"Green Component" = 0.2647435665130615
+"Red Component" = 0.15404300391674042
+
+[bootstrap.macos.defaults."com.googlecode.iterm2"."New Bookmarks"."Ansi 4 Color (Dark)"]
+"Alpha Component" = 1.0
+"Blue Component" = 0.7974741458892822
+"Color Space" = "sRGB"
+"Green Component" = 0.41281014680862427
+"Red Component" = 0.0312734954059124
+
+[bootstrap.macos.defaults."com.googlecode.iterm2"."New Bookmarks"."Ansi 4 Color (Light)"]
+"Alpha Component" = 1.0
+"Blue Component" = 0.7974741458892822
+"Color Space" = "sRGB"
+"Green Component" = 0.41281014680862427
+"Red Component" = 0.0312734954059124
+
+[bootstrap.macos.defaults."com.googlecode.iterm2"."New Bookmarks"."Ansi 5 Color"]
+"Alpha Component" = 1
+"Blue Component" = 0.7449436187744141
+"Color Space" = "sRGB"
+"Green Component" = 0.24931684136390686
+"Red Component" = 0.752197265625
+
+[bootstrap.macos.defaults."com.googlecode.iterm2"."New Bookmarks"."Ansi 5 Color (Dark)"]
+"Alpha Component" = 1.0
+"Blue Component" = 0.7470688819885254
+"Color Space" = "sRGB"
+"Green Component" = 0.27783554792404175
+"Red Component" = 0.5896287560462952
+
+[bootstrap.macos.defaults."com.googlecode.iterm2"."New Bookmarks"."Ansi 5 Color (Light)"]
+"Alpha Component" = 1.0
+"Blue Component" = 0.7470688819885254
+"Color Space" = "sRGB"
+"Green Component" = 0.27783554792404175
+"Red Component" = 0.5896287560462952
+
+[bootstrap.macos.defaults."com.googlecode.iterm2"."New Bookmarks"."Ansi 6 Color"]
+"Alpha Component" = 1
+"Blue Component" = 0.7816620469093323
+"Color Space" = "sRGB"
+"Green Component" = 0.7742590308189392
+"Red Component" = 0
+
+[bootstrap.macos.defaults."com.googlecode.iterm2"."New Bookmarks"."Ansi 6 Color (Dark)"]
+"Alpha Component" = 1.0
+"Blue Component" = 0.7598401308059692
+"Color Space" = "sRGB"
+"Green Component" = 0.6202776432037354
+"Red Component" = 0.2791249454021454
+
+[bootstrap.macos.defaults."com.googlecode.iterm2"."New Bookmarks"."Ansi 6 Color (Light)"]
+"Alpha Component" = 1.0
+"Blue Component" = 0.7598401308059692
+"Color Space" = "sRGB"
+"Green Component" = 0.6202776432037354
+"Red Component" = 0.2791249454021454
+
+[bootstrap.macos.defaults."com.googlecode.iterm2"."New Bookmarks"."Ansi 7 Color"]
+"Alpha Component" = 1
+"Blue Component" = 0.7810482978820801
+"Color Space" = "sRGB"
+"Green Component" = 0.7810582518577576
+"Red Component" = 0.7810397744178772
+
+[bootstrap.macos.defaults."com.googlecode.iterm2"."New Bookmarks"."Ansi 7 Color (Dark)"]
+"Alpha Component" = 1.0
+"Blue Component" = 0.615686297416687
+"Color Space" = "sRGB"
+"Green Component" = 0.5960784554481506
+"Red Component" = 0.5960784554481506
+
+[bootstrap.macos.defaults."com.googlecode.iterm2"."New Bookmarks"."Ansi 7 Color (Light)"]
+"Alpha Component" = 1.0
+"Blue Component" = 0.615686297416687
+"Color Space" = "sRGB"
+"Green Component" = 0.5960784554481506
+"Red Component" = 0.5960784554481506
+
+[bootstrap.macos.defaults."com.googlecode.iterm2"."New Bookmarks"."Ansi 8 Color"]
+"Alpha Component" = 1
+"Blue Component" = 0.4078223705291748
+"Color Space" = "sRGB"
+"Green Component" = 0.40782788395881653
+"Red Component" = 0.4078176021575928
+
+[bootstrap.macos.defaults."com.googlecode.iterm2"."New Bookmarks"."Ansi 8 Color (Dark)"]
+"Alpha Component" = 1.0
+"Blue Component" = 0.27450981736183167
+"Color Space" = "sRGB"
+"Green Component" = 0.27450981736183167
+"Red Component" = 0.27450981736183167
+
+[bootstrap.macos.defaults."com.googlecode.iterm2"."New Bookmarks"."Ansi 8 Color (Light)"]
+"Alpha Component" = 1.0
+"Blue Component" = 0.27450981736183167
+"Color Space" = "sRGB"
+"Green Component" = 0.27450981736183167
+"Red Component" = 0.27450981736183167
+
+[bootstrap.macos.defaults."com.googlecode.iterm2"."New Bookmarks"."Ansi 9 Color"]
+"Alpha Component" = 1
+"Blue Component" = 0.45833224058151245
+"Color Space" = "sRGB"
+"Green Component" = 0.4752407670021057
+"Red Component" = 0.8659515380859375
+
+[bootstrap.macos.defaults."com.googlecode.iterm2"."New Bookmarks"."Ansi 9 Color (Dark)"]
+"Alpha Component" = 1.0
+"Blue Component" = 0.22745098173618317
+"Color Space" = "sRGB"
+"Green Component" = 0.2705882489681244
+"Red Component" = 1.0
+
+[bootstrap.macos.defaults."com.googlecode.iterm2"."New Bookmarks"."Ansi 9 Color (Light)"]
+"Alpha Component" = 1.0
+"Blue Component" = 0.22745098173618317
+"Color Space" = "sRGB"
+"Green Component" = 0.2705882489681244
+"Red Component" = 1.0
+
+[bootstrap.macos.defaults."com.googlecode.iterm2"."New Bookmarks"."Background Color"]
+"Alpha Component" = 1
+"Blue Component" = 0.98
+"Color Space" = "sRGB"
+"Green Component" = 0.98
+"Red Component" = 0.98
+
+[bootstrap.macos.defaults."com.googlecode.iterm2"."New Bookmarks"."Background Color (Dark)"]
+"Alpha Component" = 1.0
+"Blue Component" = 0.11764705926179886
+"Color Space" = "sRGB"
+"Green Component" = 0.11764705926179886
+"Red Component" = 0.11764705926179886
+
+[bootstrap.macos.defaults."com.googlecode.iterm2"."New Bookmarks"."Background Color (Light)"]
+"Alpha Component" = 1.0
+"Blue Component" = 0.11764705926179886
+"Color Space" = "sRGB"
+"Green Component" = 0.11764705926179886
+"Red Component" = 0.11764705926179886
+
+[bootstrap.macos.defaults."com.googlecode.iterm2"."New Bookmarks"."Badge Color"]
+"Alpha Component" = 0.5
+"Blue Component" = 0.11610633134841919
+"Color Space" = "sRGB"
+"Green Component" = 0.11610633134841919
+"Red Component" = 0.7461385726928711
+
+[bootstrap.macos.defaults."com.googlecode.iterm2"."New Bookmarks"."Badge Color (Dark)"]
+"Alpha Component" = 0.5
+"Blue Component" = 0.0
+"Color Space" = "sRGB"
+"Green Component" = 0.14910027384757996
+"Red Component" = 1.0
+
+[bootstrap.macos.defaults."com.googlecode.iterm2"."New Bookmarks"."Badge Color (Light)"]
+"Alpha Component" = 0.5
+"Blue Component" = 0.0
+"Color Space" = "sRGB"
+"Green Component" = 0.14910027384757996
+"Red Component" = 1.0
+
+[bootstrap.macos.defaults."com.googlecode.iterm2"."New Bookmarks"."Bold Color"]
+"Alpha Component" = 1
+"Blue Component" = 0.06274510174989698
+"Color Space" = "sRGB"
+"Green Component" = 0.06274510174989698
+"Red Component" = 0.06274510174989698
+
+[bootstrap.macos.defaults."com.googlecode.iterm2"."New Bookmarks"."Bold Color (Dark)"]
+"Alpha Component" = 1.0
+"Blue Component" = 0.9999999403953552
+"Color Space" = "sRGB"
+"Green Component" = 0.9999999403953552
+"Red Component" = 1.0
+
+[bootstrap.macos.defaults."com.googlecode.iterm2"."New Bookmarks"."Bold Color (Light)"]
+"Alpha Component" = 1.0
+"Blue Component" = 0.9999999403953552
+"Color Space" = "sRGB"
+"Green Component" = 0.9999999403953552
+"Red Component" = 1.0
+
+[bootstrap.macos.defaults."com.googlecode.iterm2"."New Bookmarks"."Cursor Color"]
+"Alpha Component" = 1
+"Blue Component" = 0
+"Color Space" = "sRGB"
+"Green Component" = 0
+"Red Component" = 0
+
+[bootstrap.macos.defaults."com.googlecode.iterm2"."New Bookmarks"."Cursor Color (Dark)"]
+"Alpha Component" = 1.0
+"Blue Component" = 0.615686297416687
+"Color Space" = "sRGB"
+"Green Component" = 0.5960784554481506
+"Red Component" = 0.5960784554481506
+
+[bootstrap.macos.defaults."com.googlecode.iterm2"."New Bookmarks"."Cursor Color (Light)"]
+"Alpha Component" = 1.0
+"Blue Component" = 0.615686297416687
+"Color Space" = "sRGB"
+"Green Component" = 0.5960784554481506
+"Red Component" = 0.5960784554481506
+
+[bootstrap.macos.defaults."com.googlecode.iterm2"."New Bookmarks"."Cursor Guide Color"]
+"Alpha Component" = 0.25
+"Blue Component" = 0.8531928062438965
+"Color Space" = "sRGB"
+"Green Component" = 0.7721771597862244
+"Red Component" = 0.5233826041221619
+
+[bootstrap.macos.defaults."com.googlecode.iterm2"."New Bookmarks"."Cursor Guide Color (Dark)"]
+"Alpha Component" = 0.25
+"Blue Component" = 1.0
+"Color Space" = "sRGB"
+"Green Component" = 0.9268137812614441
+"Red Component" = 0.7021402716636658
+
+[bootstrap.macos.defaults."com.googlecode.iterm2"."New Bookmarks"."Cursor Guide Color (Light)"]
+"Alpha Component" = 0.25
+"Blue Component" = 1.0
+"Color Space" = "sRGB"
+"Green Component" = 0.9268137812614441
+"Red Component" = 0.7021402716636658
+
+[bootstrap.macos.defaults."com.googlecode.iterm2"."New Bookmarks"."Cursor Text Color"]
+"Alpha Component" = 1
+"Blue Component" = 1
+"Color Space" = "sRGB"
+"Green Component" = 1
+"Red Component" = 1
+
+[bootstrap.macos.defaults."com.googlecode.iterm2"."New Bookmarks"."Cursor Text Color (Dark)"]
+"Alpha Component" = 1.0
+"Blue Component" = 1.0
+"Color Space" = "sRGB"
+"Green Component" = 1.0
+"Red Component" = 1.0
+
+[bootstrap.macos.defaults."com.googlecode.iterm2"."New Bookmarks"."Cursor Text Color (Light)"]
+"Alpha Component" = 1.0
+"Blue Component" = 1.0
+"Color Space" = "sRGB"
+"Green Component" = 1.0
+"Red Component" = 1.0
+
+[bootstrap.macos.defaults."com.googlecode.iterm2"."New Bookmarks"."Foreground Color"]
+"Alpha Component" = 1
+"Blue Component" = 0.06274510174989698
+"Color Space" = "sRGB"
+"Green Component" = 0.06274510174989698
+"Red Component" = 0.06274510174989698
+
+[bootstrap.macos.defaults."com.googlecode.iterm2"."New Bookmarks"."Foreground Color (Dark)"]
+"Alpha Component" = 1.0
+"Blue Component" = 1.0
+"Color Space" = "sRGB"
+"Green Component" = 1.0
+"Red Component" = 1.0
+
+[bootstrap.macos.defaults."com.googlecode.iterm2"."New Bookmarks"."Foreground Color (Light)"]
+"Alpha Component" = 1.0
+"Blue Component" = 1.0
+"Color Space" = "sRGB"
+"Green Component" = 1.0
+"Red Component" = 1.0
+
+[bootstrap.macos.defaults."com.googlecode.iterm2"."New Bookmarks"."Keyboard Map".0x5a-0x60000-0x6]
+Action = 11
+"Apply Mode" = 0
+Escaping = 2
+Text = "0x19"
+Version = 2
+
+[bootstrap.macos.defaults."com.googlecode.iterm2"."New Bookmarks"."Keyboard Map".0x60-0x40000-0x32]
+Action = 10
+"Apply Mode" = 0
+Escaping = 2
+Text = "[96;5u"
+Version = 2
+
+[bootstrap.macos.defaults."com.googlecode.iterm2"."New Bookmarks"."Keyboard Map".0x7f-0x100000]
+Action = 11
+Text = "0x15"
+
+[bootstrap.macos.defaults."com.googlecode.iterm2"."New Bookmarks"."Keyboard Map".0x7f-0x80000]
+Action = 11
+Text = "0x1b 0x7f"
+
+[bootstrap.macos.defaults."com.googlecode.iterm2"."New Bookmarks"."Keyboard Map".0xf702-0x280000]
+Action = 10
+Text = "b"
+
+[bootstrap.macos.defaults."com.googlecode.iterm2"."New Bookmarks"."Keyboard Map".0xf702-0x300000]
+Action = 10
+"Apply Mode" = 0
+Escaping = 1
+Text = "[1~"
+Version = 2
+
+[bootstrap.macos.defaults."com.googlecode.iterm2"."New Bookmarks"."Keyboard Map".0xf703-0x280000]
+Action = 10
+Text = "f"
+
+[bootstrap.macos.defaults."com.googlecode.iterm2"."New Bookmarks"."Keyboard Map".0xf703-0x300000]
+Action = 10
+"Apply Mode" = 0
+Escaping = 1
+Text = "[4~"
+Version = 2
+
+[bootstrap.macos.defaults."com.googlecode.iterm2"."New Bookmarks"."Keyboard Map".0xf728-0x0]
+Action = 10
+"Apply Mode" = 0
+Escaping = 1
+Text = "[3~"
+Version = 2
+
+[bootstrap.macos.defaults."com.googlecode.iterm2"."New Bookmarks"."Keyboard Map".0xf728-0x80000]
+Action = 10
+Text = "d"
+
+[bootstrap.macos.defaults."com.googlecode.iterm2"."New Bookmarks"."Link Color"]
+"Alpha Component" = 1
+"Blue Component" = 0.9337158203125
+"Color Space" = "sRGB"
+"Green Component" = 0.5578983426094055
+"Red Component" = 0.1980242282152176
+
+[bootstrap.macos.defaults."com.googlecode.iterm2"."New Bookmarks"."Link Color (Dark)"]
+"Alpha Component" = 1.0
+"Blue Component" = 1.0
+"Color Space" = "sRGB"
+"Green Component" = 0.6117647290229797
+"Red Component" = 0.2549019753932953
+
+[bootstrap.macos.defaults."com.googlecode.iterm2"."New Bookmarks"."Link Color (Light)"]
+"Alpha Component" = 1.0
+"Blue Component" = 1.0
+"Color Space" = "sRGB"
+"Green Component" = 0.6117647290229797
+"Red Component" = 0.2549019753932953
+
+[bootstrap.macos.defaults."com.googlecode.iterm2"."New Bookmarks"."Match Background Color (Dark)"]
+"Alpha Component" = 1.0
+"Blue Component" = 0.32116127014160156
+"Color Space" = "P3"
+"Green Component" = 0.9860088229179382
+"Red Component" = 0.9969714283943176
+
+[bootstrap.macos.defaults."com.googlecode.iterm2"."New Bookmarks"."Match Background Color (Light)"]
+"Alpha Component" = 1.0
+"Blue Component" = 0.32116127014160156
+"Color Space" = "P3"
+"Green Component" = 0.9860088229179382
+"Red Component" = 0.9969714283943176
+
+[bootstrap.macos.defaults."com.googlecode.iterm2"."New Bookmarks"."Selected Text Color"]
+"Alpha Component" = 1
+"Blue Component" = 0
+"Color Space" = "sRGB"
+"Green Component" = 0
+"Red Component" = 0
+
+[bootstrap.macos.defaults."com.googlecode.iterm2"."New Bookmarks"."Selected Text Color (Dark)"]
+"Alpha Component" = 1.0
+"Blue Component" = 1.0
+"Color Space" = "sRGB"
+"Green Component" = 1.0
+"Red Component" = 1.0
+
+[bootstrap.macos.defaults."com.googlecode.iterm2"."New Bookmarks"."Selected Text Color (Light)"]
+"Alpha Component" = 1.0
+"Blue Component" = 1.0
+"Color Space" = "sRGB"
+"Green Component" = 1.0
+"Red Component" = 1.0
+
+[bootstrap.macos.defaults."com.googlecode.iterm2"."New Bookmarks"."Selection Color"]
+"Alpha Component" = 1
+"Blue Component" = 1
+"Color Space" = "sRGB"
+"Green Component" = 0.843137264251709
+"Red Component" = 0.7019608020782471
+
+[bootstrap.macos.defaults."com.googlecode.iterm2"."New Bookmarks"."Selection Color (Dark)"]
+"Alpha Component" = 1.0
+"Blue Component" = 0.545098066329956
+"Color Space" = "sRGB"
+"Green Component" = 0.38823530077934265
+"Red Component" = 0.24705882370471954
+
+[bootstrap.macos.defaults."com.googlecode.iterm2"."New Bookmarks"."Selection Color (Light)"]
+"Alpha Component" = 1.0
+"Blue Component" = 0.545098066329956
+"Color Space" = "sRGB"
+"Green Component" = 0.38823530077934265
+"Red Component" = 0.24705882370471954
+
+[bootstrap.macos.defaults."com.googlecode.iterm2"."New Bookmarks"."Status Bar Layout"."advanced configuration"]
+algorithm = 1
+"auto-rainbow style" = 0
+"draw separator between status bar and terminal" = false
+font = ".AppleSystemUIFont 12"
+"remove empty components" = false
+
+[[bootstrap.macos.defaults."com.googlecode.iterm2"."New Bookmarks"."Status Bar Layout".components]]
+class = "iTermStatusBarActionComponent"
+
+[bootstrap.macos.defaults."com.googlecode.iterm2"."New Bookmarks"."Status Bar Layout".components.configuration.knobs]
+"base: compression resistance" = 1
+"base: priority" = 5
+maxwidth = 1.7976931348623157E+308
+minwidth = "0"
+"shared font" = ""
+
+[bootstrap.macos.defaults."com.googlecode.iterm2"."New Bookmarks"."Status Bar Layout".components.configuration.knobs.action]
+action = 4
+applyMode = 0
+escaping = 1
+parameter = ""
+title = "\U00100129 Scroll to End"
+version = 2
+
+[bootstrap.macos.defaults."com.googlecode.iterm2"."New Bookmarks"."Status Bar Layout".components.configuration."layout advanced configuration dictionary value"]
+algorithm = 1
+"auto-rainbow style" = 0
+font = ".SFNS-Regular 12"
+"remove empty components" = false
+[[bootstrap.macos.defaults."com.googlecode.iterm2"."New Bookmarks"."Status Bar Layout".components]]
+class = "iTermStatusBarActionComponent"
+
+[bootstrap.macos.defaults."com.googlecode.iterm2"."New Bookmarks"."Status Bar Layout".components.configuration.knobs]
+"base: compression resistance" = 1
+"base: priority" = 5
+maxwidth = 1.7976931348623157E+308
+minwidth = "0"
+"shared font" = ""
+
+[bootstrap.macos.defaults."com.googlecode.iterm2"."New Bookmarks"."Status Bar Layout".components.configuration.knobs.action]
+action = 71
+applyMode = 0
+escaping = 1
+parameter = ""
+title = "\U001002d9 Alert on Next Mark"
+version = 2
+
+[bootstrap.macos.defaults."com.googlecode.iterm2"."New Bookmarks"."Status Bar Layout".components.configuration."layout advanced configuration dictionary value"]
+algorithm = 1
+"auto-rainbow style" = 0
+font = ".SFNS-Regular 12"
+"remove empty components" = false
+[[bootstrap.macos.defaults."com.googlecode.iterm2"."New Bookmarks"."Status Bar Layout".components]]
+class = "iTermStatusBarActionComponent"
+
+[bootstrap.macos.defaults."com.googlecode.iterm2"."New Bookmarks"."Status Bar Layout".components.configuration.knobs]
+"base: compression resistance" = 1
+"base: priority" = 5.0
+maxwidth = 1.7976931348623157E+308
+minwidth = "0"
+"shared font" = ""
+
+[bootstrap.macos.defaults."com.googlecode.iterm2"."New Bookmarks"."Status Bar Layout".components.configuration.knobs.action]
+action = 5
+applyMode = 0
+escaping = 1
+parameter = ""
+title = "\U00100128 Scroll to Top"
+version = 2
+
+[bootstrap.macos.defaults."com.googlecode.iterm2"."New Bookmarks"."Status Bar Layout".components.configuration."layout advanced configuration dictionary value"]
+algorithm = 1
+"auto-rainbow style" = 0
+font = ".SFNS-Regular 12"
+"remove empty components" = false
+[[bootstrap.macos.defaults."com.googlecode.iterm2"."New Bookmarks"."Status Bar Layout".components]]
+class = "iTermStatusBarSpringComponent"
+
+[bootstrap.macos.defaults."com.googlecode.iterm2"."New Bookmarks"."Status Bar Layout".components.configuration.knobs]
+iTermStatusBarSpringComponentSpringConstantKey = 0.01
+
+[bootstrap.macos.defaults."com.googlecode.iterm2"."New Bookmarks"."Status Bar Layout".components.configuration."layout advanced configuration dictionary value"]
+algorithm = 1
+"auto-rainbow style" = 0
+font = ".SFNS-Regular 12"
+"remove empty components" = false
+[[bootstrap.macos.defaults."com.googlecode.iterm2"."New Bookmarks"."Status Bar Layout".components]]
+class = "iTermStatusBarSwiftyStringComponent"
+
+[bootstrap.macos.defaults."com.googlecode.iterm2"."New Bookmarks"."Status Bar Layout".components.configuration.knobs]
+"base: compression resistance" = 1
+"base: priority" = 5.0
+expression = "\\(profileName)"
+maxwidth = 1.7976931348623157E+308
+minwidth = "0"
+"shared font" = ""
+
+[bootstrap.macos.defaults."com.googlecode.iterm2"."New Bookmarks"."Status Bar Layout".components.configuration."layout advanced configuration dictionary value"]
+algorithm = 1
+"auto-rainbow style" = 0
+font = ".SFNS-Regular 12"
+"remove empty components" = false
+[[bootstrap.macos.defaults."com.googlecode.iterm2"."New Bookmarks"."Status Bar Layout".components]]
+class = "iTermStatusBarCPUUtilizationComponent"
+
+[bootstrap.macos.defaults."com.googlecode.iterm2"."New Bookmarks"."Status Bar Layout".components.configuration.knobs]
+"base: priority" = 5
+
+[bootstrap.macos.defaults."com.googlecode.iterm2"."New Bookmarks"."Status Bar Layout".components.configuration."layout advanced configuration dictionary value"]
+algorithm = 1
+"auto-rainbow style" = 0
+font = ".SFNS-Regular 12"
+"remove empty components" = false
+
+[bootstrap.macos.defaults."com.googlecode.iterm2"."New Bookmarks"."Tab Color (Dark)"]
+"Alpha Component" = 1.0
+"Blue Component" = 0.3215686082839966
+"Color Space" = "sRGB"
+"Green Component" = 0.25882357358932495
+"Red Component" = 0.23137256503105164
+
+[bootstrap.macos.defaults."com.googlecode.iterm2"."New Bookmarks"."Underline Color (Dark)"]
+"Alpha Component" = 1.0
+"Blue Component" = 0.5069419741630554
+"Color Space" = "sRGB"
+"Green Component" = 0.3795028030872345
+"Red Component" = 0.34893858432769775
+
+[bootstrap.macos.defaults."com.googlecode.iterm2"."Custom Color Presets"."Apple System Colors"."Ansi 0 Color"]
+"Alpha Component" = 1.0
+"Blue Component" = 0.10196078568696976
+"Color Space" = "sRGB"
+"Green Component" = 0.10196078568696976
+"Red Component" = 0.10196078568696976
+
+[bootstrap.macos.defaults."com.googlecode.iterm2"."Custom Color Presets"."Apple System Colors"."Ansi 1 Color"]
+"Alpha Component" = 1.0
+"Blue Component" = 0.18180052936077118
+"Color Space" = "sRGB"
+"Green Component" = 0.21627995371818542
+"Red Component" = 0.7992954254150391
+
+[bootstrap.macos.defaults."com.googlecode.iterm2"."Custom Color Presets"."Apple System Colors"."Ansi 10 Color"]
+"Alpha Component" = 1.0
+"Blue Component" = 0.29411765933036804
+"Color Space" = "sRGB"
+"Green Component" = 0.843137264251709
+"Red Component" = 0.19607843458652496
+
+[bootstrap.macos.defaults."com.googlecode.iterm2"."Custom Color Presets"."Apple System Colors"."Ansi 11 Color"]
+"Alpha Component" = 1.0
+"Blue Component" = 0.03921568766236305
+"Color Space" = "sRGB"
+"Green Component" = 0.8392156958580017
+"Red Component" = 1.0
+
+[bootstrap.macos.defaults."com.googlecode.iterm2"."Custom Color Presets"."Apple System Colors"."Ansi 12 Color"]
+"Alpha Component" = 1.0
+"Blue Component" = 1.0
+"Color Space" = "sRGB"
+"Green Component" = 0.5176470875740051
+"Red Component" = 0.03921568766236305
+
+[bootstrap.macos.defaults."com.googlecode.iterm2"."Custom Color Presets"."Apple System Colors"."Ansi 13 Color"]
+"Alpha Component" = 1.0
+"Blue Component" = 0.9490196108818054
+"Color Space" = "sRGB"
+"Green Component" = 0.3529411852359772
+"Red Component" = 0.7490196228027344
+
+[bootstrap.macos.defaults."com.googlecode.iterm2"."Custom Color Presets"."Apple System Colors"."Ansi 14 Color"]
+"Alpha Component" = 1.0
+"Blue Component" = 1.0
+"Color Space" = "sRGB"
+"Green Component" = 0.8382837176322937
+"Red Component" = 0.46202266216278076
+
+[bootstrap.macos.defaults."com.googlecode.iterm2"."Custom Color Presets"."Apple System Colors"."Ansi 15 Color"]
+"Alpha Component" = 1.0
+"Blue Component" = 1.0
+"Color Space" = "sRGB"
+"Green Component" = 1.0
+"Red Component" = 1.0
+
+[bootstrap.macos.defaults."com.googlecode.iterm2"."Custom Color Presets"."Apple System Colors"."Ansi 2 Color"]
+"Alpha Component" = 1.0
+"Blue Component" = 0.22377005219459534
+"Color Space" = "sRGB"
+"Green Component" = 0.6414741277694702
+"Red Component" = 0.14918002486228943
+
+[bootstrap.macos.defaults."com.googlecode.iterm2"."Custom Color Presets"."Apple System Colors"."Ansi 3 Color"]
+"Alpha Component" = 1.0
+"Blue Component" = 0.03149105980992317
+"Color Space" = "sRGB"
+"Green Component" = 0.6739086508750916
+"Red Component" = 0.8030219674110413
+
+[bootstrap.macos.defaults."com.googlecode.iterm2"."Custom Color Presets"."Apple System Colors"."Ansi 4 Color"]
+"Alpha Component" = 1.0
+"Blue Component" = 0.7974741458892822
+"Color Space" = "sRGB"
+"Green Component" = 0.41281014680862427
+"Red Component" = 0.0312734954059124
+
+[bootstrap.macos.defaults."com.googlecode.iterm2"."Custom Color Presets"."Apple System Colors"."Ansi 5 Color"]
+"Alpha Component" = 1.0
+"Blue Component" = 0.7470688819885254
+"Color Space" = "sRGB"
+"Green Component" = 0.27783554792404175
+"Red Component" = 0.5896287560462952
+
+[bootstrap.macos.defaults."com.googlecode.iterm2"."Custom Color Presets"."Apple System Colors"."Ansi 6 Color"]
+"Alpha Component" = 1.0
+"Blue Component" = 0.7598401308059692
+"Color Space" = "sRGB"
+"Green Component" = 0.6202776432037354
+"Red Component" = 0.2791249454021454
+
+[bootstrap.macos.defaults."com.googlecode.iterm2"."Custom Color Presets"."Apple System Colors"."Ansi 7 Color"]
+"Alpha Component" = 1.0
+"Blue Component" = 0.615686297416687
+"Color Space" = "sRGB"
+"Green Component" = 0.5960784554481506
+"Red Component" = 0.5960784554481506
+
+[bootstrap.macos.defaults."com.googlecode.iterm2"."Custom Color Presets"."Apple System Colors"."Ansi 8 Color"]
+"Alpha Component" = 1.0
+"Blue Component" = 0.27450981736183167
+"Color Space" = "sRGB"
+"Green Component" = 0.27450981736183167
+"Red Component" = 0.27450981736183167
+
+[bootstrap.macos.defaults."com.googlecode.iterm2"."Custom Color Presets"."Apple System Colors"."Ansi 9 Color"]
+"Alpha Component" = 1.0
+"Blue Component" = 0.22745098173618317
+"Color Space" = "sRGB"
+"Green Component" = 0.2705882489681244
+"Red Component" = 1.0
+
+[bootstrap.macos.defaults."com.googlecode.iterm2"."Custom Color Presets"."Apple System Colors"."Background Color"]
+"Alpha Component" = 1.0
+"Blue Component" = 0.11764705926179886
+"Color Space" = "sRGB"
+"Green Component" = 0.11764705926179886
+"Red Component" = 0.11764705926179886
+
+[bootstrap.macos.defaults."com.googlecode.iterm2"."Custom Color Presets"."Apple System Colors"."Badge Color"]
+"Alpha Component" = 0.5
+"Blue Component" = 0.0
+"Color Space" = "sRGB"
+"Green Component" = 0.14910027384757996
+"Red Component" = 1.0
+
+[bootstrap.macos.defaults."com.googlecode.iterm2"."Custom Color Presets"."Apple System Colors"."Bold Color"]
+"Alpha Component" = 1.0
+"Blue Component" = 0.9999999403953552
+"Color Space" = "sRGB"
+"Green Component" = 0.9999999403953552
+"Red Component" = 1.0
+
+[bootstrap.macos.defaults."com.googlecode.iterm2"."Custom Color Presets"."Apple System Colors"."Cursor Color"]
+"Alpha Component" = 1.0
+"Blue Component" = 0.615686297416687
+"Color Space" = "sRGB"
+"Green Component" = 0.5960784554481506
+"Red Component" = 0.5960784554481506
+
+[bootstrap.macos.defaults."com.googlecode.iterm2"."Custom Color Presets"."Apple System Colors"."Cursor Guide Color"]
+"Alpha Component" = 0.25
+"Blue Component" = 1.0
+"Color Space" = "sRGB"
+"Green Component" = 0.9268137812614441
+"Red Component" = 0.7021402716636658
+
+[bootstrap.macos.defaults."com.googlecode.iterm2"."Custom Color Presets"."Apple System Colors"."Cursor Text Color"]
+"Alpha Component" = 1.0
+"Blue Component" = 1.0
+"Color Space" = "sRGB"
+"Green Component" = 1.0
+"Red Component" = 1.0
+
+[bootstrap.macos.defaults."com.googlecode.iterm2"."Custom Color Presets"."Apple System Colors"."Foreground Color"]
+"Alpha Component" = 1.0
+"Blue Component" = 1.0
+"Color Space" = "sRGB"
+"Green Component" = 1.0
+"Red Component" = 1.0
+
+[bootstrap.macos.defaults."com.googlecode.iterm2"."Custom Color Presets"."Apple System Colors"."Link Color"]
+"Alpha Component" = 1.0
+"Blue Component" = 1.0
+"Color Space" = "sRGB"
+"Green Component" = 0.6117647290229797
+"Red Component" = 0.2549019753932953
+
+[bootstrap.macos.defaults."com.googlecode.iterm2"."Custom Color Presets"."Apple System Colors"."Selected Text Color"]
+"Alpha Component" = 1.0
+"Blue Component" = 1.0
+"Color Space" = "sRGB"
+"Green Component" = 1.0
+"Red Component" = 1.0
+
+[bootstrap.macos.defaults."com.googlecode.iterm2"."Custom Color Presets"."Apple System Colors"."Selection Color"]
+"Alpha Component" = 1.0
+"Blue Component" = 0.545098066329956
+"Color Space" = "sRGB"
+"Green Component" = 0.38823530077934265
+"Red Component" = 0.24705882370471954
+
+[bootstrap.macos.defaults."com.googlecode.iterm2".GlobalKeyMap.0x19-0x60000]
+Action = 39
+Text = ""
+
+[bootstrap.macos.defaults."com.googlecode.iterm2".GlobalKeyMap.0x9-0x40000]
+Action = 32
+Text = ""
+
+[bootstrap.macos.defaults."com.googlecode.iterm2".GlobalKeyMap.0xf729-0x100000]
+Action = 5
+Text = ""
+
+[bootstrap.macos.defaults."com.googlecode.iterm2".GlobalKeyMap.0xf72b-0x100000]
+Action = 4
+Text = ""
+
+[bootstrap.macos.defaults."com.googlecode.iterm2".GlobalKeyMap.0xf72c-0x100000]
+Action = 9
+Text = ""
+
+[bootstrap.macos.defaults."com.googlecode.iterm2".GlobalKeyMap.0xf72c-0x20000]
+Action = 9
+Text = ""
+
+[bootstrap.macos.defaults."com.googlecode.iterm2".GlobalKeyMap.0xf72d-0x100000]
+Action = 8
+Text = ""
+
+[bootstrap.macos.defaults."com.googlecode.iterm2".GlobalKeyMap.0xf72d-0x20000]
+Action = 8
+Text = ""
+
+[bootstrap.macos.defaults."com.googlecode.iterm2".NSUserKeyEquivalents]
+Close = "@~w"
+"Close All Panes in Tab" = "@w"
+
+[bootstrap.macos.defaults."com.googlecode.iterm2".PointerActions."Button,1,1,,"]
+Action = "kContextMenuPointerAction"
+
+[bootstrap.macos.defaults."com.googlecode.iterm2".URLHandlersByGuid]
+iterm2 = "15D0BAAB-542E-41D4-9D5F-F241BF8580DB"
+ssh = "15D0BAAB-542E-41D4-9D5F-F241BF8580DB"
+telnet = "15D0BAAB-542E-41D4-9D5F-F241BF8580DB"
+x-man-page = "15D0BAAB-542E-41D4-9D5F-F241BF8580DB"
+
 [bootstrap.macos.defaults."com.if.Amphetamine"]
 "Allow Closed-Display Sleep" = 0
 "Allow Display Sleep" = 0
