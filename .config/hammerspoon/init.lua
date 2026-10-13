@@ -24,7 +24,6 @@ else
 end
 
 -- Remote control of Hammerspoon.
-hs.allowAppleScript(true) -- For Raycast.
 require("hs.ipc") -- For VS Code extension.
 
 -- SpoonInstall.
