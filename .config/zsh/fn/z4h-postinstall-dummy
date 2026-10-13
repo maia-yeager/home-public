@@ -13,9 +13,7 @@ if (( ! $+commands[mise] )) {
 } else {
   echo "$fg[yellow]z4h-postinstall-dummy$fg[default]: updating $fg_bold[default]mise$fg_no_bold[default]"
   mise self-update -y || true
-  mise upgrade -q
 }
-mise install -q
 # Completions.
 mise completion zsh >$completions_dir/_mise
 # Activation script.

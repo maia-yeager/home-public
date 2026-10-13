@@ -24,8 +24,8 @@ idiomatic_version_file_enable_tools = [
   "terraform",
   "yarn",
 ]
-# Disable the "command not found" handler to autoinstall missing tool versions.
-not_found_auto_install = false
+# Check for global tool updates automatical
+tool_update.global_auto = "30d"
 # Config paths that mise will automatically mark as trusted.
 trusted_config_paths = [
   '~/dev',
