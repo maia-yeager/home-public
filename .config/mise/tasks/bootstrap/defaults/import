@@ -15,9 +15,9 @@ local config_path=${XDG_CONFIG_HOME}/mise/conf.d/bootstrap/mise.macos.toml
 
 local -a domains
 eval "domains=($usage_domains)"
-local json_data=$(mise run get:defaults ${domains})
 local ignore_regex=\(${${(j:|:)key_ignore_regexes}}\)
 
+local json_data=$(mise run get:defaults ${domains})
 json_data=${json_data} ignore_regex=${ignore_regex} yq -i '
 ("${ignore_regex}" | envsubst) as $ignore_regex
 | ("${json_data}" | envsubst | from_json) as $new_data
