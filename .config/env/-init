@@ -19,7 +19,7 @@ if [ -z "$TMPDIR" ] || [ ! -d "$TMPDIR" ] || [ ! -w "$TMPDIR" ]; then
   fi
 fi
 
-# Explicitly set the XDG basedir spec, sinc some tools ignore it if not set.
+# Explicitly set the XDG basedir spec, since some tools ignore it if not set.
 if [ -z "$XDG_RUNTIME_DIR" ]; then
   if [ -d "/run/user/$UID" ] && [ -w "/run/user/$UID" ]; then
     export XDG_RUNTIME_DIR="/run/user/$UID"
