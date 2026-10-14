@@ -708,8 +708,8 @@ Tab-ToolsUI-DockedState = true
 "com.canva.affinity.tools.sub.horizontal" = false
 "com.canva.affinity.tools.sub.visible" = false
 
-# with_entries(select(.key | test("^(A[Ii]|NoSync)") | not))
-# | with(.["New Bookmarks"][]; del(select(has("Dynamic Profile Filename"))))
+# del(.[] | select(key | test("^(A[Ii]|NoSync)")))
+# | del(.["New Bookmarks"][] | select(has("Dynamic Profile Filename")))
 [bootstrap.macos.defaults."com.googlecode.iterm2"]
 AllowClipboardAccess = true
 AlternateMouseScroll = true

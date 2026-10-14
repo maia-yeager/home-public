@@ -29,7 +29,7 @@ json_data=${json_data} ignore_regex=${ignore_regex} yq -i '
       .value ref $value
       | $config_data[.key] | head_comment as $filter
       | $value
-      | with_entries(select(.key | test($ignore_regex) | not))
+      | del(.[] | select(key | test($ignore_regex)))
       | eval($filter)
     )
   )
