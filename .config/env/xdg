@@ -10,9 +10,6 @@ export MISE_CARGO_HOME="$CARGO_HOME"
 export COPILOT_HOME="$XDG_DATA_HOME/copilot"
 # gnupg
 export GNUPGHOME="$XDG_DATA_HOME/gnupg"
-# Hammerspoon
-[ -n "$IS_MACOS" ] &&
-  defaults write org.hammerspoon.Hammerspoon MJConfigFile "${XDG_CONFIG_HOME}/hammerspoon/init.lua"
 # less, for versions lower than 598
 export LESSHISTFILE="$XDG_STATE_HOME/lesshst"
 # z4h / ncurses
