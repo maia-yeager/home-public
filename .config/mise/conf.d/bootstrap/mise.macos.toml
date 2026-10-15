@@ -153,7 +153,7 @@ showMenubarIcon = 1
 windowShadow = "transparent"
 
 [bootstrap.macos.defaults."ch.sudo.cyberduck"]
-SUEnableAutomaticChecks = false
+SUEnableAutomaticChecks = true
 SUSendProfileInfo = false
 "bookmark.icon.size" = "32"
 "bookmark.import.com.crossftp" = "true"
@@ -658,7 +658,7 @@ PencilToolAutoCloseMode = 0
 PencilToolUsesFill = false
 PencilToolUsesLine = false
 RasterDRAMLimit = 16384
-SUAutomaticallyUpdate = false
+SUAutomaticallyUpdate = true
 SUEnableAutomaticChecks = true
 SUFeedURL = "https://things.seriflabs.com/affinity-update-mac-retail-studiopro"
 SelectNewShapes = true
@@ -765,7 +765,7 @@ PrefsCustomFolder = ""
 PreventEscapeSequenceFromClearingHistory = false
 PromptOnQuit = false
 SUAutomaticallyUpdate = true
-SUEnableAutomaticChecks = false
+SUEnableAutomaticChecks = true
 SUFeedURL = "https://iterm2.com/appcasts/final_modern.xml?shard=97"
 SUSendProfileInfo = false
 SeparateStatusBarsPerPane = false
