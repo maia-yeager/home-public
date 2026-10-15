@@ -708,7 +708,9 @@ Tab-ToolsUI-DockedState = true
 "com.canva.affinity.tools.sub.horizontal" = false
 "com.canva.affinity.tools.sub.visible" = false
 
+# # Ignore AI and settings that shouldn't be synced.
 # del(.[] | select(key | test("^(A[Ii]|NoSync)")))
+# # Exclude dynamically-generated profiles to avoid duplication.
 # | del(.["New Bookmarks"][] | select(has("Dynamic Profile Filename")))
 [bootstrap.macos.defaults."com.googlecode.iterm2"]
 AllowClipboardAccess = true
