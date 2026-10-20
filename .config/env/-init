@@ -42,7 +42,7 @@ fi
 mkdir -p "$XDG_CACHE_HOME" "$XDG_CONFIG_HOME" "$XDG_DATA_HOME" "$XDG_STATE_HOME"
 
 # Add to $PATH if missing.
-add-to-path() {
+addtopath() {
   case $1 in
     append) cmd='PATH="$2:$PATH"' ;;
     prepend) cmd='PATH="$PATH:$2"' ;;
@@ -56,5 +56,5 @@ add-to-path() {
     *) eval "$cmd" ;;
   esac
 }
-add-to-path prepend "$HOME/bin"
-add-to-path prepend "$HOME/.local/bin"
+addtopath prepend "$HOME/bin"
+addtopath prepend "$HOME/.local/bin"
