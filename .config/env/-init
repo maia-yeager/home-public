@@ -49,7 +49,7 @@ addtopath() {
     *)
       >&2 printf "\e[33m-init\e[39m: invalid path location: \e[31m$1\e[39m\n"
       return 1
-    ;;
+      ;;
   esac
   case :$PATH: in
     *:$2:*) ;;
