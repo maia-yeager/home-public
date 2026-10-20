@@ -615,6 +615,7 @@ video = true
 [bootstrap.macos.defaults."com.apple.siri.generativeassistantsettings"]
 isEnabled = false
 
+# del(.[] | select(key | test("^(CrashDiagnosticId|RasterDRAMLimit)$")))
 [bootstrap.macos.defaults."com.canva.affinity"]
 AddAdjustmentToSelectionAction = 0
 AddFilterToSelectionAction = 0
@@ -630,7 +631,6 @@ BrushTipSharingAction = 0
 ColourFlyoutModel = "WheelModel"
 ColourPickerFlyoutModel = 4
 ControlClickContextMenu = false
-CrashDiagnosticId = ""
 DefaultBrushCategoryRaster = 0
 DefaultBrushCategoryVector = 11
 DefaultToneMapPresetCategory = 0
@@ -670,7 +670,6 @@ PenToolUsesLine = false
 PencilToolAutoCloseMode = 0
 PencilToolUsesFill = false
 PencilToolUsesLine = false
-RasterDRAMLimit = 16384
 SUAutomaticallyUpdate = false
 SUEnableAutomaticChecks = true
 SUFeedURL = "https://things.seriflabs.com/affinity-update-mac-retail-studiopro"
