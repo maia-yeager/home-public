@@ -1388,14 +1388,14 @@ Triggers = []
 "Green Component" = 1.0
 "Red Component" = 1.0
 
-[bootstrap.macos.defaults."com.googlecode.iterm2"."New Bookmarks"."Keyboard Map".0x5a-0x60000-0x6]
+[bootstrap.macos.defaults."com.googlecode.iterm2"."New Bookmarks"."Keyboard Map".0x5a-0x60000-0x6-0x1]
 Action = 11
 "Apply Mode" = 0
 Escaping = 2
 Text = "0x19"
 Version = 2
 
-[bootstrap.macos.defaults."com.googlecode.iterm2"."New Bookmarks"."Keyboard Map".0x60-0x40000-0x32]
+[bootstrap.macos.defaults."com.googlecode.iterm2"."New Bookmarks"."Keyboard Map".0x60-0x40000-0x32-0x1]
 Action = 10
 "Apply Mode" = 0
 Escaping = 2
