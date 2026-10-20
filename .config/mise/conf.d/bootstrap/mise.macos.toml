@@ -601,13 +601,16 @@ EmojiReplacement = 1
 content_visibility = 2
 summarize_previews = false
 
+# del(.[] | select(key | test("^last-")))
 [bootstrap.macos.defaults."com.apple.screencapture"]
 captureDelay = 5.0
+location = "~/Downloads"
 location-last = "~/Downloads"
 show-thumbnail = false
-style = "display"
-target = "clipboard"
-video = false
+showsClicks = true
+style = "selection"
+target = "file"
+video = true
 
 [bootstrap.macos.defaults."com.apple.siri.generativeassistantsettings"]
 isEnabled = false
