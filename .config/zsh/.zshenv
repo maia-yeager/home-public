@@ -12,7 +12,8 @@ if [ -n "${ZSH_VERSION-}" ]; then
   : ${ZDOTDIR:=~}
   setopt no_global_rcs
   if [[ -o no_interactive && -z "${Z4H_BOOTSTRAPPING-}" ]]; then
-    source ${XDG_CONFIG_HOME:-$HOME/.config}/env/-homebrew
+    source $XDG_CONFIG_HOME/env/-homebrew
+    eval "$(mise activate zsh)" &>/dev/null # suppress tool change output
     for i in $XDG_CONFIG_HOME/env/[^.-]*; do source $i; done
     return
   fi
