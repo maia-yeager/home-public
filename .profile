@@ -4,4 +4,4 @@
 
 export BASH_SILENCE_DEPRECATION_WARNING=1 # macOS >= 10.15 (Catalina)
 
-eval "$(mise activate bash)"
+eval "$(mise activate bash)" >/dev/null 2>&1
