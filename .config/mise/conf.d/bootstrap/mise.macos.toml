@@ -394,6 +394,16 @@ DSDontWriteNetworkStores = true
 DSDontWriteUSBStores = true
 UseBareEnumeration = false
 
+# with(
+#   .persistent-apps[];
+#   . = del(.GUID)
+#     | del(.tile-type | select(. == "file-tile"))
+#     | with(
+#       .tile-data;
+#       . = pick(["file-data", "file-label"])
+#         | del(.file-label | select(. != ""))
+#     )
+# )
 [bootstrap.macos.defaults."com.apple.dock"]
 autohide = true
 expose-group-apps = true
